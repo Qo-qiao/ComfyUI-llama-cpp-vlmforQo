@@ -119,9 +119,9 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 
 The following updates are based on llama-cpp-python version 0.3.41, so please install this version first
 
-#### v3.2.3 （2026-07-19）
+#### v3.2.3 （2026-07-25）
 
-- **Preset Template Optimization**: Optimized and adjusted image backtracking preset templates, added more backtracking dimensions, added prompt word weighting to improve backtracking results, and optimized and adjusted preset templates for 2D anime (preset templates will be updated and optimized from time to time, so frequent updates may occur during certain periods)
+- **Preset Template Optimization**: Optimize and adjust the image reverse engineering preset templates, add more reverse reasoning dimensions, introduce prompt weighting to enhance reverse engineering results, include a figure art category, reduce forced clothing generation that conflicts with user requests (non-NSFW), and refine the logical guidance for inference thinking
 - **Dependency Detection Optimization**: Optimized the dependency check logic for llama-cpp-python, mainly for the first time setting up this plugin environment
 
 
