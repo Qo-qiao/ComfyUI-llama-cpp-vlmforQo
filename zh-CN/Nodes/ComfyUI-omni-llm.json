@@ -1,6 +1,6 @@
 {
-  "llama_cpp_asr_loader": {
-    "title": "Llama-cpp ASR模型加载器",
+  "omni_llm_asr_loader": {
+    "title": "Omni-llm ASR模型加载器",
     "inputs": {
       "asr_model": "ASR模型",
       "n_gpu_layers": "GPU模型层数",
@@ -38,15 +38,13 @@
       "flash_attention": "启用FlashAttention"
     }
   },
-  "llama_cpp_clean_states": {
-    "title": "Llama-cpp 模型清理",
+  "omni_llm_clean_states": {
+    "title": "Omni-llm 模型清理",
     "inputs": {
       "any": "任意输入",
       "state_uid": "对话状态ID",
       "clean_llm": "清理LLM",
       "clean_asr": "清理ASR",
-      "clean_tts": "清理TTS",
-      "clean_aligner": "清理对齐器",
       "unload_all_comfyui_models": "卸载所有模型"
     },
     "widgets": {
@@ -54,8 +52,6 @@
       "state_uid": "对话状态ID",
       "clean_llm": "清理LLM",
       "clean_asr": "清理ASR",
-      "clean_tts": "清理TTS",
-      "clean_aligner": "清理对齐器",
       "unload_all_comfyui_models": "卸载所有模型"
     },
     "outputs": {
@@ -66,82 +62,16 @@
       "state_uid": "要清理的对话状态ID",
       "clean_llm": "清理LLM模型",
       "clean_asr": "清理ASR模型",
-      "clean_tts": "清理TTS模型",
-      "clean_aligner": "清理强制对齐模型",
       "unload_all_comfyui_models": "卸载所有模型"
     }
   },
-  "forced_aligner_inference": {
-    "title": "强制对齐推理",
-    "inputs": {
-      "aligner_model": "对齐模型",
-      "audio": "音频",
-      "text": "文本",
-      "sample_rate": "采样率",
-      "output_format": "输出格式",
-      "language": "语言"
-    },
-    "widgets": {
-      "aligner_model": "对齐模型",
-      "audio": "音频",
-      "text": "文本",
-      "sample_rate": "采样率",
-      "output_format": "输出格式",
-      "language": "语言"
-    },
-    "outputs": {
-      "aligned_text": "对齐文本",
-      "timestamps": "时间戳",
-      "subtitle_text": "字幕文本"
-    },
-    "tooltips": {
-      "aligner_model": "加载的强制对齐模型",
-      "audio": "输入音频数据",
-      "text": "要对齐的文本内容",
-      "sample_rate": "音频采样率（Hz）",
-      "output_format": "输出格式",
-      "language": "文本语言",
-      "aligned_text": "对齐后的文本",
-      "timestamps": "细粒度时间戳",
-      "subtitle_text": "字幕文本"
-    }
-  },
-  "forced_aligner_loader": {
-    "title": "强制对齐模型加载器",
-    "inputs": {
-      "forced_aligner_model": "强制对齐模型",
-      "n_gpu_layers": "GPU模型层数",
-      "precision": "精度",
-      "batch_size": "批处理大小",
-      "flash_attention": "启用FlashAttention2"
-    },
-    "widgets": {
-      "forced_aligner_model": "强制对齐模型",
-      "n_gpu_layers": "GPU模型层数",
-      "precision": "精度",
-      "batch_size": "批处理大小",
-      "flash_attention": "启用FlashAttention"
-    },
-    "outputs": {
-      "aligner_model": "对齐模型"
-    },
-    "tooltips": {
-      "forced_aligner_model": "选择强制对齐模型文件",
-      "n_gpu_layers": "加载到GPU的模型层数",
-      "precision": "模型精度选择",
-      "batch_size": "批处理大小",
-      "flash_attention": "启用FlashAttention",
-      "aligner_model": "加载的强制对齐模型对象"
-    }
-  },
-  "llama_cpp_model_loader": {
-    "title": "Llama-cpp 模型加载器",
+  "omni_llm_model_loader": {
+    "title": "Omni-llm 模型加载器",
     "inputs": {
       "model": "模型文件",
       "enable_mmproj": "启用多模态",
       "mmproj": "视觉编码模型",
       "enable_asr": "启用ASR",
-      "enable_tts": "启用TTS",
       "n_ctx": "上下文长度",
       "n_gpu_layers": "GPU模型层数",
       "vram_limit": "显存限制（GB）",
@@ -154,7 +84,6 @@
       "enable_mmproj": "启用多模态",
       "mmproj": "视觉编码模型",
       "enable_asr": "启用ASR",
-      "enable_tts": "启用TTS",
       "n_ctx": "上下文长度",
       "n_gpu_layers": "GPU模型层数",
       "vram_limit": "显存限制（GB）",
@@ -170,7 +99,6 @@
       "enable_mmproj": "启用多模态功能（需要选择mmproj模型）\n• 处理图片或需要对话格式时设为True\n• 纯文本生成时设为False",
       "mmproj": "选择对应的视觉编码模型文件\n• 不同模型需要对应的mmproj文件\n• 确保版本匹配",
       "enable_asr": "启用ASR语音识别功能\n• 需要配合ASR模型加载器使用\n• 支持音频反推、语音转文本",
-      "enable_tts": "启用TTS语音合成功能\n• 需要配合TTS模型加载器使用\n• 支持文本转语音",
       "n_ctx": "上下文长度，影响可处理的文本长度\n• 24GB+显存：16384\n• 16GB显存：8192\n• 12GB显存：6144\n• 8GB显存：4096\n• 4-6GB显存：2048",
       "n_gpu_layers": "加载到GPU的模型层数\n• -1：全部加载（推荐）\n• GPU模式有效，CPU模式自动忽略\n• 显存不足时可设为部分层数",
       "vram_limit": "显存限制（GB）\n• -1：无限制\n• GPU模式有效，CPU模式自动忽略\n• 建议设为实际显存大小减1",
@@ -181,8 +109,8 @@
       "tensor_split": "多GPU tensor分割比例\n• 格式：0.5,0.5（单GPU留空）\n• 仅多GPU时使用"
     }
   },
-  "llama_cpp_parameters": {
-    "title": "Llama-cpp 参数设置",
+  "omni_llm_parameters": {
+    "title": "Omni-llm 参数设置",
     "inputs": {
       "max_tokens": "最大token数",
       "top_k": "采样候选数",
@@ -235,77 +163,8 @@
       "reasoning_budget": "推理预算（用于支持thinking模式的模型如Qwen3.5-Thinking）\n• -1：无限制\n• 0：关闭思考模式\n• N：限制N个思考token"
     }
   },
-  "llama_cpp_tts_loader": {
-    "title": "TTS模型加载器",
-    "inputs": {
-      "tts_model": "TTS模型",
-      "n_gpu_layers": "GPU模型层数",
-      "sample_rate": "采样率",
-      "model_type": "模型类型",
-      "voice": "音色",
-      "emotion": "情绪",
-      "language": "语言",
-      "speed": "语速",
-      "temperature": "生成温度",
-      "top_p": "核采样阈值",
-      "top_k": "Top-K采样",
-      "repetition_penalty": "重复惩罚",
-      "max_new_tokens": "最大生成token数",
-      "use_cache": "使用缓存",
-      "ref_audio_path": "参考音路径",
-      "pitch": "音高",
-      "volume": "音量",
-      "use_8bit_quant": "8bit量化",
-      "flash_attention": "启用FlashAttention"
-    },
-    "widgets": {
-      "tts_model": "TTS模型",
-      "n_gpu_layers": "GPU模型层数",
-      "sample_rate": "采样率",
-      "model_type": "模型类型",
-      "voice": "音色",
-      "emotion": "情绪",
-      "language": "语言",
-      "speed": "语速",
-      "temperature": "生成温度",
-      "top_p": "核采样阈值",
-      "top_k": "Top-K采样",
-      "repetition_penalty": "重复惩罚",
-      "max_new_tokens": "最大生成token数",
-      "use_cache": "使用缓存",
-      "ref_audio_path": "参考音路径",
-      "pitch": "音高",
-      "volume": "音量",
-      "use_8bit_quant": "8bit量化",
-      "flash_attention": "启用FlashAttention"
-    },
-    "outputs": {
-      "tts_model": "TTS模型"
-    },
-    "tooltips": {
-      "tts_model": "选择TTS模型文件",
-      "n_gpu_layers": "加载到GPU的模型层数",
-      "sample_rate": "音频采样率（Hz）",
-      "model_type": "模型类型选择",
-      "voice": "选择音色类型",
-      "emotion": "选择情绪风格",
-      "language": "选择合成语言",
-      "speed": "语速倍数",
-      "temperature": "生成温度",
-      "top_p": "核采样阈值（Top-P）",
-      "top_k": "Top-K采样参数",
-      "repetition_penalty": "重复惩罚",
-      "max_new_tokens": "最大生成token数",
-      "use_cache": "是否使用KV缓存加速推理",
-      "ref_audio_path": "音色克隆参考音路径",
-      "pitch": "音高偏移",
-      "volume": "音量",
-      "use_8bit_quant": "使用8bit量化",
-      "flash_attention": "启用FlashAttention"
-    }
-  },
-  "llama_cpp_unified_inference": {
-    "title": "Llama-cpp 统一推理",
+  "omni_llm_unified_inference": {
+    "title": "Omni-llm 统一推理",
     "inputs": {
         "llama_model": "Llama模型",
         "preset_prompt": "预设模板",
@@ -318,6 +177,8 @@
         "output_format": "输出格式",
         "enable_constraints": "启用正向约束",
         "enable_negative_prompts": "启用负向提示词",
+        "image_model": "图像生成模型",
+        "video_model": "视频生成模型",
         "batch_combination": "批量输出选项",
         "video_max_frames": "视频最大帧数",
         "image_max_size": "图像最大尺寸",
@@ -331,7 +192,6 @@
         "video": "视频",
         "audio": "音频",
         "asr_model": "ASR模型",
-        "tts_model": "TTS模型",
         "queue_handler": "队列处理器"
       },
       "widgets": {
@@ -346,6 +206,8 @@
         "output_format": "输出格式",
         "enable_constraints": "启用正向约束",
         "enable_negative_prompts": "启用负向提示词",
+        "image_model": "图像生成模型",
+        "video_model": "视频生成模型",
         "batch_combination": "批量输出选项",
         "video_max_frames": "视频最大帧数",
         "image_max_size": "图像最大尺寸",
@@ -359,15 +221,12 @@
         "video": "视频",
         "audio": "音频",
         "asr_model": "ASR模型",
-        "tts_model": "TTS模型",
         "queue_handler": "队列处理器"
       },
     "outputs": {
       "output": "输出",
       "output_list": "输出列表",
-      "state_uid": "状态ID",
-      "audio": "音频输出",
-      "example_output": "示例输出"
+      "state_uid": "状态ID"
     },
     "tooltips": {
         "llama_model": "选择加载的Llama模型",
@@ -381,6 +240,8 @@
         "output_format": "输出格式",
         "enable_constraints": "启用预设模板中的正向约束：\n• 正向约束：追加到提示词最前面，引导模型生成符合要求的内容",
         "enable_negative_prompts": "启用预设模板中的负向提示词：\n• 负向提示词：追加到提示词末尾，避免模型生成不想要的内容",
+        "image_model": "图像生成模型选择（通用类型，影响提示词构建风格）：\n• Auto：通用类型，自动适配默认模型\n• Flux1：氛围叙事，弱化关键词堆砌\n• Flux2_klein：平衡细节真实感与氛围感\n• Z_image：极致还原皮肤原生质感\n• Qwen_Image2512：色彩构图精准管控\n• Krea2：电影级光影胶片氛围\n• Boogu：极简干净松弛叙事\n• Mage_Flow：强化面部立体感\n• ERNIE_Image：柔和统一写实",
+        "video_model": "视频生成模型选择（仅视频类预设模板生效）：\n• Auto：自动适配默认模型\n• Wan2.2：原生单段最大5秒，仅支持单镜头\n• LTX2.3：原生单段最长20秒，支持音画同步\n• MiniMax-H3：时长4-15秒整数，支持音画同步",
         "video_max_frames": "视频处理的最大帧数",
         "batch_combination": "批量输出选项",
         "image_max_size": "图像处理的最大尺寸",
@@ -393,62 +254,15 @@
         "images": "图像",
         "video": "输入视频",
         "asr_model": "ASR模型输入",
-        "tts_model": "TTS模型输入",
         "queue_handler": "队列处理器",
         "output": "生成的文本输出",
         "output_list": "生成的文本输出列表",
         "state_uid": "对话状态ID",
-        "audio": "生成的音频输出",
         "example_output": "当前预设模板的示例内容，便于提示词书写参考"
       }
   },
-  "multi_model_tts": {
-    "title": "多人对话TTS",
-    "inputs": {
-      "dialogue_text": "对话文本",
-      "tts_model_1": "TTS模型1",
-      "tts_model_2": "TTS模型2",
-      "tts_model_3": "TTS模型3",
-      "tts_model_4": "TTS模型4",
-      "pause_duration": "停顿时长",
-      "add_silence": "添加静音",
-      "force_offload": "强制卸载",
-      "output_format": "输出格式"
-    },
-    "widgets": {
-      "dialogue_text": "对话文本",
-      "tts_model_1": "TTS模型1",
-      "tts_model_2": "TTS模型2",
-      "tts_model_3": "TTS模型3",
-      "tts_model_4": "TTS模型4",
-      "pause_duration": "停顿时长",
-      "add_silence": "添加静音",
-      "force_offload": "强制卸载",
-      "output_format": "输出格式"
-    },
-    "outputs": {
-      "text": "文本输出",
-      "audio": "音频输出",
-      "dialogue_info": "对话信息"
-    },
-    "tooltips": {
-      "dialogue_text": "格式化的对话文本",
-      "tts_model_1": "TTS模型1用于生成角色音频",
-      "tts_model_2": "TTS模型2用于生成角色音频",
-      "tts_model_3": "TTS模型3用于生成角色音频",
-      "tts_model_4": "TTS模型4用于生成角色音频",
-      "pause_duration": "说话人之间的停顿时间（秒）",
-      "add_silence": "是否在说话人之间添加静音",
-      "force_offload": "推理完成后强制卸载模型",
-      "output_format": "输出音频格式",
-      "text": "生成的对话文本",
-      "audio": "生成的音频数据",
-      "dialogue_info": "对话详细信息"
-    }
-  },
-
-  "multi_image_input": {
-    "title": "多图输入（故事创作）",
+  "omni_llm_multi_image_input": {
+    "title": "Omni-llm 多图输入（故事创作）",
     "inputs": {
       "image1": "图像1",
       "image2": "图像2",
@@ -511,13 +325,13 @@
       "narrative_style": "选择叙事风格",
       "content_focus": "内容重点",
       "target_audience": "选择目标受众",
-      "video_model": "选择视频生成模型类型",
+      "video_model": "选择视频生成模型类型，不同模型需要不同的提示词格式。选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）",
       "images": "合并后的图像tensor",
       "prompt": "生成的提示词"
     }
   },
-  "VideoLoader": {
-    "title": "视频加载器",
+  "omni_llm_video_loader": {
+    "title": "Omni-llm 视频加载器",
     "inputs": {
       "video": "视频文件",
       "force_rate": "强制帧率",
@@ -554,43 +368,6 @@
       "images": "帧图像",
       "video": "处理后的视频对象",
       "audio": "提取的音频"
-    }
-  },
-
-  "tts_align": {
-    "title": "TTS时间对齐",
-    "inputs": {
-      "tts_model": "TTS模型",
-      "timestamps": "时间戳",
-      "text": "文本",
-      "sample_rate": "采样率",
-      "speed": "语速",
-      "align_mode": "对齐模式",
-      "silence_padding": "段落间静音填充"
-    },
-    "widgets": {
-      "tts_model": "TTS模型",
-      "timestamps": "时间戳",
-      "text": "文本",
-      "sample_rate": "采样率",
-      "speed": "语速",
-      "align_mode": "对齐模式",
-      "silence_padding": "段落间静音填充"
-    },
-    "outputs": {
-      "aligned_audio": "对齐音频",
-      "alignment_info": "对齐信息"
-    },
-    "tooltips": {
-      "tts_model": "TTS模型对象",
-      "timestamps": "时间戳数据",
-      "text": "要合成的文本内容",
-      "sample_rate": "音频采样率",
-      "speed": "语速倍数",
-      "align_mode": "对齐模式",
-      "silence_padding": "段落间静音填充（秒）",
-      "aligned_audio": "对齐后的音频",
-      "alignment_info": "对齐处理信息"
     }
   }
 }
