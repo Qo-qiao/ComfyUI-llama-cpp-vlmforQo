@@ -6,7 +6,7 @@ Run LLM/VLM models natively in ComfyUI based on llama.cpp, supporting multimodal
 
 ## Project Overview
 
-ComfyUI-omni-llm is a comprehensive ComfyUI plugin, deeply refactored and enhanced based on ComfyUI-llama-cpp-vlm, focusing on providing localized and efficient multimodal AI inference capabilities. The plugin supports ASR speech recognition and TTS speech synthesis, and supports over 40 VLM models and 200+ LLM models.
+ComfyUI-omni-llm is a comprehensive ComfyUI plugin, deeply refactored and enhanced based on ComfyUI-llama-cpp-vlm, focusing on providing localized and efficient multimodal AI inference capabilities. The plugin supports over 40 VLM models and 200+ LLM models.
 
 ### Core Advantages
 
@@ -15,7 +15,6 @@ ComfyUI-omni-llm is a comprehensive ComfyUI plugin, deeply refactored and enhanc
 - **Rich Model Ecosystem**: Supports multiple mainstream VLM/LLM models, automatically adapts to new models
 - **Efficient Inference Performance**: Introduces parallel processing and caching mechanisms, significantly improving runtime efficiency
 - **Professional Prompt System**: Built-in rich scenario-based preset templates
-- **Powerful Audio Capabilities**: Integrated ASR speech recognition and TTS speech synthesis functions
 
 [Tip] Models with thinking mode cannot provide accurate thought content filtering. It is recommended to use non-thinking mode models. All generated prompt content is for reference only and cannot guarantee perfect image generation. Please verify and optimize content based on your actual needs.
 
@@ -36,25 +35,24 @@ If you are not familiar with installing dependencies, it is recommended to use t
 
 ### 1. Basic Installation
 
-1. **Extract dependency files from the plugin's site-packages folder**: [Download dependency package](https://github.com/Qo-qiao/ComfyUI-omni-llm/releases)
-   - Extract the dependency files from the plugin's site-packages folder to `ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages` directory
-   - Directory reference format:
-     ```
-     ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages/
-     ├── qwen-tts
-     ├── qwen_asr
-     ├── transformers
-     ├── ... other dependencies
-     ```
-2. **Install remaining dependencies**:
+1. **Install dependencies**:
    - Install:
      ```bash
      # Run in ComfyUI root directory
      pip install -r custom_nodes/ComfyUI-omni-llm/requirements.txt
      ```
 
-3. **Install llama-cpp-python** (Required):
-   - Download the latest version 0.3.40 manually from [llama_cpp_python_wheels](https://github.com/JamePeng/llama-cpp-python/releases) or directly download the zip package
+2. **Install llama-cpp-python** (Required):
+   - You must download the latest version and install it manually. Please download from [llama_cpp_python_wheels](https://github.com/JamePeng/llama-cpp-python/releases)
+
+3. **Extract dependency files from the plugin's site-packages folder**: [Download dependency package](https://github.com/Qo-qiao/ComfyUI-omni-llm/releases) to directly download the zip package with dependencies (dependency package adapted for transformers-5.0 and above, no need to install for daily use)
+   - Extract the dependency files from the plugin's site-packages folder to `ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages` directory
+   - Directory reference format:
+     ```
+     ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages/
+     ├── qwen_asr
+     ├── ... other dependency files
+     ```
 
    **Wheel Selection Guide:**
    - **Python Version Match**: `cp312` in the filename indicates Python 3.12, select the file matching your Python version
@@ -100,13 +98,8 @@ If you are not familiar with installing dependencies, it is recommended to use t
 #### Video Processing
 ![Video Reverse Engineering Workflow Example](./workflows/视频反推（Video_reverse_engineering）.png)
 
-
 #### Audio Processing
-![Text to Audio Workflow Example](./workflows/文本转音频（Text_to_Audio）.png)
-
 ![Audio to Text Workflow Example](./workflows/音频转文本（Audio_to_text）.png)
-
-![Multi-person Dialogue Audio Generation Workflow Example](./workflows/多人对话音频生成（Multi-person_dialogue_audio_generation）.png)
 
 
 ## Documentation (For reference only)
@@ -117,16 +110,27 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 
 ## Changelog
 
-The following updates are based on llama-cpp-python version 0.3.41, so please install this version first
+The following updates are based on llama-cpp-python version 0.3.45, so please install this version first
+
+#### v3.3.0 (2026-08-08)
+
+- **Node Optimization & Adjustment**:
+  1. Unified node name prefixes to avoid node name conflicts
+  2. To support transformers-5.0 and above, removed TTS-related nodes. Text-to-audio is no longer supported; for TTS-related features please use a dedicated plugin. Only the ASR node is retained
+  3. To improve image generation controllability, added a model selection feature to adapt to the prompt requirements of different models
+  4. Refactored inference logic to fit the new preset template requirements
+- **Preset Template Optimization**: Reconstructed the preset template format to adapt to the prompt requirements of different models, integrated Chinese and English templates (functionality unchanged), optimized thinking logic, improved generation speed and quality, and enhanced the controllability of generated content
+  Specific adjustments: illustrious, anime, audio templates, and prompt_expander do not support model selection output; other text generation preset templates support model selection output; reverse engineering templates support inputting text content as a reference to reduce incorrect style judgment in reverse engineering (generally no need to add)
+- **Dependency Installation Optimization**: Simplified dependency installation steps, lowering plugin installation difficulty
+
+
+<details>
+<summary>📋 Older Versions</summary>
 
 #### v3.2.3 （2026-07-25）
 
 - **Preset Template Optimization**: Optimize and adjust the image reverse engineering preset templates, add more reverse reasoning dimensions, introduce prompt weighting to enhance reverse engineering results, include a figure art category, reduce forced clothing generation that conflicts with user requests (non-NSFW), and refine the logical guidance for inference thinking
 - **Dependency Detection Optimization**: Optimized the dependency check logic for llama-cpp-python, mainly for the first time setting up this plugin environment
-
-
-<details>
-<summary>📋 Older Versions</summary>
 
 #### v3.2.2 （2026-07-13）
 

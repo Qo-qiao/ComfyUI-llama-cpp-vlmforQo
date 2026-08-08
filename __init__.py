@@ -22,54 +22,39 @@ site_packages_dir = os.path.join(plugin_dir, "site-packages")
 if os.path.exists(site_packages_dir):
     sys.path.insert(0, site_packages_dir)
 
-# 导入所有节点模块
-from llama_cpp_model_loader import llama_cpp_model_loader
-from llama_cpp_unified_inference import llama_cpp_unified_inference
-from llama_cpp_parameters import llama_cpp_parameters
-from llama_cpp_clean_states import llama_cpp_clean_states
-from llama_cpp_tts_loader import llama_cpp_tts_loader
-from multi_model_tts import multi_model_tts
-from llama_cpp_asr_loader import llama_cpp_asr_loader
-from forced_aligner_loader import forced_aligner_loader
-from forced_aligner_inference import forced_aligner_inference
-from multi_image_input import MultiImageInput
-from video_loader import VideoLoader
-from tts_align import tts_align
+# 导入所有节点模块（模块名对应nodes目录下的实际文件名）
+from model_loader import omni_llm_model_loader
+from unified_inference import omni_llm_unified_inference
+from model_parameters import omni_llm_parameters
+from clean_states import omni_llm_clean_states
+from asr_loader import omni_llm_asr_loader
+from multi_image_input import omni_llm_multi_image_input
+from video_loader import omni_llm_video_loader
 
-# 节点映射关系，ComfyUI通过这个字典识别节点
+# 节点映射关系，Comfy通过这个字典识别节点
 NODE_CLASS_MAPPINGS = {
-    "llama_cpp_model_loader": llama_cpp_model_loader,
-    "llama_cpp_parameters": llama_cpp_parameters,
-    "llama_cpp_clean_states": llama_cpp_clean_states,
-    "llama_cpp_tts_loader": llama_cpp_tts_loader,
-    "multi_model_tts": multi_model_tts,
-    "llama_cpp_asr_loader": llama_cpp_asr_loader,
-    "forced_aligner_loader": forced_aligner_loader,
-    "forced_aligner_inference": forced_aligner_inference,
-    "multi_image_input": MultiImageInput,
-    "llama_cpp_unified_inference": llama_cpp_unified_inference,
-    "VideoLoader": VideoLoader,
-    "tts_align": tts_align,
+    "omni_llm_model_loader": omni_llm_model_loader,
+    "omni_llm_parameters": omni_llm_parameters,
+    "omni_llm_clean_states": omni_llm_clean_states,
+    "omni_llm_asr_loader": omni_llm_asr_loader,
+    "omni_llm_multi_image_input": omni_llm_multi_image_input,
+    "omni_llm_unified_inference": omni_llm_unified_inference,
+    "omni_llm_video_loader": omni_llm_video_loader,
 }
 
 # 节点显示名称映射，在ComfyUI界面中显示的名称
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "llama_cpp_model_loader": "Llama-cpp Model Loader",
-    "llama_cpp_parameters": "Llama-cpp Parameters",
-    "llama_cpp_clean_states": "Llama-cpp Clean States",
-    "llama_cpp_tts_loader": "TTS Model Loader",
-    "multi_model_tts": "Multi-Model TTS",
-    "llama_cpp_asr_loader": "Llama-cpp ASR Model Loader",
-    "forced_aligner_loader": "Forced Aligner Model Loader",
-    "forced_aligner_inference": "Forced Aligner Inference",
-    "multi_image_input": "Multi-Image Input (Story Creation)",
-    "llama_cpp_unified_inference": "Llama CPP Unified Inference",
-    "VideoLoader": "Video Loader",
-    "tts_align": "TTS Align",
+    "omni_llm_model_loader": "Omni LLM Model Loader",
+    "omni_llm_parameters": "Omni LLM Parameters",
+    "omni_llm_clean_states": "Omni LLM Clean States",
+    "omni_llm_asr_loader": "Omni LLM ASR Model Loader",
+    "omni_llm_multi_image_input": "Omni LLM Multi-Image Input (Story Creation)",
+    "omni_llm_unified_inference": "Omni LLM Unified Inference",
+    "omni_llm_video_loader": "Omni LLM Video Loader",
 }
 
 # 导出所有映射关系
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 
 # 版本信息
-VERSION = "3.2.3"
+VERSION = "3.3.0"

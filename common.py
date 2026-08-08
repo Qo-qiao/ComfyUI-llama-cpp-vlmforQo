@@ -1806,9 +1806,9 @@ class LLAMA_CPP_STORAGE:
         
         # 清理结果缓存
         try:
-            from .nodes.llama_cpp_unified_inference import llama_cpp_unified_inference
-            if hasattr(llama_cpp_unified_inference, "_result_cache"):
-                llama_cpp_unified_inference._result_cache.clear()
+            from nodes.unified_inference import omni_llm_unified_inference
+            if hasattr(omni_llm_unified_inference, "_result_cache"):
+                omni_llm_unified_inference._result_cache.clear()
                 print(f"【结果缓存】已清理所有推理结果缓存")
         except Exception as e:
             print(f"【提示】清理结果缓存失败（忽略）：{e}")

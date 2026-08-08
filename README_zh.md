@@ -6,7 +6,7 @@
 
 ## 项目简介
 
-ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-vlm进行深度重构与增强，专注于提供本地化、高效的多模态AI推理能力。插件支持ASR语音识别和TTS语音合成功能，支持40余种VLM模型、200多种LLM模型。
+ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-vlm进行深度重构与增强，专注于提供本地化、高效的多模态AI推理能力。插件支持40余种VLM模型、200多种LLM模型。
 
 ### 核心优势
 
@@ -15,7 +15,6 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 - **丰富模型生态**：支持多种主流VLM/LLM模型，自动适配新模型
 - **高效推理性能**：引入并行处理和缓存机制，显著提升运行效率
 - **专业提示词系统**：内置丰富的场景化预设模板
-- **强大音频能力**：集成ASR语音识别与TTS语音合成功能
 
 【提示】带有thinking模式的模型无法提供准确的思考内容过滤功能，建议使用非thinking模式的模型，所有生成的提示词内容仅供参考，并不能确保生成完美图像内容，请根据个人实际需求做内容核对二次优化。
 
@@ -36,25 +35,16 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 
 ### 1. 基本安装
 
-1. **解压插件site-packages文件夹内的依赖文件**：[依赖文件包下载]（https://github.com/Qo-qiao/ComfyUI-omni-llm/releases）或直接下载带依赖文件的zip包
-   - 将插件site-packages文件夹内的依赖文件解压到 `ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages` 目录下
-   - 目录参考格式如下：
-     ```
-     ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages/
-     ├── qwen-tts
-     ├── qwen_asr
-     ├── transformers
-     ├── ... 其他依赖文件
-     ```
-2. **安装剩余依赖**：
+
+1. **安装依赖**：
    - 安装：
      ```bash
      # 在ComfyUI根目录运行
      pip install -r custom_nodes/ComfyUI-omni-llm/requirements.txt
      ```
 
-3. **安装 llama-cpp-python**（必须）：
-   - 需自行下载最新版本0.3.35手动安装，请从[llama_cpp_python_wheels](https://github.com/JamePeng/llama-cpp-python/releases)下载
+2. **安装 llama-cpp-python**（必须）：
+   - 需自行下载最新版本手动安装，请从[llama_cpp_python_wheels](https://github.com/JamePeng/llama-cpp-python/releases)下载
 
    **轮子选择指南：**
    - **Python版本匹配**：文件名中的`cp312`表示Python 3.12版本，选择与你的Python版本匹配的文件
@@ -70,6 +60,14 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
    - **CUDA 12.8**：选择`cu128`版本，性能最佳
    - **CUDA 12.x**：选择`cu124`版本，向后兼容
 
+3. **解压插件site-packages文件夹内的依赖文件**：[依赖文件包下载]（https://github.com/Qo-qiao/ComfyUI-omni-llm/releases）直接下载带依赖文件的zip包（适配transformers-5.0以上版本的依赖包，日常使用不用安装）
+   - 将插件site-packages文件夹内的依赖文件解压到 `ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages` 目录下
+   - 目录参考格式如下：
+     ```
+     ComfyUI/custom_nodes/ComfyUI-omni-llm/site-packages/
+     ├── qwen_asr
+     ├── ... 其他依赖文件
+     ```
 
 ### 2. 模型准备
 
@@ -102,11 +100,7 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 
 
 #### 音频处理
-![文本转音频工作流示例](./workflows/文本转音频（Text_to_Audio）.png)
-
 ![音频转文本工作流示例](./workflows/音频转文本（Audio_to_text）.png)
-
-![多人对话音频生成工作流示例](./workflows/多人对话音频生成（Multi-person_dialogue_audio_generation）.png)
 
 
 ## 文档提供（仅供参考）
@@ -124,17 +118,28 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 
 ## 更新日志
 
-以下更新基于llama-cpp-python 0.3.41版本，请先安装该版本的llama-cpp-python
+以下更新基于llama-cpp-python 0.3.45版本，请先安装该版本的llama-cpp-python
 
-#### v3.2.3 （2026-07-25）
-- **预设模板优化**：优化调整图片反推预设模板，添加更多反推维度，添加提示词权重，提高反推效果，添加人体艺术类别，减少刻意生成衣服而影响用户要求（非nsfw），优化调整推理思考逻辑引导
-- **依赖检测优化**：优化llama-cpp-python依赖检测逻辑，主要针对首次安装本插件环境
+#### v3.3.0 （2026-08-08）
+
+- **节点优化调整**：1.统一节点名称开头，规避节点名称冲突问题
+2.为支持transformers-5.0以上版本，移除TTS相关节点，不再支持文本转音频功能，使用tts相关功能请按照专用插件，仅保留ASR节点
+3.为提高生图可控性，新增模型选择功能，适配不同模型的提示词需求
+4.重构推理逻辑，适配新预设模板需要
+- **预设模板优化**：预设模板格式重构，适配不同模型的提示词需求，中英模板整合（功能不变），优化思考逻辑，提高生成速度与质量，提高生成内容的可控性
+具体调整细则：illustrious、anime、音频类模板、prompt_expander不支持模型选择输出，其他文本生成预设模板支持模型选择输出，反推类模板支持输入文本内容作为参考，减少反推风格错误判定（一般情况无需添加）
+- **依赖安装优化**：简化依赖按照步骤，降低插件安装难度
 
 
 <details>
 <summary>📋 历史版本</summary>
 
+#### v3.2.3 （2026-07-25）
+- **预设模板优化**：优化调整图片反推预设模板，添加更多反推维度，添加提示词权重，提高反推效果，添加人体艺术类别，减少刻意生成衣服而影响用户要求（非nsfw），优化调整推理思考逻辑引导
+- **依赖检测优化**：优化llama-cpp-python依赖检测逻辑，主要针对首次安装本插件环境
+
 #### v3.2.2 （2026-07-13）
+
 - **节点优化调整**：新增前置约束选项与负向提示词选项（内置的固定内容，不参与模型推理，仅支持文本生成类预设模板），提高生成内容的可控性，示例输出调整为随机展示，关键类别触发展示对应类别的示例信息。（统一推理节点报错请重新添加到界面中运行）
 - **模型优化调整**：新增Qwen3.5-DeepSeek-V4-Flash变体模型支持，支持更强的上下文理解，请根据实际情况调整参数。
 - temperature（温度参数） : 0.7-1.0（编码任务用较低值，创造性推理用较高值）
