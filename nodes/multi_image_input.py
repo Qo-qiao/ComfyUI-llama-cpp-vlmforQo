@@ -20,14 +20,14 @@ from common import (
     HARDWARE_INFO, image2base64, scale_image
 )
 
-class MultiImageInput:
+class omni_llm_multi_image_input:
     """
 6    多图输入节点
     - 支持输入多张图像进行分析（最多6张）
     - 支持无图像模式，通过选项设置生成提示词
     - 自动预处理和编码
     - 输出可直接连接到llama_cpp_unified_inference节点的images和custom_prompt
-    - 专为wan2.2视频生成优化
+    - 专为Wan2.2/LTX2.3/MiniMax‑H3视频生成优化
     - 支持多图反推，弥补推理节点只能输入单张图片的限制
     """
     
@@ -100,11 +100,12 @@ class MultiImageInput:
                     "Specific Groups"
                 ], {"default": "General Public", "tooltip": "选择目标受众"}),
                 "video_model": ([
-                    "WAN2.2",
-                    "LTX2",
+                    "Wan2.2",
+                    "LTX2.3",
+                    "MiniMax‑H3",
                     "General Video",
                     "Custom"
-                ], {"default": "WAN2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式"}),
+                ], {"default": "Wan2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式。选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）"}),
             }
         }
     
@@ -117,7 +118,7 @@ class MultiImageInput:
     def process_multi_images(self, image1=None, image2=None, image3=None, image4=None, image5=None, image6=None, mode="Image Mode", story_type="Coherent Story", story_length="Medium (200 words or less)", language="中文", max_size=256, 
                           custom_prompt="", include_image_descriptions=True, 
                           story_theme="No Specific Theme", narrative_style="Third Person",
-                          content_focus="Balanced Development", target_audience="General Public", video_model="WAN2.2"):
+                          content_focus="Balanced Development", target_audience="General Public", video_model="Wan2.2"):
         """
         处理多张图像或文本模式，生成适合内容创作的提示词
         
@@ -128,12 +129,6 @@ class MultiImageInput:
         - image4: 第四张输入图像
         - image5: 第五张输入图像
         - image6: 第六张输入图像
-        - image7: 第七张输入图像
-        - image8: 第八张输入图像
-        - image9: 第九张输入图像
-        - image10: 第十张输入图像
-        - image11: 第十一张输入图像
-        - image12: 第十二张输入图像
         - mode: 工作模式（图像模式/文本模式）
         - story_type: 内容创作类型
         - story_length: 内容长度
@@ -145,7 +140,7 @@ class MultiImageInput:
         - narrative_style: 叙事风格
         - content_focus: 内容重点
         - target_audience: 目标受众
-        - video_model: 视频生成模型类型（WAN2.2/LTX2/General Video/Custom）
+        - video_model: 视频生成模型类型（Wan2.2/LTX2.3/MiniMax‑H3/General Video/Custom）
         """
         
         if mode == "Image Mode":
@@ -299,6 +294,16 @@ class MultiImageInput:
         empty_images = torch.zeros((0, 64, 64, 3), dtype=torch.float32)
         return (empty_images, text_prompt)
     
+    def _get_effective_length(self, story_length, video_model):
+        """
+        根据视频模型后台自动调整有效内容长度（不额外暴露手动选项）
+        - Wan2.2：原生单镜头≤5秒，需要极简提示词，自动收紧到最短档
+        - LTX2.3 / MiniMax‑H3：支持长片段，按用户选择保留
+        """
+        if video_model == "Wan2.2":
+            return "Short (100 words or less)"
+        return story_length
+    
     def _build_text_prompt(self, story_type, story_length, language, custom_prompt,
                          story_theme, narrative_style, content_focus, target_audience, video_model):
         """
@@ -325,14 +330,14 @@ class MultiImageInput:
         # 视频模型特定的提示词格式
         model_specific_instruction = self._get_video_model_instruction(video_model, language="中文")
         
-        # 故事长度映射
+        # 故事长度映射（Wan2.2 自动收紧到最短档）
         length_map = {
             "Short (100 words or less)": "100字以内",
             "Medium (200 words or less)": "200字以内",
             "Detailed (400 words or less)": "400字以内",
             "Complete (600 words or less)": "600字以内"
         }
-        target_length = length_map.get(story_length, "200字以内")
+        target_length = length_map.get(self._get_effective_length(story_length, video_model), "200字以内")
         
         type_map = {
             "Coherent Story": "创作一个连贯完整的故事",
@@ -441,14 +446,14 @@ class MultiImageInput:
         
         # 视频模型特定的提示词格式
         model_specific_instruction = self._get_video_model_instruction(video_model, language="English")
-        # Story length mapping
+        # Story length mapping (Wan2.2 auto-tightens to shortest)
         length_map = {
-            "Short (200 words or less)": "200 words or less",
-            "Medium (400 words or less)": "400 words or less",
-            "Detailed (600 words or less)": "600 words or less",
-            "Complete (1000 words or less)": "1000 words or less"
+            "Short (100 words or less)": "100 words or less",
+            "Medium (200 words or less)": "200 words or less",
+            "Detailed (400 words or less)": "400 words or less",
+            "Complete (600 words or less)": "600 words or less"
         }
-        target_length = length_map.get(story_length, "400 words or less")
+        target_length = length_map.get(self._get_effective_length(story_length, video_model), "200 words or less")
         
         type_map = {
             "Coherent Story": "Create a coherent and complete story",
@@ -582,14 +587,14 @@ class MultiImageInput:
         # 视频模型特定的提示词格式
         model_specific_instruction = self._get_video_model_instruction(video_model, language="中文")
 
-        # 故事长度映射
+        # 故事长度映射（Wan2.2 自动收紧到最短档）
         length_map = {
             "Short (100 words or less)": "100字以内",
             "Medium (200 words or less)": "200字以内",
             "Detailed (400 words or less)": "400字以内",
             "Complete (600 words or less)": "600字以内"
         }
-        target_length = length_map.get(story_length, "200字以内")
+        target_length = length_map.get(self._get_effective_length(story_length, video_model), "200字以内")
 
         type_map = {
             "Coherent Story": "创作一个连贯完整的故事",
@@ -719,14 +724,14 @@ class MultiImageInput:
 
         # 视频模型特定的提示词格式
         model_specific_instruction = self._get_video_model_instruction(video_model, language="English")
-        # Story length mapping
+        # Story length mapping (Wan2.2 auto-tightens to shortest)
         length_map = {
-            "Short (200 words or less)": "200 words or less",
-            "Medium (400 words or less)": "400 words or less",
-            "Detailed (600 words or less)": "600 words or less",
-            "Complete (1000 words or less)": "1000 words or less"
+            "Short (100 words or less)": "100 words or less",
+            "Medium (200 words or less)": "200 words or less",
+            "Detailed (400 words or less)": "400 words or less",
+            "Complete (600 words or less)": "600 words or less"
         }
-        target_length = length_map.get(story_length, "400 words or less")
+        target_length = length_map.get(self._get_effective_length(story_length, video_model), "200 words or less")
 
         type_map = {
             "Coherent Story": "Create a coherent and complete story",
@@ -851,42 +856,47 @@ class MultiImageInput:
         获取视频模型特定的提示词指令
         
         参数说明：
-        - video_model: 视频生成模型类型（WAN2.2/LTX2/General Video/Custom）
+        - video_model: 视频生成模型类型（Wan2.2/LTX2.3/MiniMax‑H3/General Video/Custom）
         - language: 语言（中文/English）
         
         返回：
         - 模型特定的提示词指令字符串
         """
         
-        if language == "中文":
-            return self._get_chinese_video_model_instruction(video_model)
-        else:
-            return self._get_english_video_model_instruction(video_model)
-    
-    def _get_chinese_video_model_instruction(self, video_model):
-        """
-        获取中文视频模型特定的提示词指令
-        """
+        lang_key = "zh" if language == "中文" else "en"
         
-        instructions = {
-            "WAN2.2": "确保故事适合WAN2.2视频生成模型，强调场景描述和视觉元素，使用简洁有力的语言，避免过于复杂的句式。",
-            "LTX2": "确保故事适合LTX2视频生成模型，注重细节描述和情感表达，使用流畅自然的语言，突出关键场景转换。",
-            "General Video": "确保故事适合通用视频生成模型，平衡场景描述和叙事流畅性，使用清晰易懂的语言。",
-            "Custom": "根据自定义视频生成模型的要求调整提示词格式和内容风格。"
+        # 通用/自定义模型不在项目视频模型库中，使用本地回退指令
+        fallback_instructions = {
+            "General Video": {
+                "zh": "确保故事适合通用视频生成模型，平衡场景描述和叙事流畅性，使用清晰易懂的语言。",
+                "en": "Ensure the story is suitable for general video generation models. Balance scene descriptions and narrative flow. Use clear and easy-to-understand language."
+            },
+            "Custom": {
+                "zh": "根据自定义视频生成模型的要求调整提示词格式和内容风格。",
+                "en": "Adjust the prompt format and content style according to the requirements of the custom video generation model."
+            }
         }
+        if video_model in fallback_instructions:
+            return fallback_instructions[video_model][lang_key]
         
-        return instructions.get(video_model, instructions["WAN2.2"])
+        # 从项目统一视频模型公式库（support/universal_video.py）复用权威约束，
+        # 与统一推理节点的视频模型约束保持一致，避免两套指令漂移
+        try:
+            from support.universal_video import UniversalVideo
+            formula_library = UniversalVideo().video_model_formula_library
+            formula = formula_library.get(video_model, {})
+            instruction = formula.get("formula_zh" if lang_key == "zh" else "formula_en", "")
+            if instruction:
+                return instruction
+        except ImportError:
+            pass
+        
+        return ""
     
-    def _get_english_video_model_instruction(self, video_model):
-        """
-        获取英文视频模型特定的提示词指令
-        """
-        
-        instructions = {
-            "WAN2.2": "Ensure the story is suitable for the WAN2.2 video generation model. Emphasize scene descriptions and visual elements. Use concise and powerful language, avoiding overly complex sentence structures.",
-            "LTX2": "Ensure the story is suitable for the LTX2 video generation model. Focus on detailed descriptions and emotional expression. Use fluent and natural language, highlighting key scene transitions.",
-            "General Video": "Ensure the story is suitable for general video generation models. Balance scene descriptions and narrative flow. Use clear and easy-to-understand language.",
-            "Custom": "Adjust the prompt format and content style according to the requirements of the custom video generation model."
-        }
-        
-        return instructions.get(video_model, instructions["WAN2.2"])
+NODE_CLASS_MAPPINGS = {
+        "omni_llm_multi_image_input": omni_llm_multi_image_input
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "omni_llm_multi_image_input": "Omni LLM Multi-Image Input"
+}

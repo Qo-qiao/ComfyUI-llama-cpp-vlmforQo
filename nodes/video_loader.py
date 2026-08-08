@@ -18,7 +18,7 @@ from fractions import Fraction
 from typing import Tuple, Optional
 
 
-class VideoLoader:
+class omni_llm_video_loader:
     """
     视频加载节点
     - 无输入端口
@@ -305,9 +305,9 @@ class VideoLoader:
             }
 
 NODE_CLASS_MAPPINGS = {
-    "VideoLoader": VideoLoader
+    "omni_llm_video_loader": omni_llm_video_loader
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "VideoLoader": "Video Loader"
+    "omni_llm_videoLoader": "Omni LLM Video Loader"
 }
