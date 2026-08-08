@@ -119,27 +119,6 @@
 **魔搭链接**：https://www.modelscope.cn/models/Qwen/Qwen3-ForcedAligner-0.6B
 
 
-## TTS系列（语音合成）
-
-### Qwen系列（只支持提供的模型）
-
-
-**模型系列**：Qwen-TTS
-**具体型号**：Qwen3-TTS-12Hz-1.7B-CustomVoice
-**核心特点**：侧重预设与控制。它提供了9种固定的优质音色（覆盖不同性别、年龄、语言和方言），你可以通过指令在这些预设音色的基础上调整说话风格（如语速、情绪等）。
-**适配场景**：定制语音合成、个性化语音助手、有声读物、品牌语音形象、角色配音
-**下载链接**：https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
-**魔搭链接**：https://www.modelscope.cn/models/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
-
-
-**模型系列**：Qwen-TTS
-**具体型号**：Qwen3-TTS-12Hz-1.7B-VoiceDesign
-**核心特点**：侧重创造性。它不依赖固定音色，而是根据你输入的文字描述（如“温柔的中年男性”、“带有金属质感的年轻女声”）来实时生成符合描述的音色。
-**适配场景**：语音参数调节、情感语音合成、语音设计、交互式语音应用、游戏角色配音
-**下载链接**：https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
-**魔搭链接**：https://www.modelscope.cn/models/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
-
-
 
 ## VLM系列（视觉语言模型，支持所有视觉模型文本生成和图像反推）
 
@@ -431,27 +410,6 @@
 **Applicable Scenarios**: Subtitle generation
 **Download Link**: https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B
 **ModelScope Link**: https://www.modelscope.cn/models/Qwen/Qwen3-ForcedAligner-0.6B
-
-
-## TTS Series (Text-to-Speech)
-
-### Qwen Series (Only supports the provided models)
-
-
-**Model Series**: Qwen-TTS
-**Specific Model**: Qwen3-TTS-12Hz-1.7B-CustomVoice
-**Key Features**: Focus on preset and control. It provides 9 fixed high-quality voices (covering different genders, ages, languages, and dialects), and you can adjust the speaking style (such as speed, emotion, etc.) based on these preset voices through instructions.
-**Applicable Scenarios**: Custom speech synthesis, personalized voice assistants, audiobooks, brand voice identity, character voiceover
-**Download Link**: https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
-**ModelScope Link**: https://www.modelscope.cn/models/Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
-
-
-**Model Series**: Qwen-TTS
-**Specific Model**: Qwen3-TTS-12Hz-1.7B-VoiceDesign
-**Key Features**: Focus on creativity. It does not rely on fixed voices, but generates voices that match the description in real-time based on your text input (e.g., "gentle middle-aged male", "young female voice with metallic texture").
-**Applicable Scenarios**: Voice parameter adjustment, emotional speech synthesis, voice design, interactive voice applications, game character voiceover
-**Download Link**: https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
-**ModelScope Link**: https://www.modelscope.cn/models/Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
 
 
 

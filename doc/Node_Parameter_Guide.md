@@ -47,10 +47,6 @@ Load and initialize LLM (Large Language Model)/VLM (Vision Language Model) model
 - Function: Enable ASR speech recognition functionality
 - Recommended Setting: Set to True when speech recognition is needed
 
-**Parameter Name: Enable TTS (enable_tts)**
-- Function: Enable TTS text-to-speech functionality
-- Recommended Setting: Set to True when speech synthesis is needed
-
 #### Runtime Mode Parameters
 
 **Parameter Name: Context Length (n_ctx)**
@@ -125,7 +121,6 @@ Performs LLM/VLM/Omni model inference, supporting text-only, single image, multi
   - `[Basic] Image Understanding`: Image processing mode, processes single or multiple images, reverse-engineers prompts
   - `[Basic] Batch Image Understanding`: Processes multiple images at once, reduces inference calls
   - `[Basic] Audio to Text`: Uses ASR model to convert audio to text
-  - `[Basic] Text to Audio`: Generates text then converts to speech using TTS model
   - `[Advanced] Video Understanding`: Processes video files, extracts frames for analysis
 
 #### Prompt Configuration (Core Parameters)
@@ -133,22 +128,6 @@ Performs LLM/VLM/Omni model inference, supporting text-only, single image, multi
 **Parameter Name: Preset Prompt Template (preset_prompt)**
 - **Impact Level: Very High**
 - Function: Select preset prompt template, determines the structure and style of prompt generation
-- **Detailed Description**:
-  - **[Reverse] Tags**: Reverse-engineer XL tag format prompts, ideal for image reverse engineering
-  - **[Reverse] Describe**: General image reverse engineering prompts, generates natural descriptions
-  - **[Normal] Expand**: General prompt text optimization, expands input content
-  - **[Anime] Expand Tags**: Anime character style text optimization
-  - **[Anime] Prompt Expand**: Anime content text optimization
-  - **[Portrait] Asian Female/Male**: Realistic Asian portrait text optimization
-  - **[Portrait] Western Female/Male**: Realistic Western portrait text optimization
-  - **[Design] Art Illustration**: Art illustration text optimization
-  - **[Design] Poster Design**: Poster design text optimization
-  - **[Design] Scene Design**: Scene design text optimization
-  - **[Design] Interior Design**: Interior design text optimization
-  - **[Design] Ecommerce Product**: E-commerce product text optimization
-  - **[Edit] Combined**: Image editing text optimization
-  - **[Text to Video] Universal**: Expands video text content
-  - **[Design] Ideogram-4**: JSON structured prompts
 
 **Parameter Name: System Prompt (system_prompt)**
 - **Impact Level: High**
@@ -310,94 +289,6 @@ Structured output uses field markers with 【】 brackets to organize informatio
 【Background】Cherry blossom garden, falling petals, gradient pink sky
 ```
 
-### 2.3 Templates with Keyword-Based Output Type Switching
-
-Some templates automatically detect keywords in your input to determine the appropriate output type and focus. These templates analyze your input content and intelligently adjust the output format.
-
-#### ERNIE_IMAGE_EN / ERNIE_IMAGE_ZH Template
-
-This template supports multiple design types and automatically detects keywords to switch output focus:
-
-**Supported Design Types:**
-
-| Keywords | Design Type | Output Focus |
-|----------|-------------|--------------|
-| poster, advertisement, movie poster, music poster | Commercial Poster | Visual impact, brand tone, typography, color contrast |
-| manga, comic, storyboard | Manga Panel | Narrative flow, panel layout, shot composition, speed lines |
-| UI, interface, app, web | UI Design | User experience, interface layout, interaction elements |
-| Person descriptions (a woman, long hair, 20 years old) | Portrait Photography | Character features, pose, lighting, makeup |
-| Product/object descriptions | Product Render | Material, lighting setup, camera angle, reflections |
-| Scene descriptions | Scene/Environment | Spatial structure, atmosphere, lighting, weather |
-
-**Example Inputs:**
-```
-Input: "Movie poster, sci-fi theme, astronaut in space"
-→ Detected Type: Commercial Poster
-→ Output Focus: Visual impact, brand tone, title layout, typography style
-
-Input: "Manga page, superhero fighting robot"
-→ Detected Type: Manga Panel
-→ Output Focus: Panel layout, action sequence, speed lines, sound effects
-
-Input: "E-commerce product photo, wireless headphones"
-→ Detected Type: Product Render
-→ Output Focus: Product material, studio lighting, angle, background
-```
-
-#### QWEN_IMAGE_2512_EN / QWEN_IMAGE_2512_ZH Template
-
-This template is optimized for 2512×2512 high-resolution output and supports similar keyword-based type detection:
-
-**Supported Design Types:**
-
-| Keywords | Design Type | High-Resolution Features |
-|----------|-------------|------------------------|
-| poster, advertisement, movie poster | Poster Design | Paper texture, ink splashes, gold foil effects |
-| brochure, booklet, catalog | Brochure Design | Paper texture, binding details, print quality |
-| infographic, data visualization | Infographic Design | Fine lines, small icons, chart clarity |
-| education, presentation | Educational Courseware | Vector sharpness, icon clarity, layout |
-| product, 3C, cosmetics, clothing | Product Render | Microscopic details, material texture, reflections |
-| illustration, concept art, fantasy | Art Illustration | Brushstroke texture, pigment granularity, paper grain |
-
-**Example Inputs:**
-```
-Input: "Luxury jewelry brochure, ruby ring"
-→ Detected Type: Brochure Design
-→ High-Res Features: Stone clarity, metal engravings, paper texture, gold embossing
-
-Input: "Fantasy illustration, dragon in mountains"
-→ Detected Type: Art Illustration
-→ High-Res Features: Scale texture, brushstrokes, atmospheric haze, lighting volumes
-```
-
-### 2.4 How Output Format Selection Works
-
-When you select a preset template:
-
-1. **System Prompt Loading**: The system loads both `input_template_natural` and `input_template_structured` variations
-2. **User Input Processing**: Your input is analyzed for keywords and context
-3. **Template Selection**: Based on the template type:
-   - **Standard Templates**: Output format is determined by your selection (Natural/Structured)
-   - **Smart Templates** (ERNIE, QWEN): Keywords are detected to determine output focus
-4. **Output Generation**: The model generates content following the selected format rules
-
-### 2.5 Choosing the Right Output Format
-
-**Choose Natural Paragraph when:**
-- You want direct, copy-paste ready prompts for image generation
-- You prefer reading flowing, narrative descriptions
-- You're new to prompt engineering and want simple, straightforward output
-
-**Choose Structured Output when:**
-- You need precise control over specific prompt components
-- You want to easily modify individual elements (lighting, composition, etc.)
-- You're doing systematic analysis or creating prompt variations
-
-**Use Keyword Detection (Smart Templates) when:**
-- You're working with mixed content types
-- You want the model to intelligently adapt output focus
-- You need domain-specific optimization (posters, manga, UI, products, etc.)
-
 ## 3. Llama-cpp Parameters Node (llama_cpp_parameters)
 
 ### Function
@@ -555,60 +446,10 @@ Clean up model states and VRAM resources, combining the original cleanup states 
 - Recommended Setting: False
 - **Note**: When enabled, calls ComfyUI's mm.unload_all_models(), releasing more VRAM
 
-## 4. API Model Nodes
 
-### 4.1 API Configuration Manager (llama_cpp_api_model_config)
+## 4. ASR Model Parameters
 
-#### Function
-Create and manage API model configurations, supporting multiple external API providers.
-
-#### Node Parameters
-
-**Required Parameters:**
-- `model_name`: API model name, used to identify this configuration
-- `api_provider`: API provider, options include OpenAI/Ollama/llms-py/vllm-omni/Custom, etc.
-- `api_base`: API base URL
-- `api_key`: API key (if required)
-- `max_tokens`: Maximum generated tokens (default 1024)
-- `temperature`: Temperature parameter (default 0.7)
-
-### 4.2 API Inference Node (llama_cpp_api_inference)
-
-#### Function
-Perform multimedia inference using API, supporting image, video, audio inputs, and text, audio outputs.
-
-#### Node Parameters
-
-**Required Parameters:**
-- `api_config`: API configuration (connect to API Configuration Manager node)
-- `inference_mode`: Inference mode, options: Text Generation/Image Understanding/Audio to Text/Text to Audio/Multimodal Integration/Video Understanding
-- `preset_prompt`: Select preset prompt template
-- `system_prompt`: System prompt
-- `text_input`: User input text
-- `prompt_language`: Language of preset prompt, options: Chinese/English
-- `response_language`: AI response language, options: Chinese/English
-- `video_max_frames`: Video mode: Maximum extracted frames (default 16)
-- `video_sampling`: Video frame sampling method, options: Auto Uniform Sampling/Manual Frame Indices
-- `video_manual_indices`: Frame indices in manual mode
-- `image_max_size`: Maximum edge length for image processing (default 256)
-- `tts_voice`: TTS voice selection
-- `tts_emotion`: TTS emotion style
-- `tts_speed`: TTS speed (default 1.0)
-- `seed`: Random seed (default 101)
-
-**Optional Parameters:**
-- `images`: Image input (for image understanding mode)
-- `video`: Video input (for video understanding mode)
-- `audio`: Audio input (for audio understanding mode)
-
-#### Output
-
-- `text`: Generated text
-- `audio`: Generated audio (when Text to Audio or Multimodal Integration mode is selected)
-
-## 5. ASR/TTS Model Parameters
-
-### 5.1 ASR Model Loader Parameters (llama_cpp_asr_loader)
+### 4.1 ASR Model Loader Parameters (llama_cpp_asr_loader)
 
 #### Node Display Options (Manually Adjustable)
 
@@ -623,493 +464,16 @@ Perform multimedia inference using API, supporting image, video, audio inputs, a
 - **Recommended Sample Rate**: 16000Hz or 22050Hz
 - **Channels**: Mono or stereo (auto-handled)
 
-### 5.2 TTS Model Loader Parameters (llama_cpp_tts_loader)
+## 5. Multi-Image Input Node Guide
 
-#### Node Display Options (Manually Adjustable)
-
-- **TTS Model**: Select TTS model file, only qwen3-tts is currently supported
-- **GPU Model Layers**: Number of model layers loaded to GPU: 24GB+ VRAM: -1, 16GB VRAM: -1, 12GB VRAM: -1, 8GB VRAM: 20, Range: -1-1000
-- **Sample Rate**: Audio sample rate (Hz), Qwen3-TTS recommends 24000Hz, other models 22050Hz, Range: 8000-48000
-- **Voice**: Select voice type, choose based on content and scenario, select based on model-supported voices
-- **Emotion**: Select emotion style, choose based on content emotion, options: Default/Happy/Sad/Angry/Surprised/Calm/Excited/Gentle
-
-#### Optional Parameters
-
-- **temperature**: Generation temperature, higher values are more random, default 0.7, Range: 0.1-2.0
-- **top_p**: Nucleus sampling parameter, controls generation diversity, default 0.9, Range: 0.1-1.0
-- **top_k**: Top-K sampling parameter, default 50, Range: 1-100
-- **repetition_penalty**: Repeat penalty, higher values avoid repetition more, default 1.1, Range: 1.0-2.0
-- **max_new_tokens**: Maximum generated tokens, default 2048, Range: 100-4096
-- **use_cache**: Enable KV cache for inference acceleration, default True, options: True/False
-- **ref_audio_path**: Voice cloning reference audio path, default "" (empty), WAV format file path
-- **pitch**: Pitch offset, adjusted based on reference audio, default 0.0, Range: -5.0-5.0
-- **volume**: Volume, default 1.0, Range: 0.1-2.0
-
-#### Emotion Mapping
-
-- **Default**: emotion value default, neutral emotion
-- **Happy**: emotion value happy, upbeat tone, positive and cheerful
-- **Sad**: emotion value sad, low tone, sad and heavy
-- **Angry**: emotion value angry, strong tone, excited and angry
-- **Surprised**: emotion value surprised, fluctuating tone, surprised and unexpected
-- **Calm**: emotion value calm, steady tone, objective and calm
-- **Excited**: emotion value excited, high tone, excited
-- **Gentle**: emotion value gentle, soft tone, kind and warm
-
-### 5.3 Qwen3-TTS Special Instructions
-
-#### Model Variants
-
-- **VoiceDesign**: Detects keywords voicedesign, voice_design, supports voice design, controls voice through natural language instructions
-- **CustomVoice**: Detects keywords customvoice, custom_voice, supports voice cloning and standard voices
-
-#### Sample Rate Notes
-
-- **12Hz version**: 12000Hz, auto-detected when path contains "12hz"
-- **Standard version**: 24000Hz, default
-
-#### Voice Cloning Reference Audio Requirements
-
-- **Format**: WAV format
-- **Duration**: 3-60 seconds optimal
-- **Channels**: Mono
-- **Sample Rate**: 48000Hz
-- **Quality**: Clear, no noise, no background music
-
-### 5.4 Using TTS in Inference Node
-
-#### Method 1: TTS Voice Enhancement Output Mode
-
-1. Select `Audio Output Mode` as `TTS Voice Enhancement Output` in inference node
-2. Connect TTS model to `tts_model` input port
-3. Select appropriate `tts_voice`, `tts_emotion`, and `tts_speed`
-4. The `audio` output of inference node will contain generated audio
-
-#### Method 2: Independent TTS Synthesis
-
-1. Load TTS model using TTS model loader
-2. Call `synthesize` method of TTS model:
-   ```python
-   audio_output = tts_model.synthesize(
-       text="Text to synthesize",
-       speaker_id=0,  # Voice ID
-       speed=1.0,     # Speed
-       emotion="default"  # Emotion style
-   )
-   ```
-3. Save audio using audio save node
-
-## 6. Multi-Speaker Conversation Nodes
-
-### 6.1 Multi-Speaker TTS Node (multi_speaker_tts)
-
-Multi-speaker TTS functionality allows you to generate dialogue audio with multiple speakers in ComfyUI, supporting different voices and emotional expressions.
-
-#### Dialogue Text Formats
-
-Three dialogue text formats are supported:
-
-##### Format 1: Bracket Format (Recommended)
-
-```
-[Female1] Hello, how's the weather today?
-[Male1] The weather is nice today, sunny.
-[Female1] Shall we go out for a walk?
-[Male1] Sure, let's go to the park.
-```
-
-##### Format 2: Colon Format
-
-```
-Female1: Hello, how's the weather today?
-Male1: The weather is nice today, sunny.
-Female1: Shall we go out for a walk?
-Male1: Sure, let's go to the park.
-```
-
-##### Format 3: Dash Format
-
-```
-Female1 - Hello, how's the weather today?
-Male1 - The weather is nice today, sunny.
-Female1 - Shall we go out for a walk?
-Male1 - Sure, let's go to the park.
-```
-
-#### Emotion Tags
-
-Emotion tags can be added after speaker names:
-
-```
-[Female1] Hello, how's the weather today?
-[Male1] The weather is nice today, sunny.
-[Female1(Happy)] Great! Shall we go out for a walk?
-[Male1(Calm)] Sure, let's go to the park.
-```
-
-#### Speaker List
-
-| Name | Description |
-|------|-------------|
-| Female1 | Clear female voice |
-| Female2 | Gentle female voice |
-| Male1 | Steady male voice |
-| Male2 | Deep male voice |
-
-#### Emotion List
-
-| Name | Description |
-|------|-------------|
-| Default | Normal tone |
-| Happy | Cheerful tone |
-| Sad | Low tone |
-| Angry | Intense tone |
-| Surprised | Upbeat tone |
-| Calm | Peaceful tone |
-| Excited | Enthusiastic tone |
-| Gentle | Soft tone |
-
-#### Quick Parameter Settings
-
-| Parameter | Range | Default | Description |
-|-----------|-------|---------|-------------|
-| speed | 0.6-1.8 | 1.0 | Speech speed |
-| pitch | -4.0-4.0 | 0.0 | Pitch offset |
-| volume | 0.2-2.0 | 1.0 | Volume |
-| pause_duration | 0.0-2.0 | 0.5 | Pause duration (seconds) |
-
-#### Common Scenario Configurations
-
-##### Daily Conversation
-- speed: 1.0
-- pitch: 0.0
-- pause_duration: 0.5
-
-##### Emotional Expression
-- speed: 0.8
-- pitch: 0.5
-- pause_duration: 0.7
-
-##### Fast Dialogue
-- speed: 1.4
-- pitch: 0.0
-- pause_duration: 0.3
-
-##### Narrative Reading
-- speed: 0.9
-- pitch: -0.5
-- pause_duration: 0.8
-
-#### Example Dialogues
-
-##### Simple Dialogue
-
-```
-[Female1] Hello, can I help you?
-[Male1] I'd like to learn about your products.
-[Female1] Sure, our products have many advantages.
-[Male1] Can you introduce them in detail?
-[Female1] No problem, let me explain in detail.
-```
-
-##### Dialogue with Emotions
-
-```
-[Female1(Happy)] What a nice day!
-[Male1(Calm)] Yes, perfect for a walk.
-[Female1(Excited)] Let's go to the park!
-[Male1(Gentle)] Okay, I'll go with you.
-```
-
-##### Multi-Character Dialogue
-
-```
-[Female1] Hello everyone, welcome to today's meeting.
-[Male1] Thank you host, I'm glad to attend.
-[Female2] I'm also looking forward to today's discussion.
-[Male2] Let's start, time is limited.
-[Female1] Okay, let's first discuss the first topic.
-```
-
-#### Quick Checklist
-
-Check before use:
-- [ ] TTS model loaded
-- [ ] Dialogue text format correct
-- [ ] Speaker names correct
-- [ ] Emotion names correct
-- [ ] Output filename set
-
-#### FAQ & Solutions
-
-| Issue | Solution |
-|-------|----------|
-| Some segments not generated | Check speaker and emotion names |
-| Audio unnatural | Adjust pause time and speed |
-| Format parsing failed | Use bracket format |
-| Volume too low | Adjust volume parameter |
-
-## 7. Audio Time Alignment Nodes
-
-### 7.1 Forced Aligner Model Loader (llama_cpp_forced_aligner_loader)
-
-Forced aligner model loader node is used to load Qwen3-ForcedAligner model, supporting automatic detection and downloading of missing files.
-
-#### Node Parameters
-
-**Required Parameters:**
-- `forced_aligner_model`: Select forced aligner model file, supports Qwen3-ForcedAligner-0.6B model
-- `n_gpu_layers`: Number of model layers loaded to GPU, -1 means all layers to GPU
-
-**Optional Parameters:**
-- `precision`: Model precision selection, options: float16/bfloat16/float32, default float16
-- `batch_size`: Batch size, default 32, range 1-128
-- `flash_attention`: Enable FlashAttention2 optimization, requires flash-attn installation
-
-#### Supported Models
-- **Qwen3-ForcedAligner-0.6B**: Alibaba Qwen forced alignment model, supports precise time alignment between Chinese speech and text
-
-#### Model File Requirements
-- `model.safetensors`: Model weights file
-- `config.json`: Model configuration file
-- `tokenizer.json`: Tokenizer configuration file
-- `preprocessor_config.json`: Preprocessor configuration file
-
-#### Auto Download Feature
-The node automatically checks for required files, and downloads missing files from ModelScope or Hugging Face based on network connectivity.
-
-### 7.2 Forced Aligner Inference Node (llama_cpp_forced_aligner_inference)
-
-Forced aligner inference node inputs audio and text to ForcedAligner, outputs fine-grained timestamps (phoneme/word level).
-
-#### Node Parameters
-
-**Required Parameters:**
-- `aligner_model`: Connect output of forced aligner model loader
-- `audio`: Input audio data
-- `text`: Text content to align
-
-**Optional Parameters:**
-- `sample_rate`: Audio sample rate, default 16000Hz, range 8000-48000Hz
-- `output_format`: Output format, options: Text/SRT/VTT/JSON, default Text
-
-#### Output Description
-
-The node outputs three values:
-1. **aligned_text**: Aligned text
-2. **timestamps**: Timestamp data (JSON format), contains paragraph, word, and phoneme level time information
-3. **subtitle_text**: Subtitle format text (SRT or VTT format)
-
-#### Timestamp Data Structure
-```json
-{
-"task_id": "Task ID",
-"audio_info": {
-    "audio_duration": Audio duration (seconds),
-    "audio_sample_rate": Sample rate
-},
-"segments": [
-    {
-    "start": Start time (seconds),
-    "end": End time (seconds),
-    "text": "Segment text",
-    "words": [
-        {
-        "word": "Word",
-        "start": Start time (seconds),
-        "end": End time (seconds),
-        "phonemes": [
-            {
-            "phoneme": "Phoneme",
-            "start": Start time (seconds),
-            "end": End time (seconds)
-            }
-        ]
-        }
-    ]
-    }
-],
-"status": "success/failed",
-"error_msg": "Error message"
-}
-```
-
-### 7.3 TTS Alignment Node (tts_align)
-
-TTS alignment node uses timestamp data from forced aligner inference node to generate voice-over with precise text timeline alignment, supporting two modes: exact timing alignment and natural flow alignment.
-
-#### Node Parameters
-
-**Required Parameters:**
-- `tts_model`: TTS model
-- `timestamps`: Timestamp data, can be obtained from forced aligner inference node or imported from JSON file
-- `text`: Text content to synthesize
-- `sample_rate`: Audio sample rate, default 24000Hz, range 8000-48000Hz
-
-**Optional Parameters:**
-- `speed`: TTS speed, default 1.0, range 0.5-2.0
-- `align_mode`: Alignment mode, options: Exact Timing/Natural Flow, default Natural Flow
-- `silence_padding`: Silence padding after segments (seconds), default 0.1, range 0.0-1.0
-
-#### Alignment Mode Description
-- **Exact Timing**: Strictly generate audio according to timestamps, ensuring each segment duration matches timestamps exactly
-- **Natural Flow**: Maintain natural speech rhythm, do not force audio duration adjustment
-
-#### Output Description
-The node outputs two values:
-1. **aligned_audio**: Aligned audio
-2. **alignment_info**: Alignment information, containing alignment status and duration for each segment
-
-### 7.4 Role Configuration Node (RoleConfig)
-
-Role configuration node is used to configure role parameters, including name, voice, speed, pitch, volume, etc., supporting local TTS models.
-
-#### Node Parameters
-
-**Required Parameters:**
-- `role_name`: Role name
-
-**Local Model Parameters:**
-- `voice`: Local model voice, options:
-  - Vivian - Bright, slightly sharp young female voice (Chinese)
-  - Serena - Warm, soft young female voice (Chinese)
-  - Uncle_Fu - Deep, rich mature male voice (Chinese)
-  - Dylan - Clear, natural Beijing dialect male voice (Chinese)
-- `emotion`: Local model emotion, options: default/happy/sad/angry/surprised/calm/excited/gentle, default default
-
-**General Parameters:**
-- `speed`: Speech speed, default 1.0, range 0.5-2.0
-- `pitch`: Pitch offset, default 0.0, range -5.0-5.0
-- `volume`: Volume, default 1.0, range 0.1-2.0
-
-#### Output Description
-The node outputs one value:
-- **role_config**: Role configuration dictionary, containing all configuration parameters
-
-## 8. FAQ & Solutions
-
-### 8.1 TTS Audio Output Failed
-
-**Reasons:**
-- TTS model does not support specified voice or emotion
-- Text length exceeds model limit
-- Missing required audio processing dependencies
-
-**Solutions:**
-- Check supported voice and emotion range for TTS model
-- Reduce input text length
-- Install required audio processing libraries
-
-### 8.2 TTS Voice Cloning Poor Quality
-
-**Reasons:**
-- Poor reference audio quality
-- Incorrect reference audio format
-- Inappropriate reference audio duration
-
-**Solutions:**
-- Use clear reference audio, avoid noise and background music
-- Ensure reference audio is WAV format, mono, 48000Hz
-- Control reference audio duration between 3-60 seconds
-
-### 8.3 Low ASR Recognition Accuracy
-
-**Reasons:**
-- Poor audio quality
-- Mismatched language settings
-- Inappropriate model selection
-
-**Solutions:**
-- Use clear audio files
-- Set correct language parameters
-- Select appropriate ASR model for language and scenario
-
-### 8.4 Audio Save Failed
-
-**Reasons:**
-- Incorrect audio data format
-- Output path does not exist
-- Unsupported format
-
-**Solutions:**
-- Ensure audio data contains waveform and sample_rate fields
-- Check if output path exists
-- Use supported formats (wav/mp3/flac/ogg)
-
-## 9. Usage Flow Examples
-
-### 9.1 TTS Speech Synthesis
-
-1. **Load Models**:
-   - Use `llama_cpp_model_loader` node to load LLM model
-   - Use `llama_cpp_tts_loader` node to load TTS model (e.g., Qwen3-TTS)
-
-2. **Configure Unified Inference Node**:
-   - Use `llama_cpp_unified_inference` node
-   - Select inference mode: `[Basic] Text to Audio`
-   - Connect LLM model to `Llama Model` input
-   - Connect TTS model to `tts_model` input
-   - Set TTS voice (tts_voice), emotion (tts_emotion), and speed (tts_speed)
-
-3. **Provide Text Input**:
-   - Enter text to synthesize in `Text Input`
-   - Select appropriate preset template
-
-4. **Save Audio**:
-   - Use `llama_cpp_audio_saver` audio save node
-   - Connect `audio` output of inference node to audio save node
-   - Select save format (WAV recommended)
-
-### 9.2 ASR Speech Recognition
-
-1. **Load Models**:
-   - Use `llama_cpp_model_loader` node to load LLM model
-   - Use `llama_cpp_asr_loader` node to load ASR model (e.g., Qwen3-ASR)
-
-2. **Configure Unified Inference Node**:
-   - Use `llama_cpp_unified_inference` node
-   - Select inference mode: `[Basic] Audio to Text`
-   - Connect LLM model to `Llama Model` input
-   - Connect ASR model to `asr_model` input
-   - Set ASR language (asr_language)
-
-3. **Provide Audio Input**:
-   - Connect audio input to `audio` port
-
-4. **Run Recognition**:
-   - Get recognized text output
-
-### 9.3 Multi-Speaker Conversation Synthesis
-
-1. **Load TTS Model**:
-   - Use `llama_cpp_tts_loader` node to load TTS model (e.g., Qwen3-TTS)
-
-2. **Configure Multi-Speaker TTS Node**:
-   - Use `multi_speaker_tts` node
-   - Connect TTS model to `tts_model` input
-   - Enter multi-speaker dialogue text in `dialogue_text`
-   - Set `output_name` output filename
-
-3. **Set Dialogue Parameters**:
-   - Set `default_speaker` default speaker
-   - Set `default_emotion` default emotion
-   - Adjust `speed` parameter
-   - Set `pause_duration` pause time between speakers
-
-4. **Generate Dialogue Audio**:
-   - Run workflow
-   - Audio file will be saved in audio subdirectory of ComfyUI output directory
-
-## 10. Multi-Image Input Node Guide
-
-### 10.1 Node Overview
+### 5.1 Node Overview
 
 **Multi-Image Input (Story Creation)** node supports two working modes:
 
 1. **Image Mode**: Analyze multiple images and create story content, supports multiple video generation models (WAN2.2, LTX2, etc.)
 2. **Text Mode**: Generate prompts through option settings, no image input required
 
-### 10.2 Node Functions
+### 5.2 Node Functions
 
 #### Main Functions
 1. **Dual Mode Support**: Flexible switching between image mode and text mode
@@ -1120,7 +484,7 @@ The node outputs one value:
 6. **Multiple Applications**: Supports story creation, script writing, advertising copy, and other content types
 7. **Image Output**: Pass image data to inference node
 
-### 10.3 Input Parameters
+### 5.3 Input Parameters
 
 #### Working Mode
 - **mode** (dropdown): Working mode
@@ -1167,12 +531,12 @@ The node outputs one value:
   - General Video: Balances scene description and narrative fluency
   - Custom: Custom video generation model
 
-### 10.4 Output Parameters
+### 5.4 Output Parameters
 
 - **prompt** (STRING): Generated content creation prompt
 - **images** (IMAGE): Image data (returns preprocessed images in image mode, None in text mode)
 
-### 10.5 Usage Methods
+### 5.5 Usage Methods
 
 #### Image Mode Examples
 
@@ -1217,7 +581,7 @@ LTX2 output format: 5-6 shots, 5-10 seconds each
 - Content Focus: Emphasize Dialogue
 - Target Audience: General Public
 
-### 10.6 Best Practices
+### 5.6 Best Practices
 
 #### Mode Selection Recommendations
 - **Image Mode**: Have specific image materials to analyze
@@ -1238,7 +602,7 @@ LTX2 output format: 5-6 shots, 5-10 seconds each
    - Medium video (30-60 seconds): Within 400 words
    - Long video (60-120 seconds): Within 600 words
 
-### 10.7 FAQ
+### 5.7 FAQ
 
 **Q1: What's the difference between Image Mode and Text Mode?**
 - **Image Mode**: Requires images, model analyzes image content and creates stories
@@ -1252,9 +616,9 @@ Solutions: Select more coherent images/Try different story types/Add more specif
 - **Image Mode**: prompt→custom_prompt, images→images
 - **Text Mode**: prompt→custom_prompt, no need to connect images
 
-## 11. Prompt Weighting Techniques & Methods
+## 6. Prompt Weighting Techniques & Methods
 
-### 11.1 Semantic Priority Ordering
+### 6.1 Semantic Priority Ordering
 
 The preset templates in this plugin use a **semantic priority ordering** mechanism, which automatically sorts and emphasizes different elements by importance when generating prompts.
 
@@ -1278,7 +642,7 @@ When you input "Ancient Chinese fantasy girl, blue hanfu", the template will:
 3. **Thirdly process**: Lighting atmosphere (soft morning light, golden rim light), color matching (light blue + gold + white)
 4. **Finally supplement**: Scene environment (ancient courtyard, falling cherry blossoms), style tags (beautiful, mysterious, artistic hand-painted)
 
-### 11.2 Emphasizing Elements via text_input
+### 6.2 Emphasizing Elements via text_input
 
 You can use the following techniques in the `User Input Text (text_input)` field to emphasize or de-emphasize specific elements:
 
@@ -1316,7 +680,7 @@ Directly tell the model which elements are more important:
 Ancient Chinese fantasy girl, focus on facial expression and clothing details, simplify background processing
 ```
 
-### 11.3 SD/Flux Style Weight Syntax
+### 6.3 SD/Flux Style Weight Syntax
 
 Although prompts generated by this plugin do not directly include weight syntax, you can manually add weights after generation or when passing prompts to downstream image generation nodes.
 
@@ -1355,7 +719,7 @@ An extremely beautiful ancient Chinese fantasy girl, (blue hanfu:1.3), (exquisit
 ancient courtyard, (falling cherry blossoms:1.2), (background:0.6)
 ```
 
-### 11.4 Negative Prompt Weighting
+### 6.4 Negative Prompt Weighting
 
 Negative prompts can also use weight syntax to control their strength:
 
@@ -1366,7 +730,7 @@ negative prompt:
 (blurry:1.2), (bad anatomy:1.3), (bad proportions:1.2)
 ```
 
-### 11.5 Practical Application Recommendations
+### 6.5 Practical Application Recommendations
 
 #### Scenario 1: Emphasize Character Features
 
@@ -1395,7 +759,7 @@ text_input: Cyberpunk style, strong neon effects
 After generation manual adjustment: (cyberpunk:1.5), (neon effects:1.4), (neon lights:1.3)
 ```
 
-### 11.6 Notes
+### 6.6 Notes
 
 1. **Avoid excessively high weights**: Extremely high weight values (e.g., >3.0) may cause unstable generation or produce strange results
 2. **Balance positive and negative weights**: Maintain a reasonable ratio between positive and negative prompt weights
