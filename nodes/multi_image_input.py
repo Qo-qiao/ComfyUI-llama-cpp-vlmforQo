@@ -861,7 +861,7 @@ class omni_llm_multi_image_input:
 
         返回：
         - 模型特定的提示词指令字符串。对于Wan2.2/LTX2.3/MiniMax‑H3，直接复用项目统一视频模型公式库
-          （support/universal_video.py）的权威约束，内容包含各模型原生语法规范：
+          （support/continuing_t2v.py）的权威约束，内容包含各模型原生语法规范：
           Wan2.2禁特殊符号与全角标点、动作拆"速度+方向+部位"、主体锚点保一致；
           LTX2.3台词用英文双引号、表情用物理动作体现；
           MiniMax‑H3使用三段式结构（integrated_multimodal_description / overall_soundscape /
@@ -885,11 +885,11 @@ class omni_llm_multi_image_input:
         if video_model in fallback_instructions:
             return fallback_instructions[video_model][lang_key]
         
-        # 从项目统一视频模型公式库（support/universal_video.py）复用权威约束，
+        # 从项目统一视频模型公式库（support/continuing_t2v.py）复用权威约束，
         # 与统一推理节点的视频模型约束保持一致，避免两套指令漂移
         try:
-            from support.universal_video import UniversalVideo
-            formula_library = UniversalVideo().video_model_formula_library
+            from support.continuing_t2v import ContinuingT2V
+            formula_library = ContinuingT2V().video_model_formula_library
             formula = formula_library.get(video_model, {})
             instruction = formula.get("formula_zh" if lang_key == "zh" else "formula_en", "")
             if instruction:
