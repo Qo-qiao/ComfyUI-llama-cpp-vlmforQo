@@ -22,7 +22,7 @@ scipy>=1.7.0
 diskcache
 gguf
 packaging
-transformers<=4.76
+transformers
 # ===========================================
 # llama-cpp-python 依赖（必须安装）
 # 使用 JamePeng 构建的带 CUDA/MPS 加速的预编译版本
