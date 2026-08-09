@@ -105,7 +105,7 @@ class omni_llm_multi_image_input:
                     "MiniMax‑H3",
                     "General Video",
                     "Custom"
-                ], {"default": "Wan2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式。选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）"}),
+                ], {"default": "Wan2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式：Wan2.2禁特殊符号与全角标点、一条提示词=一个镜头，选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）；LTX2.3台词需用英文双引号包裹；MiniMax‑H3需使用三段式标签结构（[Shot N]镜头编号、<d>台词标签、整体环境音与BGM分段字段）"}),
             }
         }
     
@@ -854,13 +854,19 @@ class omni_llm_multi_image_input:
     def _get_video_model_instruction(self, video_model, language="中文"):
         """
         获取视频模型特定的提示词指令
-        
+
         参数说明：
         - video_model: 视频生成模型类型（Wan2.2/LTX2.3/MiniMax‑H3/General Video/Custom）
         - language: 语言（中文/English）
-        
+
         返回：
-        - 模型特定的提示词指令字符串
+        - 模型特定的提示词指令字符串。对于Wan2.2/LTX2.3/MiniMax‑H3，直接复用项目统一视频模型公式库
+          （support/universal_video.py）的权威约束，内容包含各模型原生语法规范：
+          Wan2.2禁特殊符号与全角标点、动作拆"速度+方向+部位"、主体锚点保一致；
+          LTX2.3台词用英文双引号、表情用物理动作体现；
+          MiniMax‑H3使用三段式结构（integrated_multimodal_description / overall_soundscape /
+          non_diegetic_music）与标签体系（[Shot N]镜头编号、<d>[语言]台词</d>、说话人ID (S1)、
+          <scenetrans>/<cutoff>衔接标记）。
         """
         
         lang_key = "zh" if language == "中文" else "en"

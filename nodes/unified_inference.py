@@ -275,16 +275,16 @@ from support.ecommerce import (
     Ecommerce,
 )
 #文生视频
-from support.universal_video import (
-    UniversalVideo,
+from support.continuing_t2v import (
+    ContinuingT2V,
 )
 #首帧延续图生视频
 from support.continuing_i2v import (
     ContinuingI2V,
 )
 #首尾帧图生视频
-from support.continuing_flf2v import (
-    ContinuingFLF2V,
+from support.continuing_fl2v import (
+    ContinuingFL2V,
 )
 #多关键帧序列图生视频
 from support.continuing_multi_storyboard import (
@@ -319,7 +319,7 @@ from support.song_creation import (
 IMAGE_MODEL_OPTIONS = ["Auto"] + [m for m in HyperRealisticFemale().model_formula_library.keys() if m != "SDXL"]
 
 # 视频生成模型选项
-VIDEO_MODEL_OPTIONS = ["Auto"] + list(UniversalVideo().video_model_formula_library.keys())
+VIDEO_MODEL_OPTIONS = ["Auto"] + list(ContinuingT2V().video_model_formula_library.keys())
 
 class VideoProcessor:
     """视频处理器 - 处理视频输入、视频帧提取和视频理解功能"""
@@ -682,14 +682,14 @@ class omni_llm_unified_inference:
     preset_prompts["[Design] Architecture Rendering"] = "ARCHITECTURE_RENDERING"
     preset_prompts["[Design] Ecommerce Product"] = "ECOMMERCE"
     preset_prompts["[Design] Food Photography"] = "FOOD_PHOTOGRAPHY"
-    preset_prompts["[Text to Video] Universal"] = "UNIVERSAL_VIDEO"
+    preset_prompts["[Text to Video] T2V"] = "CONTINUING_T2V"
     preset_prompts["[Image to Video] I2V"] = "CONTINUING_I2V"
-    preset_prompts["[Image to Video] FLF2V"] = "CONTINUING_FLF2V"
-    preset_prompts["[Image to Video] Multi Storyboard"] = "CONTINUING_MULTI_STORYBOARD"
-    preset_prompts["[Video Analysis] Frame Sequence"] = "VIDEO_FRAME_SEQUENCE"
-    preset_prompts["[Video Analysis] Reverse Prompt"] = "VIDEO_TO_PROMPT"
-    preset_prompts["[Video Analysis] Scene Breakdown"] = "VIDEO_SCENE_BREAKDOWN"
-    preset_prompts["[Video Analysis] Subtitle"] = "VIDEO_SUBTITLE_FORMAT"
+    preset_prompts["[Image to Video] FL2V"] = "CONTINUING_FL2V"
+    preset_prompts["[Image to Video] Multi"] = "CONTINUING_MULTI_STORYBOARD"
+    preset_prompts["[Video Reverse] Frame Sequence"] = "VIDEO_FRAME_SEQUENCE"
+    preset_prompts["[Video Reverse] Describe"] = "VIDEO_TO_PROMPT"
+    preset_prompts["[Video Reverse] Scene Breakdown"] = "VIDEO_SCENE_BREAKDOWN"
+    preset_prompts["[Video Reverse] Subtitle"] = "VIDEO_SUBTITLE_FORMAT"
     preset_prompts["[Audio] Multi-Speaker Dialogue"] = "MULTI_SPEAKER_DIALOGUE"
     preset_prompts["[Music] Song Creation"] = "SONG_CREATION"
 
@@ -715,12 +715,12 @@ class omni_llm_unified_inference:
                     }),
                 
                 # ========== 提示词配置 ==========
-                "preset_prompt": (s.preset_tags, {"default": s.preset_tags[1], "tooltip": "选择预设提示词模板：\n• Empty - Nothing：无预设，完全自定义\n• [Reverse] Tags：反推XL标签格式提示词\n• [Reverse] Describe：通用图片反推提示词\n• [Normal] Expand：通用提示词文本优化\n• [Anime] Illustrious：二次元角色风格文本优化\n• [Anime] Anime Prompt Expand：二次元内容文本优化\n• [Anime] Thick Paint Role：角色厚涂CG文本优化\n• [Portrait] Asian Female：真实亚洲女性人像文本优化\n• [Portrait] Asian Male：真实亚洲男性人像文本优化\n• [Portrait] Western Female：真实欧美女性人像文本优化\n• [Portrait] Western Male：真实欧美男性人像文本优化\n• [Portrait] Hyper Realistic Female：超写实女性人像文本优化\n• [Portrait] Hyper Realistic Male：超写实男性人像文本优化\n• [Portrait] Young Boy：儿童人像文本优化\n• [Portrait] Middle Elderly Female：中老年女性人像文本优化\n• [Portrait] Middle Elderly Male：中老年男性人像文本优化\n• [Design] Art Illustration：艺术插画文本优化\n• [Design] Poster Design：海报设计文本优化\n• [Design] Scene Design：场景设计文本优化\n• [Design] Interior Design：室内设计文本优化\n• [Design] Architecture Rendering：建筑外观与园林渲染\n• [Design] Ecommerce Product：电商产品文本优化\n• [Design] Food Photography：美食摄影文本优化\n• [Text to Video] Universal：扩写视频文本内容\n• [Image to Video] I2V：根据图片扩写视频文本内容\n• [Image to Video] FLF2V：根据首尾帧图片扩写视频文本内容\n• [Image to Video] Multi Storyboard:根据图片与文本扩写视频文本内容\n• [Video Analysis] Frame Sequence：帧分析视频内容\n• [Video Analysis] Reverse Prompt：通用视频反推提示词\n• [Video Analysis] Scene Breakdown：反推各分镜场景内容\n• [Video Analysis] Subtitle：结合字幕与视频反推情绪化文本\n• [Audio] Multi-Speaker Dialogue：多人对话情绪化优化\n• [Music] Song Creation：歌词创作文本优化"}),
+                "preset_prompt": (s.preset_tags, {"default": s.preset_tags[1], "tooltip": "选择预设提示词模板：\n• Empty - Nothing：无预设，完全自定义\n• [Reverse] Tags：反推SDXL标签格式提示词\n• [Reverse] Describe：反推图片提示词\n• [Normal] Expand：提示词文本优化\n• [Anime] Illustrious：二次元角色风格文本优化\n• [Anime] Anime Prompt Expand：二次元内容文本优化\n• [Anime] Thick Paint Role：角色厚涂CG文本优化\n• [Portrait] Asian Female：真实亚洲女性人像文本优化\n• [Portrait] Asian Male：真实亚洲男性人像文本优化\n• [Portrait] Western Female：真实欧美女性人像文本优化\n• [Portrait] Western Male：真实欧美男性人像文本优化\n• [Portrait] Hyper Realistic Female：超写实女性人像文本优化\n• [Portrait] Hyper Realistic Male：超写实男性人像文本优化\n• [Portrait] Young Boy：儿童人像文本优化\n• [Portrait] Middle Elderly Female：中老年女性人像文本优化\n• [Portrait] Middle Elderly Male：中老年男性人像文本优化\n• [Design] Art Illustration：艺术插画文本优化\n• [Design] Poster Design：海报设计文本优化\n• [Design] Scene Design：场景设计文本优化\n• [Design] Interior Design：室内设计文本优化\n• [Design] Architecture Rendering：建筑外观与园林渲染\n• [Design] Ecommerce Product：电商产品文本优化\n• [Design] Food Photography：美食摄影文本优化\n• [Text to Video] T2V：扩写视频文本内容\n• [Image to Video] I2V：根据图片扩写视频文本内容\n• [Image to Video] FL2V：根据首尾帧图片扩写视频文本内容\n• [Image to Video] Multi Storyboard:根据图片与文本扩写视频文本内容\n• [Video Reverse] Frame Sequence：帧分析视频内容\n• [Video Reverse] Describe：反推视频提示词\n• [Video Reverse] Scene Breakdown：反推各分镜场景内容\n• [Video Reverse] Subtitle：结合字幕与视频反推情绪化文本\n• [Audio] Multi-Speaker Dialogue：多人对话情绪化优化\n• [Music] Song Creation：歌词创作文本优化"}),
                 "system_prompt": ("STRING", {"multiline": True, "default": "你是一位优秀的AI提示词处理专家。", "tooltip": "系统提示词，定义AI助手的角色和行为，可包含预设模板占位符#和自定义内容"}),
                 "text_input": ("STRING", {"default": "", "multiline": True, "tooltip": "用户输入文本，作为对话的用户消息内容"}),
                 
                 # ========== 语言设置 ==========
-                "prompt_language": (["中文", "English"], {"default": "中文", "tooltip": "预设提示词的语言"}),
+                "prompt_language": (["中文", "English"], {"default": "中文", "tooltip": "预设模板的语言"}),
                 "response_language": (["中文", "English"], {"default": "中文", "tooltip": "AI回复的语言"}),
                 
                 # ========== 输出格式设置 ==========
@@ -811,9 +811,9 @@ class omni_llm_unified_inference:
             "ARCHITECTURE_RENDERING": (ArchitectureRendering(), "architecture_rendering"),
             "ECOMMERCE": (Ecommerce(), "ecommerce"),
             "FOOD_PHOTOGRAPHY": (FoodPhotography(), "food_photography"),
-            "UNIVERSAL_VIDEO": (UniversalVideo(), "universal_video"),
+            "CONTINUING_T2V": (ContinuingT2V(), "continuing_t2v"),
             "CONTINUING_I2V": (ContinuingI2V(), "continuing_i2v"),
-            "CONTINUING_FLF2V": (ContinuingFLF2V(), "continuing_flf2v"),
+            "CONTINUING_FL2V": (ContinuingFL2V(), "continuing_fl2v"),
             "CONTINUING_MULTI_STORYBOARD": (ContinuingMultiStoryboard(), "continuing_multi_storyboard"),
             "VIDEO_FRAME_SEQUENCE": (VideoFrameSequence(), "video_frame_sequence"),
             "VIDEO_TO_PROMPT": (VideoToPrompt(), "video_to_prompt"),
