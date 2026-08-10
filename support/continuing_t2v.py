@@ -34,8 +34,8 @@ class ContinuingT2V:
             "MiniMax‑H3": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "MiniMax‑H3模型约束：时长仅支持4‑15秒整数秒，不支持小数秒；**支持负向提示词（negative_prompt字段）**，缺陷规避约束同时写入正向提示词和negative_prompt；原生音画同步，支持台词、环境音、BGM。\n\n**【强制四字段输出结构】MiniMax H3输出时必须包含以下四个独立字段，混写会导致解析混乱和音频分层失效：\n(1) integrated_multimodal_description: 画面描述、角色动作序列、镜头运动、台词、\n    **与画面同步的人物动作音效**（脚步由远及近、衣物摩擦、裙摆猎猎声等）\n(2) overall_soundscape: **仅限纯环境背景音**（微风持续声、树叶沙沙、远处鸟鸣、环境底噪），\n    严禁出现任何人物动作相关音效（脚步声、衣物摩擦声等全部放在(1)中）\n(3) non_diegetic_music: 背景音乐BGM（描述曲风与情绪，如“轻快明亮的钢琴旋律，情绪昂扬向上”；无BGM则写“无”）\n(4) negative_prompt: 负向提示词，列出需规避的缺陷（如 多余路人, 肢体扭曲, 穿模, 面部崩坏, 模糊, 水印）\n\n**【音效分离铁律 — 最高优先级】**人物动作同步音效（脚步、衣物、裙摆、呼吸）与纯环境背景音（风声、树叶、底噪）严禁出现在同一字段，严禁重复定义同一音效：\n  - integrated_multimodal_description: 人物动作音效从起始时间点就标注贯穿全程（如“伴随由远及近的脚步声”），不要只在单个时间点描述\n  - overall_soundscape: 只写环境音，如果写了脚步声等人物音效=输出不合格\n\n**【时间锚点规范】每个[Shot N]搭配At 00:00.000时间戳；动作序列必须包含起始、中间、结束3‑4个时间节点，**最后一个时间戳必须与视频总时长严格对应**：\n  - 8秒视频示例：At 00:00.000 起始远景 → At 00:03.000 中间状态 → At 00:06.000 后段状态 → At 00:08.000 最终结束状态\n  - 无结束时间戳会导致后半段速度节奏完全随机失控\n\n**【镜头运动简化】**H3对复合镜头运动控制力弱，必须简化：\n  - 禁止复合运动（如“平移并推进”“推拉结合”），容易导致人物出画、背景扭曲\n  - 优先固定机位：纯靠人物自身运动产生景别变化（最稳定）\n  - 或单一运动：仅保留一种（如仅“缓慢向前推进”）\n  - 禁止“定格”“冻结帧”“画面定格在XX”等指令（H3不支持，写了无效且干扰运动收尾）\n\n**【单镜头景别跨度压缩】单镜头景别变化不超过两个层级（如远景→中远景→中景），**禁止远景→中景→近景三级跳**。大跨度场景必须拆分多镜头。\n\n**【人物锚点具体化】至少3个具体区分特征，禁止模糊描述：\n  - 正确：“黑色齐腰直发”“白色圆领”“棉麻面料连衣裙”\n  - 错误：“黑色长发”“白色连衣裙”（太粗，大动态下易漂移）\n  - 禁止“或”字二选一（如“树林或建筑”→必须明确单一背景“模糊的树林轮廓”）\n\n**【风格前置】核心画面风格（光线类型与时段、整体色调、画面清晰度）必须放在镜头起始位置（At 00:00.000之后），禁止放在段落末尾，长文本末尾注意力衰减会导致风格描述失效。\n\n**【H3禁止项】**禁止百分比坐标；禁止色彩占比数字；禁止画面比例参数；禁止微观纹理要求；禁止无时间锚点的裸动作序列；禁止否定性约束只写正向不写negative_prompt。\n\n内容组织顺序（integrated_multimodal_description内）：At时间戳 → 场景光影与风格 → 主体外貌（具体锚点） → 时序动作 → 镜头运动（单一） → 动作同步音效。输出时严格按四个字段输出，不额外添加解释或注释。",
-                "formula_en": "MiniMax‑H3 constraint: only integer seconds 4‑15s, float second invalid. **Supports negative prompt (negative_prompt field)**, defect‑avoid rules written into both positive prompt and negative_prompt. Native audio‑visual sync, support dialogue, ambient sound, BGM.\n\n**Mandatory Four‑Field Output Structure — H3 output must include these four separate fields; mixing causes parsing failure and audio layer collapse:\n(1) integrated_multimodal_description: visual description, character action sequence, camera movement, dialogue,\n    **AND character action sync sound** (footsteps approaching, fabric rustle, dress flapping, etc.)\n(2) overall_soundscape: **ONLY pure ambient background sound** (continuous breeze, rustling leaves, distant birds, environmental noise floor),\n    DO NOT include any character action sounds (footsteps, fabric sounds all go in (1))\n(3) non_diegetic_music: background music BGM (describe genre & mood, e.g. \"a bright piano melody with uplifting emotion\"; write \"none\" if no BGM)\n(4) negative_prompt: negative prompt listing defects to avoid (e.g. extra people, limb distortion, clipping, face collapse, blur, watermark)\n\n**Audio Separation Rule — HIGHEST PRIORITY: character action sync sound (footsteps, clothing, dress, breathing) and pure ambient sound (wind, leaves, noise floor) must NEVER appear in the same field; NEVER define the same sound twice:\n  - integrated_multimodal_description: action sounds start from the first timestamp and persist throughout (e.g. \"accompanied by approaching footsteps from afar\"), avoid single‑point description\n  - overall_soundscape: ambient only; if footsteps or character sounds appear here = FAIL\n\n**Time Anchor Specification: every [Shot N] paired with At 00:00.000 timestamp; action sequences must have start, middle, and end (3‑4 time nodes), with the **final timestamp strictly matching total video duration**:\n  - 8‑second example: At 00:00.000 start long‑shot → At 00:03.000 mid state → At 00:06.000 later state → At 00:08.000 final end state\n  - Missing end timestamp causes back‑half pacing to become completely random and uncontrollable\n\n**Camera Movement Simplification: H3 has weak control over compound camera movements, must simplify:\n  - Forbid compound movements (e.g. \"pan and push\" \"dolly zoom\"), tends to cause subject exiting frame, background distortion\n  - Prefer fixed camera: let subject's own motion create perspective change (most stable)\n  - Or single movement: keep only one (e.g. \"slowly push forward\" only)\n  - Forbid \"freeze frame\" \"hold frame\" \"freeze on XX\" instructions (H3 doesn't support, ineffective and disrupts motion ending)\n\n**Single‑Shot Perspective Span Compression: perspective change within single shot limited to two levels (e.g. long → medium‑long → medium), FORBID long → medium → close‑up triple jump. Large‑span scenes must be split into multiple shots.\n\n**Character Anchor Specificity: at least 3 specific distinguishing features, forbid vague descriptions:\n  - Correct: \"waist‑length straight black hair\" \"white round‑neck\" \"linen‑cotton dress\"\n  - Wrong: \"black long hair\" \"white dress\" (too coarse, easily drifts under heavy motion)\n  - Forbid \"or\" ambiguity (e.g. \"woods or buildings\" → use definitive: \"blurred tree silhouettes\")\n\n**Style Front‑loading: core visual style (light type & time of day, overall color palette, image clarity) must be placed at the shot start (right after At 00:00.000), FORBID placing at paragraph end; attention decay at long text end causes style descriptions to be ignored.\n\n**H3 Forbidden Items: forbid percentage coordinates; forbid color ratio numbers; forbid aspect ratio params; forbid micro‑texture demands; forbid bare action sequences without time anchors; forbid negative constraints in positive prompt only without negative_prompt.\n\nContent order (within integrated_multimodal_description): At timestamp → scene lighting & style → subject appearance (specific anchors) → chronological action → camera movement (single) → action sync sound. Output strictly in four‑field format, no extra commentary."
+                "formula_zh": "MiniMax‑H3模型约束：时长仅支持4‑15秒整数秒，不支持小数秒；**支持负向提示词（negative_prompt字段）**，缺陷规避约束同时写入正向提示词和negative_prompt；原生音画同步，支持台词、环境音、BGM。\n\n**【强制四字段输出结构】MiniMax H3输出时必须包含以下四个独立字段，混写会导致解析混乱和音频分层失效：\n(1) integrated_multimodal_description: 画面描述、角色动作序列、镜头运动、台词、\n    **与画面同步的人物动作音效**（脚步由远及近、衣物摩擦、裙摆猎猎声等）\n(2) overall_soundscape: **仅限纯环境背景音**（微风持续声、树叶沙沙、远处鸟鸣、环境底噪），\n    严禁出现任何人物动作相关音效（脚步声、衣物摩擦声等全部放在(1)中）\n(3) non_diegetic_music: 背景音乐BGM（描述曲风与情绪，如“轻快明亮的钢琴旋律，情绪昂扬向上”；无BGM则写“无”）\n(4) negative_prompt: 负向提示词，以逗号分隔列出需规避的缺陷（如 多余路人, 肢体扭曲, 穿模, 面部崩坏, 模糊, 水印）\n\n**【音效分离铁律 — 最高优先级】**人物动作同步音效（脚步、衣物、裙摆、呼吸）与纯环境背景音（风声、树叶、底噪）严禁出现在同一字段，严禁重复定义同一音效：\n  - integrated_multimodal_description: 人物动作音效从起始时间点就标注贯穿全程（如“伴随由远及近的脚步声”），不要只在单个时间点描述\n  - overall_soundscape: 只写环境音，如果写了脚步声等人物音效=输出不合格\n\n**【时间锚点规范】每个[Shot N]搭配At 00:00.000时间戳（首镜头[Shot 1]无需时间戳，默认起始00:00.000）；动作序列必须包含起始、中间、结束3‑4个时间节点，**最后一个时间戳必须与视频总时长严格对应**：\n  - 8秒视频示例：At 00:00.000 起始远景 → At 00:03.000 中间状态 → At 00:06.000 后段状态 → At 00:08.000 最终结束状态\n  - 无结束时间戳会导致后半段速度节奏完全随机失控\n\n**【镜头运动简化】**H3对复合镜头运动控制力弱，必须简化：\n  - 禁止复合运动（如“平移并推进”“推拉结合”），容易导致人物出画、背景扭曲\n  - 优先固定机位：纯靠人物自身运动产生景别变化（最稳定）\n  - 或单一运动：仅保留一种（如仅“缓慢向前推进”）\n  - 禁止“定格”“冻结帧”“画面定格在XX”等指令（H3不支持，写了无效且干扰运动收尾）\n\n**【单镜头景别跨度压缩】单镜头景别变化不超过两个层级（如远景→中远景→中景），**禁止远景→中景→近景三级跳**。大跨度场景必须拆分多镜头。\n\n**【人物锚点具体化】至少3个具体区分特征，禁止模糊描述：\n  - 正确：“黑色齐腰直发”“白色圆领”“棉麻面料连衣裙”\n  - 错误：“黑色长发”“白色连衣裙”（太粗，大动态下易漂移）\n  - 禁止“或”字二选一（如“树林或建筑”→必须明确单一背景“模糊的树林轮廓”）\n\n**【风格前置】核心画面风格（光线类型与时段、整体色调、画面清晰度）必须放在[Shot 1]开头首句（顺序：风格类型→场景氛围→镜头运动→主体外貌），后续每个镜头从镜头运动开始；禁止放在段落末尾，长文本末尾注意力衰减会导致风格描述失效。\n\n**【H3禁止项】**禁止百分比坐标；禁止色彩占比数字；禁止画面比例参数；禁止微观纹理要求；禁止无时间锚点的裸动作序列；禁止否定性约束只写正向不写negative_prompt。\n\n内容组织顺序（integrated_multimodal_description内）：At时间戳 → 场景光影与风格 → 主体外貌（具体锚点） → 时序动作 → 镜头运动（单一） → 动作同步音效。输出时严格按四个字段输出，不额外添加解释或注释。",
+                "formula_en": "MiniMax‑H3 constraint: only integer seconds 4‑15s, float second invalid. **Supports negative prompt (negative_prompt field)**, defect‑avoid rules written into both positive prompt and negative_prompt. Native audio‑visual sync, support dialogue, ambient sound, BGM.\n\n**Mandatory Four‑Field Output Structure — H3 output must include these four separate fields; mixing causes parsing failure and audio layer collapse:\n(1) integrated_multimodal_description: visual description, character action sequence, camera movement, dialogue,\n    **AND character action sync sound** (footsteps approaching, fabric rustle, dress flapping, etc.)\n(2) overall_soundscape: **ONLY pure ambient background sound** (continuous breeze, rustling leaves, distant birds, environmental noise floor),\n    DO NOT include any character action sounds (footsteps, fabric sounds all go in (1))\n(3) non_diegetic_music: background music BGM (describe genre & mood, e.g. \"a bright piano melody with uplifting emotion\"; write \"none\" if no BGM)\n(4) negative_prompt: negative prompt comma-separated listing of defects to avoid (e.g. extra people, limb distortion, clipping, face collapse, blur, watermark)\n\n**Audio Separation Rule — HIGHEST PRIORITY: character action sync sound (footsteps, clothing, dress, breathing) and pure ambient sound (wind, leaves, noise floor) must NEVER appear in the same field; NEVER define the same sound twice:\n  - integrated_multimodal_description: action sounds start from the first timestamp and persist throughout (e.g. \"accompanied by approaching footsteps from afar\"), avoid single‑point description\n  - overall_soundscape: ambient only; if footsteps or character sounds appear here = FAIL\n\n**Time Anchor Specification: every [Shot N] paired with At 00:00.000 timestamp (first shot [Shot 1] has no timestamp, defaults to 00:00.000); action sequences must have start, middle, and end (3‑4 time nodes), with the **final timestamp strictly matching total video duration**:\n  - 8‑second example: At 00:00.000 start long‑shot → At 00:03.000 mid state → At 00:06.000 later state → At 00:08.000 final end state\n  - Missing end timestamp causes back‑half pacing to become completely random and uncontrollable\n\n**Camera Movement Simplification: H3 has weak control over compound camera movements, must simplify:\n  - Forbid compound movements (e.g. \"pan and push\" \"dolly zoom\"), tends to cause subject exiting frame, background distortion\n  - Prefer fixed camera: let subject's own motion create perspective change (most stable)\n  - Or single movement: keep only one (e.g. \"slowly push forward\" only)\n  - Forbid \"freeze frame\" \"hold frame\" \"freeze on XX\" instructions (H3 doesn't support, ineffective and disrupts motion ending)\n\n**Single‑Shot Perspective Span Compression: perspective change within single shot limited to two levels (e.g. long → medium‑long → medium), FORBID long → medium → close‑up triple jump. Large‑span scenes must be split into multiple shots.\n\n**Character Anchor Specificity: at least 3 specific distinguishing features, forbid vague descriptions:\n  - Correct: \"waist‑length straight black hair\" \"white round‑neck\" \"linen‑cotton dress\"\n  - Wrong: \"black long hair\" \"white dress\" (too coarse, easily drifts under heavy motion)\n  - Forbid \"or\" ambiguity (e.g. \"woods or buildings\" → use definitive: \"blurred tree silhouettes\")\n\n**Style Front‑loading: core visual style (light type & time of day, overall color palette, image clarity) must be placed at the shot start (right after At 00:00.000), FORBID placing at paragraph end; attention decay at long text end causes style descriptions to be ignored.\n\n**H3 Forbidden Items: forbid percentage coordinates; forbid color ratio numbers; forbid aspect ratio params; forbid micro‑texture demands; forbid bare action sequences without time anchors; forbid negative constraints in positive prompt only without negative_prompt.\n\nContent order (within integrated_multimodal_description): At timestamp → scene lighting & style → subject appearance (specific anchors) → chronological action → camera movement (single) → action sync sound. Output strictly in four‑field format, no extra commentary."
             }
         }
 
@@ -44,23 +44,22 @@ class ContinuingT2V:
             "zh": """
 你是专业电影级文生视频提示词扩写专家，覆盖实拍类、动漫类，全电影题材。
 坚守视频生成基础约束：动作具备物理运动逻辑；画面精简，不自动新增无关摆件、路人、杂物；文本权重从前向后逐级递减，角色动态、镜头运动前置，细节参数后置；超长文本分段，防止末尾约束失效。
-natural模式300‑600字，2‑3个叙事段落，**严禁帧率、码率、分辨率等数字技术参数**；structured模式完整输出结构化字段，【技术参数建议】仅允许定性效果描述，禁止一切数值参数。
+natural模式300‑600字，2‑3个叙事段落，**严禁帧率、码率、分辨率等数字技术参数**。
 区分实拍/动漫质感：实拍保留皮肤肌理；动漫保持画风统一，避免画风跳变。
 完整保留用户全部输入信息，只做细节补充，不篡改主体、动作、场景；光影写明光源、色温、软硬以及随时间的变化；严格执行70%主色‑25%辅助‑5%点缀色彩配比。
 重要模型差异化约束会在模型组织公式给出，严格遵守对应模型的时长上限、音频支持、负向提示词能力。
 输出禁忌：禁止权重符号；禁止猎奇镜头角度；禁止穿模、闪烁、跳帧、物体凭空消失；禁止元素堆砌。
-支持natural与structured双输出格式，不添加额外注释、说明、解释。
+仅输出自然段落格式，不添加额外注释、说明、解释。
 """,
             "en": """
 You are professional cinematic video prompt expansion expert. Cover real‑shot / anime categories and full movie genres.
 General video baseline: physically plausible motion logic; frame‑simplify rule, no auto‑add irrelevant ornaments or passers‑by. Text weight decays from front to back: character dynamics & camera motion first, details behind. Split long paragraphs to avoid trailing constraint failure.
 Natural mode: 300‑600 words, 2‑3 narrative paragraphs, strictly forbid numeric technical parameters like fps, bitrate, resolution.
-Structured mode: output all sections, in【Tech Suggestion】only qualitative description allowed, no numeric values.
 Texture distinction: real‑shot preserve skin texture; anime keep consistent art‑style, no style‑jitter.
 Fully preserve user input, enrich details only without altering subject, action or scene. Describe light source, color‑temperature, hardness‑softness & temporal light change. Enforce 70%‑25%‑5% color proportion rule.
 Strictly follow per‑model constraints on max duration, audio capability, negative‑prompt capability given in model formula.
 Taboo: no weight syntax; no grotesque camera angles; no penetration‑clipping, flicker, frame‑skip, object pop‑in/out; no element over‑stacking.
-Support natural / structured output mode, no extra comments or explanations.
+Output natural paragraph format only, no extra comments or explanations.
 """
         }
 
@@ -77,7 +76,7 @@ Support natural / structured output mode, no extra comments or explanations.
                 "preset_rules": {
                     "zh": """
 【文生视频通用专属规则】
-1. 通用基线：执行8步视频扩写流程；强制70%‑25%‑5%色彩配比；三维镜头视角用户指定优先，未指定从合规视角池选取，杜绝猎奇角度；画面精简约束，不自动生成多余摆件装饰。natural模式300‑600字无相机数字参数；structured模式不超1500字。
+1. 通用基线：执行8步视频扩写流程；强制70%‑25%‑5%色彩配比；三维镜头视角用户指定优先，未指定从合规视角池选取，杜绝猎奇角度；画面精简约束，不自动生成多余摆件装饰。natural模式300‑600字无相机数字参数。
 2. 实拍类：保留皮肤自然肌理，光影过渡柔和；动作符合人体生理运动逻辑；镜头运动服务叙事，拒绝无意义炫技运镜。
 3. 动漫类：画风全程统一，线条色块稳定；肢体运动流畅；规避画风跳变、线条杂线。
 4. 动态设计：每个动作写明起始‑过程‑结束，尽量标注时间；环境动态与人物动态节奏匹配。
@@ -98,7 +97,7 @@ Support natural / structured output mode, no extra comments or explanations.
 """,
                     "en": """
 【Video‑Generation General Preset Rules】
-1. General baseline: follow 8‑step video expansion workflow. Mandatory color ratio 70%‑25%‑5%. User‑specified camera parameters take priority, pick from valid view‑pool for unknowns, forbid grotesque angles. Frame‑simplify rule: no auto‑generate extra ornaments. Natural mode 300‑600 words without numeric camera params; structured mode max 1500 words.
+1. General baseline: follow 8‑step video expansion workflow. Mandatory color ratio 70%‑25%‑5%. User‑specified camera parameters take priority, pick from valid view‑pool for unknowns, forbid grotesque angles. Frame‑simplify rule: no auto‑generate extra ornaments. Natural mode 300‑600 words without numeric camera params.
 2. Real‑shot category: preserve natural skin texture, soft light‑shadow transition; human‑physiology‑compliant motion; camera movement serve narrative, avoid meaningless fancy camera work.
 3. Anime category: consistent art‑style, stable lines & color blocks; smooth body motion; forbid style‑jitter & messy line‑art.
 4. Motion design: describe start‑process‑end for each action, mark time span when possible. Sync environment dynamics with character rhythm.
@@ -128,108 +127,12 @@ For all categories: user input has highest priority, add details only, never ove
         # 双输出格式指引
         self.format_guide = {
             "natural": {
-                "zh": "【自然段落模式】自然段落（2‑3段），首段确立场景空间、整体基调与光线氛围，次段描述角色动态序列与镜头运动节奏，末段补充光影质感、色彩层次与细节氛围。语言富有画面感与节奏感，全程无帧率、码率、分辨率类数字技术参数，强化动态连贯性、光影流动感与画面精简约束，保证画面干净聚焦、叙事清晰。字数300‑600。",
-                "en": "[Natural Paragraph Mode] 2‑3 narrative paragraphs: first for scene‑space‑lighting‑mood; second for character dynamics & camera rhythm; last for light‑shadow‑color‑detail. Visual cinematic language. Forbid numeric parameters such as fps, bitrate, resolution. Emphasize motion coherence, flowing light‑shadow, frame‑simplify constraint. 300‑600 words."
-            },
-            "structured": {
-                "zh": """【结构化模式】
-**【MiniMax‑H3专用输出格式】若视频模型为MiniMax‑H3，忽略下方通用结构化格式，强制按四字段输出：\nintegrated_multimodal_description:\n（画面描述、动作序列、镜头运动、台词、人物动作同步音效）\n\noverall_soundscape:\n（仅限纯环境背景音，无则写\"无\"）\n\nnon_diegetic_music:\n（背景音乐BGM，无则写\"无\"）\n\nnegative_prompt:\n（需规避的缺陷列表，如 多余路人, 肢体扭曲, 穿模, 面部崩坏, 模糊, 水印）\n\n关键约束：每个[Shot N]搭配At时间戳且最后一个时间戳严格对应视频总时长；人物动作音效仅放integrated字段且从起始贯穿全程；环境音效仅放overall_soundscape严禁交叉重复；禁止复合镜头运动优先固定机位；人物锚点至少3个具体特征禁止\"或\"字二选一；核心风格放At 00:00.000之后第一句；禁止百分比坐标/色彩占比数字/画面比例参数；所有\"不出现XX\"类否定约束必须同时写入negative_prompt。\n\n【Wan2.2 / LTX2.3通用结构化格式】若视频模型非MiniMax‑H3，按以下格式输出：
-【类别】实拍类/动漫类
-【电影风格】古装片/科幻片/动作片/文艺片/悬疑片/纪录片/动漫电影/通用类
-【全局正向约束】
-  - 动态基础：物理级运动逻辑，角色动作连贯流畅，环境变化符合自然规律，无穿模、无扭曲、无跳帧
-  - 质感基础：实拍类保留原生皮肤纹理、自然光影过渡；动漫类画风统一稳定、线条流畅色块清晰
-  - 镜头逻辑：三维视角符合电影美学，运动节奏服务叙事，透视准确无畸变
-【画面构图】
-  - 视觉引导：画面视线流动逻辑，依托角色目光、运动方向、环境线条三重引导，无分散视线的杂乱多余元素
-  - 主体位置：水平百分比 + 垂直百分比（如水平 55% 偏右，垂直 40% 偏上），主体占据 70% 视觉权重，环境仅占 30%
-  - 画面比例：宽高比（16:9 横屏 / 9:16 竖屏 / 4:3）
-  - 画面精简约束：仅保留核心叙事场景与道具，不额外生成绿植、摆件、路人、装饰杂物
-【景别与三维镜头视角】
-  - 距离维度（景别对应）：微距特写 / 标准特写 / 肩特写 / 七分人像 / 九分人像 / 全景人像，对应叙事重心与细节展现层级
-  - 水平方位维度：摄像机水平环绕角度（正面/四分之三斜侧/正侧面/四分之三背面），标注面部展现效果与轮廓叙事特点
-  - 垂直俯仰维度：摄像机垂直旋转角度（小俯视角/平视/小仰视角），对应心理感受（小俯的旁观疏离感/平视的平等沉浸感/小仰的张力力量感）
-  - 镜头运动：运动类型（推/拉/摇/移/跟/升降/固定）、方向、速度与持续时间，搭配叙事作用释义
-  - 景深氛围：主体清晰背景虚化 / 前后景都清晰 / 局部保留环境细节，标注虚实层次对应的画面效果
-【动态与节奏】
-  - 角色动作序列：起始状态 → 过程动态 → 结束定格，标注每段对应时长与肢体联动细节
-  - 环境动态变化：背景元素的运动规律（光影移动、风吹物体、粒子漂浮）与节奏
-  - 整体时间节奏：快慢分布，情绪递进节点
-【角色描述】
-  - 外貌特征：面部轮廓、发型发色、核心标识，突出对应风格与品类的专属特质
-  - 姿态动态：完整身体动态与手部联动细节，强调自然运动逻辑，体态松弛舒展
-  - 表情变化：眼神落点、面部肌肉变化的时间过程，标注清晰情绪走向，杜绝空洞静态表情
-  - 服装造型：款式、颜色、面料材质，标注主色 / 辅助色 / 点缀色占比，搭配运动产生的自然褶皱动态
-【质感与细节】
-  - 皮肤/画风质感：实拍类保留原生肌肤纹理、自然光影过渡；动漫类线条流畅、色块稳定、画风统一
-  - 毛发/线条质感：实拍类发丝层次自然、随动真实；动漫类线条干净、无多余杂线
-  - 材质表现：布料、金属、木质、玻璃等材质动态反光与形变符合物理逻辑
-  - 光影层次：光源方向、软硬、冷暖随时间的过渡变化，明暗过渡自然无断层
-【环境与氛围】
-  - 空间场景：精准具体地点及环境特征，无模糊抽象环境描述
-  - 光线来源与变化：自然光 / 人工光，光线软硬、光位与冷暖色温，标注随时间的变化过程
-  - 色调与色彩：主色调与点缀色明确划分，严格遵循 70%/25%/5% 面积配比，标注饱和度层级（低饱和 / 中饱和 / 高饱和），明确整体情绪倾向
-  - 细节元素：少量服务叙事的质感物件，不堆砌多余装饰道具
-【音频描述（模型支持音频才输出）】
-  - 环境音效：环境声音细节
-  - 人物台词：角色对白
-  - 背景音乐：曲风、情绪氛围
-【技术参数建议】（仅 structured 模式使用）
-  - 镜头类型：标准定焦 / 长焦 / 广角 / 微距等，搭配对应视觉效果与叙事作用释义
-  - 运动节奏：舒缓 / 中等 / 急促，搭配对应情绪氛围释义
-  - 质感补充：可按需添加柔焦、胶片颗粒、动态模糊等光学效果术语，搭配效果说明
-  - 技术禁止项：不出现帧率、码率、分辨率、采样率、编码器等无效参数
-【风格标签】3‑5个关键词概括整体气质与叙事调性
-【画面收尾精简约束】画面无额外人物、无关花草、多余摆件、杂乱背景装饰，所有环境元素仅服务叙事节奏与情绪表达，不抢夺主体视觉焦点。""",
-                "en": """[Structured Mode]
-**[MiniMax‑H3 Specific Output Format] If the video model is MiniMax‑H3, ignore the generic format below and output strictly in four‑field structure:\nintegrated_multimodal_description:\n(visual description, action sequence, camera movement, dialogue, character action sync sound)\n\noverall_soundscape:\n(pure ambient background sound only, write "none" if none)\n\nnon_diegetic_music:\n(background music BGM, write "none" if none)\n\nnegative_prompt:\n(defects to avoid, e.g. extra people, limb distortion, clipping, face collapse, blur, watermark)\n\nKey constraints: every [Shot N] with At timestamp, final timestamp must strictly match total video duration; character action sounds ONLY in integrated field, persisting from start; ambient sounds ONLY in overall_soundscape, cross‑contamination FORBIDDEN; no compound camera movements, prefer fixed camera; at least 3 specific character anchors, forbid "or" ambiguity; core style (lighting, color, clarity) placed right after At 00:00.000 first sentence; forbid percentage/ratio/aspect‑ratio parameters; all "no XX" negative constraints must also go into negative_prompt.\n\n[Wan2.2 / LTX2.3 Generic Structured Format] If model is NOT MiniMax‑H3, output as follows:
-【Category】real‑shot / anime
-【Movie Style】costume / sci‑fi / action / literary / suspense / documentary / anime‑film / general
-【Global Positive Constraints】
-  - Motion Base: physically‑plausible motion, fluent character action, natural environment change, no clipping / distortion / frame‑skip
-  - Texture Base: real‑shot keep native skin texture & soft light‑shadow; anime maintain unified art‑style, smooth lines, stable color blocks
-  - Camera Logic: 3‑D view follow cinematic aesthetic, camera movement serve narrative, correct perspective without distortion
-【Frame Composition】
-  - Visual Guidance: sight flow guided by character gaze, motion direction, environment line; no distracting redundant elements
-  - Subject Position: horizontal percent + vertical percent, subject occupy 70% visual weight, background 30%
-  - Aspect Ratio:16:9 /9:16 /4:3
-  - Simplify Constraint: keep only core narrative scene & props; no extra plants, ornaments, passers‑by
-【Shot & 3‑D Camera View】
-  - Distance(shot): macro close‑up / standard close‑up / shoulder shot / three‑quarter / nine‑tenth / full‑scene portrait
-  - Horizontal Azimuth: front / three‑quarter / profile / three‑quarter back, describe facial & contour narrative feature
-  - Vertical Pitch: slight high‑angle / eye‑level / slight low‑angle, describe psychological feeling
-  - Camera Movement: type(push/pull/pan/track/follow/crane/static), direction, speed, duration & narrative purpose
-  - Depth‑of‑field: subject sharp with bg blur / full sharp / partial detail reserved, mark virtual‑real hierarchy
-【Motion & Rhythm】
-  - Character Action Sequence: start → process → end freeze, mark time span & limb linkage detail
-  - Environment Dynamics: light shift, wind‑driven object, particle floating and rhythm
-  - Global Tempo: fast‑slow distribution, emotion progression node
-【Character Description】
-  - Appearance: facial contour, hair style‑color, key feature
-  - Pose Dynamics: full‑body motion & hand interaction, natural kinematics, relaxed posture
-  - Expression Change: gaze point, facial muscle temporal process, clear emotion trend, avoid static hollow expression
-  - Costume: style, color, fabric material, main / auxiliary / accent color ratio, natural fold under movement
-【Texture & Detail】
-  - Skin / Art‑style Texture: real‑shot native skin texture & soft light‑shadow; anime smooth line, stable color block, unified style
-  - Hair / Line Texture: real‑shot natural hair motion; anime clean line‑art without messy stroke
-  - Material Performance: cloth, metal, wood, glass reflection & deformation obey physics
-  - Light‑Shadow Hierarchy: light direction, hardness‑softness, cold‑warm temporal transition, smooth shadow gradient
-【Environment & Atmosphere】
-  - Scene: concrete location, no vague abstract description
-  - Light Source & Evolution: natural / artificial light, hardness‑softness, color‑temperature and temporal change
-  - Color Scheme: main / auxiliary / accent color, strict 70%/25%/5% ratio, saturation level, overall emotional tendency
-  - Detail Element: narrative‑oriented props only, no redundant ornament stack
-【Audio Description(output only if model support audio)】
-  - Ambient SFX: environment sound detail
-  - Character Dialogue: character lines
-  - BGM: music genre & mood
-【Tech Suggestion】(structured‑only)
-  - Lens Type: prime / telephoto / wide‑angle / macro with narrative explanation
-  - Motion Tempo: slow‑relaxed / medium / urgent with mood explanation
-  - Texture Enhancement: soft‑focus, film grain, motion‑blur with effect note
-  - Forbidden Tech Item: forbid fps, bitrate, resolution, sampler, encoder and other numeric parameters
-【Style Tags】3‑5 keywords for overall visual temperament
-【Final Simplify Constraint】No extra character, irrelevant plant, redundant ornament, messy background. All elements serve narrative & emotion, never steal visual focus."""
+                "zh": """【自然段落模式】自然段落（2‑3段），首段确立场景空间、整体基调与光线氛围，次段描述角色动态序列与镜头运动节奏，末段补充光影质感、色彩层次与细节氛围。语言富有画面感与节奏感，全程无帧率、码率、分辨率类数字技术参数，强化动态连贯性、光影流动感与画面精简约束，保证画面干净聚焦、叙事清晰。字数300‑600。
+
+**【MiniMax‑H3专用输出格式】若视频模型为MiniMax‑H3，忽略上方自然段落格式，强制按四字段输出：\nintegrated_multimodal_description:\n（画面描述、动作序列、镜头运动、台词、人物动作同步音效）\n\noverall_soundscape:\n（仅限纯环境背景音，无则写\"无\"）\n\nnon_diegetic_music:\n（背景音乐BGM，无则写\"无\"）\n\nnegative_prompt:\n（需规避的缺陷列表，如 多余路人, 肢体扭曲, 穿模, 面部崩坏, 模糊, 水印）\n\n关键约束：首镜头[Shot 1]无需时间戳（默认起始00:00.000），后续每个[Shot N]搭配At时间戳且最后一个时间戳严格对应视频总时长；人物动作音效仅放integrated字段且从起始贯穿全程；环境音效仅放overall_soundscape严禁交叉重复；禁止复合镜头运动优先固定机位；人物锚点至少3个具体特征禁止\"或\"字二选一；核心风格放[Shot 1]开头首句（风格类型→场景氛围→镜头运动→主体）；禁止百分比坐标/色彩占比数字/画面比例参数；所有\"不出现XX\"类否定约束必须同时写入negative_prompt。""",
+                "en": """[Natural Paragraph Mode] 2‑3 narrative paragraphs: first for scene‑space‑lighting‑mood; second for character dynamics & camera rhythm; last for light‑shadow‑color‑detail. Visual cinematic language. Forbid numeric parameters such as fps, bitrate, resolution. Emphasize motion coherence, flowing light‑shadow, frame‑simplify constraint. 300‑600 words.
+
+**[MiniMax‑H3 Specific Output Format] If the video model is MiniMax‑H3, ignore the natural paragraph format above and output strictly in four‑field structure:\nintegrated_multimodal_description:\n(visual description, action sequence, camera movement, dialogue, character action sync sound)\n\noverall_soundscape:\n(pure ambient background sound only, write \"none\" if none)\n\nnon_diegetic_music:\n(background music BGM, write \"none\" if none)\n\nnegative_prompt:\n(defects to avoid, e.g. extra people, limb distortion, clipping, face collapse, blur, watermark)\n\nKey constraints: first shot [Shot 1] has no timestamp (defaults to 00:00.000), every subsequent [Shot N] with At timestamp, final timestamp must strictly match total video duration; character action sounds ONLY in integrated field, persisting from start; ambient sounds ONLY in overall_soundscape, cross‑contamination FORBIDDEN; no compound camera movements, prefer fixed camera; at least 3 specific character anchors, forbid \"or\" ambiguity; core style (lighting, color, clarity) placed at [Shot 1] start first sentence (style→scene→camera→subject); forbid percentage/ratio/aspect‑ratio parameters; all \"no XX\" negative constraints must also go into negative_prompt."""
             }
         }
 
@@ -246,7 +149,7 @@ For all categories: user input has highest priority, add details only, never ove
         output_language: str = "auto",
         enable_global_preconstraint: bool = True,
         enable_negative_prompt: bool = True,
-        output_format: str = "both"
+        output_format: str = "natural"
     ) -> Dict:
         valid_video_models = ["Wan2.2", "LTX2.3", "MiniMax‑H3"]
         if preset_name not in self.preset_library:
@@ -267,7 +170,6 @@ For all categories: user input has highest priority, add details only, never ove
         pos_constraint = preset["positive_constraints"][lang]
         formula_hint = model_config[f"formula_zh" if lang == "zh" else "formula_en"]
         natural_guide = self.format_guide["natural"][lang]
-        structured_guide = self.format_guide["structured"][lang]
 
         prompt_parts = []
         if enable_global_preconstraint:
@@ -276,14 +178,7 @@ For all categories: user input has highest priority, add details only, never ove
         prompt_parts.append(f"视频模型【{video_model}】内容组织公式：{formula_hint}")
         prompt_parts.append(preset_rule)
         prompt_parts.append(f"用户原始需求：{user_input}")
-
-        if output_format == "natural":
-            prompt_parts.append(natural_guide)
-        elif output_format == "structured":
-            prompt_parts.append(structured_guide)
-        else:
-            prompt_parts.append(natural_guide)
-            prompt_parts.append(structured_guide)
+        prompt_parts.append(natural_guide)
 
         final_llm_prompt = "\n".join(prompt_parts)
         # 所有模型均支持负向提示词输出
