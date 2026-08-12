@@ -6,7 +6,7 @@ Run LLM/VLM models natively in ComfyUI based on llama.cpp, supporting multimodal
 
 ## Project Overview
 
-ComfyUI-omni-llm is a comprehensive ComfyUI plugin, deeply refactored and enhanced based on ComfyUI-llama-cpp-vlm, focusing on providing localized and efficient multimodal AI inference capabilities. The plugin supports over 40 VLM models and 200+ LLM models.
+ComfyUI-omni-llm is a fully-featured ComfyUI plugin, deeply rebuilt and enhanced based on ComfyUI-llama-cpp-vlm. It focuses on providing localized, efficient image and video prompt backtracking and content optimization/expansion (image generation supports popular models like Z-Image, Krea2, Flux2-Klein, Qwen-Image, etc., while video generation supports popular models like wan2.2, LTX-2.5, MiniMax-H3, etc. for prompt optimization and expansion).Dedicated to addressing pain points like not knowing how to write prompts and content restrictions, helping beginners quickly get started with content creation. The plugin supports over 40 VLM models, more than 200 LLM models, and over 30 preset templates.
 
 ### Core Advantages
 
@@ -14,7 +14,8 @@ ComfyUI-omni-llm is a comprehensive ComfyUI plugin, deeply refactored and enhanc
 - **Smart Hardware Adaptation**: Automatic parameter tuning, supports NVIDIA, AMD, and other mainstream GPUs
 - **Rich Model Ecosystem**: Supports multiple mainstream VLM/LLM models, automatically adapts to new models
 - **Efficient Inference Performance**: Introduces parallel processing and caching mechanisms, significantly improving runtime efficiency
-- **Professional Prompt System**: Built-in rich scenario-based preset templates
+- **Professional Prompt System**: Built-in rich scenario-based preset templates, supports custom prompts
+- **Content Optimization Expansion**: Provides content optimization expansion features, supporting optimization and expansion of multimodal content
 
 [Tip] Models with thinking mode cannot provide accurate thought content filtering. It is recommended to use non-thinking mode models. All generated prompt content is for reference only and cannot guarantee perfect image generation. Please verify and optimize content based on your actual needs.
 
@@ -112,6 +113,15 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 
 The following updates are based on llama-cpp-python version 0.3.45, so please install this version first
 
+#### v3.3.1 （2026-08-12）
+
+- **Node Optimization Adjustments**: The multi-image input node interface has been adjusted to 9 inputs, ltx2.3 updated to ltx2.5
+- **Preset Template Optimization**: Optimized video preset templates to fit LTX-2.5 model prompt generation
+
+
+<details>
+<summary>📋 Older Versions</summary>
+
 #### v3.3.0 (2026-08-08)
 
 - **Node Optimization & Adjustment**:
@@ -122,10 +132,6 @@ The following updates are based on llama-cpp-python version 0.3.45, so please in
 - **Preset Template Optimization**: Reconstructed the preset template format to adapt to the prompt requirements of different models, integrated Chinese and English templates (functionality unchanged), optimized thinking logic, improved generation speed and quality, and enhanced the controllability of generated content
   Specific adjustments: illustrious, anime, audio templates, and prompt_expander do not support model selection output; other text generation preset templates support model selection output; reverse engineering templates support inputting text content as a reference to reduce incorrect style judgment in reverse engineering (generally no need to add)
 - **Dependency Installation Optimization**: Simplified dependency installation steps, lowering plugin installation difficulty
-
-
-<details>
-<summary>📋 Older Versions</summary>
 
 #### v3.2.3 （2026-07-25）
 
