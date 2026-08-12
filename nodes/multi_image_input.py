@@ -23,11 +23,11 @@ from common import (
 class omni_llm_multi_image_input:
     """
 6    多图输入节点
-    - 支持输入多张图像进行分析（最多6张）
+    - 支持输入多张图像进行分析（最多9张）
     - 支持无图像模式，通过选项设置生成提示词
     - 自动预处理和编码
     - 输出可直接连接到llama_cpp_unified_inference节点的images和custom_prompt
-    - 专为Wan2.2/LTX2.3/MiniMax‑H3视频生成优化
+    - 专为Wan2.2/LTX2.5/MiniMax‑H3视频生成优化
     - 支持多图反推，弥补推理节点只能输入单张图片的限制
     """
     
@@ -41,6 +41,9 @@ class omni_llm_multi_image_input:
                 "image4": ("IMAGE",),
                 "image5": ("IMAGE",),
                 "image6": ("IMAGE",),
+                "image7": ("IMAGE",),
+                "image8": ("IMAGE",),
+                "image9": ("IMAGE",),
                 "mode": (["Image Mode", "Text Mode"], {"default": "Image Mode", "tooltip": "选择工作模式：图像模式分析图像内容，文本模式根据选项生成提示词"}),
                 "story_type": ([
                     "Coherent Story",
@@ -101,11 +104,11 @@ class omni_llm_multi_image_input:
                 ], {"default": "General Public", "tooltip": "选择目标受众"}),
                 "video_model": ([
                     "Wan2.2",
-                    "LTX2.3",
+                    "LTX2.5",
                     "MiniMax‑H3",
                     "General Video",
                     "Custom"
-                ], {"default": "Wan2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式：Wan2.2禁特殊符号与全角标点、一条提示词=一个镜头，选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）；LTX2.3台词需用英文双引号包裹；MiniMax‑H3需使用三段式标签结构（[Shot N]镜头编号、<d>台词标签、整体环境音与BGM分段字段）"}),
+                ], {"default": "Wan2.2", "tooltip": "选择视频生成模型类型，不同模型需要不同的提示词格式：Wan2.2禁特殊符号与全角标点、一条提示词=一个镜头，选择Wan2.2时自动将内容长度收紧到最短档（单镜头≤5秒需精简提示词）；LTX2.5台词需用英文双引号包裹；MiniMax‑H3需使用三段式标签结构（[Shot N]镜头编号、<d>台词标签、整体环境音与BGM分段字段）"}),
             }
         }
     
@@ -115,7 +118,7 @@ class omni_llm_multi_image_input:
     FUNCTION = "process_multi_images"
     CATEGORY = "omni-llm"
     
-    def process_multi_images(self, image1=None, image2=None, image3=None, image4=None, image5=None, image6=None, mode="Image Mode", story_type="Coherent Story", story_length="Medium (200 words or less)", language="中文", max_size=256, 
+    def process_multi_images(self, image1=None, image2=None, image3=None, image4=None, image5=None, image6=None, image7=None, image8=None, image9=None, mode="Image Mode", story_type="Coherent Story", story_length="Medium (200 words or less)", language="中文", max_size=256, 
                           custom_prompt="", include_image_descriptions=True, 
                           story_theme="No Specific Theme", narrative_style="Third Person",
                           content_focus="Balanced Development", target_audience="General Public", video_model="Wan2.2"):
@@ -129,6 +132,9 @@ class omni_llm_multi_image_input:
         - image4: 第四张输入图像
         - image5: 第五张输入图像
         - image6: 第六张输入图像
+        - image7: 第七张输入图像
+        - image8: 第八张输入图像
+        - image9: 第九张输入图像
         - mode: 工作模式（图像模式/文本模式）
         - story_type: 内容创作类型
         - story_length: 内容长度
@@ -140,12 +146,12 @@ class omni_llm_multi_image_input:
         - narrative_style: 叙事风格
         - content_focus: 内容重点
         - target_audience: 目标受众
-        - video_model: 视频生成模型类型（Wan2.2/LTX2.3/MiniMax‑H3/General Video/Custom）
+        - video_model: 视频生成模型类型（Wan2.2/LTX2.5/MiniMax‑H3/General Video/Custom）
         """
         
         if mode == "Image Mode":
             return self._process_image_mode(
-                image1, image2, image3, image4, image5, image6, story_type, story_length, language, max_size,
+                image1, image2, image3, image4, image5, image6, image7, image8, image9, story_type, story_length, language, max_size,
                 custom_prompt, include_image_descriptions, story_theme, narrative_style, video_model,
                 content_focus, target_audience
             )
@@ -155,15 +161,15 @@ class omni_llm_multi_image_input:
                 story_theme, narrative_style, content_focus, target_audience, video_model
             )
     
-    def _process_image_mode(self, image1, image2, image3, image4, image5, image6, story_type, story_length, language, max_size,
+    def _process_image_mode(self, image1, image2, image3, image4, image5, image6, image7, image8, image9, story_type, story_length, language, max_size,
                           custom_prompt, include_image_descriptions, story_theme, narrative_style, video_model,
                           content_focus, target_audience):
         """
         图像模式：分析图像内容进行故事创作
-        支持最多6张图片输入，用于多图反推场景
+        支持最多9张图片输入，用于多图反推场景
         """
         
-        # 收集所有图像（最多6张）
+        # 收集所有图像（最多9张）
         all_images = []
         if image1 is not None:
             all_images.append(image1)
@@ -177,6 +183,12 @@ class omni_llm_multi_image_input:
             all_images.append(image5)
         if image6 is not None:
             all_images.append(image6)
+        if image7 is not None:
+            all_images.append(image7)
+        if image8 is not None:
+            all_images.append(image8)
+        if image9 is not None:
+            all_images.append(image9)
         
         # 检查是否有图像输入
         if len(all_images) == 0:
@@ -298,7 +310,7 @@ class omni_llm_multi_image_input:
         """
         根据视频模型后台自动调整有效内容长度（不额外暴露手动选项）
         - Wan2.2：原生单镜头≤5秒，需要极简提示词，自动收紧到最短档
-        - LTX2.3 / MiniMax‑H3：支持长片段，按用户选择保留
+        - LTX2.5 / MiniMax‑H3：支持长片段，按用户选择保留
         """
         if video_model == "Wan2.2":
             return "Short (100 words or less)"
@@ -856,14 +868,14 @@ class omni_llm_multi_image_input:
         获取视频模型特定的提示词指令
 
         参数说明：
-        - video_model: 视频生成模型类型（Wan2.2/LTX2.3/MiniMax‑H3/General Video/Custom）
+        - video_model: 视频生成模型类型（Wan2.2/LTX2.5/MiniMax‑H3/General Video/Custom）
         - language: 语言（中文/English）
 
         返回：
-        - 模型特定的提示词指令字符串。对于Wan2.2/LTX2.3/MiniMax‑H3，直接复用项目统一视频模型公式库
+        - 模型特定的提示词指令字符串。对于Wan2.2/LTX2.5/MiniMax‑H3，直接复用项目统一视频模型公式库
           （support/continuing_t2v.py）的权威约束，内容包含各模型原生语法规范：
           Wan2.2禁特殊符号与全角标点、动作拆"速度+方向+部位"、主体锚点保一致；
-          LTX2.3台词用英文双引号、表情用物理动作体现；
+          LTX2.5台词用英文双引号、表情用物理动作体现；
           MiniMax‑H3使用三段式结构（integrated_multimodal_description / overall_soundscape /
           non_diegetic_music）与标签体系（[Shot N]镜头编号、<d>[语言]台词</d>、说话人ID (S1)、
           <scenetrans>/<cutoff>衔接标记）。
