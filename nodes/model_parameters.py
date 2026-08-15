@@ -37,8 +37,8 @@ class omni_llm_parameters:
             },
             "optional": {
                 # 推理预算控制参数（用于Qwen3.5-Thinking等支持thinking模式的模型）
-                "reasoning_budget": ("INT", {"default": -1, "min": -1, "max": 1024, "step": 1, "tooltip": "推理预算：-1=无限制，0=关闭思考模式，N=限制N个思考token"}),
-            }            
+                "reasoning_budget": ("INT", {"default": -1, "min": -1, "max": 4096, "step": 1, "tooltip": "推理预算：-1=无限制，0=关闭思考模式，N=限制N个思考token"}),
+            }
         }
     
     RETURN_TYPES = ("LLAMACPPARAMS",)

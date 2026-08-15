@@ -321,6 +321,13 @@ IMAGE_MODEL_OPTIONS = ["Auto"] + [m for m in HyperRealisticFemale().model_formul
 # 视频生成模型选项
 VIDEO_MODEL_OPTIONS = ["Auto"] + list(ContinuingT2V().video_model_formula_library.keys())
 
+# 音频生成模型选项（TTS语音合成 + 音乐生成，Auto 为默认通用项）
+AUDIO_MODEL_OPTIONS = ["Auto", "IndexTTS-2.5", "Ace-Step1.5", "MiniMax-Music3"]
+
+# 音频模型分类：TTS语音合成 与 音乐生成（用于按预设校验所选模型是否合法）
+AUDIO_TTS_MODELS = {"IndexTTS-2.5"}
+AUDIO_MUSIC_MODELS = {"Ace-Step1.5", "MiniMax-Music3"}
+
 class VideoProcessor:
     """视频处理器 - 处理视频输入、视频帧提取和视频理解功能"""
 
@@ -716,7 +723,7 @@ class omni_llm_unified_inference:
                 
                 # ========== 提示词配置 ==========
                 "preset_prompt": (s.preset_tags, {"default": s.preset_tags[1], "tooltip": "选择预设提示词模板：\n• Empty - Nothing：无预设，完全自定义\n• [Reverse] Tags：图片反推SDXL模型提示词内容\n• [Reverse] Describe：图片反推自然语言提示词内容\n• [Normal] Expand：通用提示词文本优化扩写\n• [Anime] Illustrious：二次元角色专用优化扩写\n• [Anime] Anime Prompt Expand：二次元内容优化扩写\n• [Anime] Thick Paint Role：角色厚涂CG人物内容优化扩写\n• [Portrait] Asian Female：真实亚洲女性人像内容优化扩写\n• [Portrait] Asian Male：真实亚洲男性人像内容优化扩写\n• [Portrait] Western Female：真实欧美女性人像内容优化扩写\n• [Portrait] Western Male：真实欧美男性人像内容优化扩写\n• [Portrait] Hyper Realistic Female：超写实女性人像内容优化扩写\n• [Portrait] Hyper Realistic Male：超写实男性人像内容优化扩写\n• [Portrait] Young Boy：儿童人像内容优化扩写\n• [Portrait] Middle Elderly Female：中老年女性人像内容优化扩写\n• [Portrait] Middle Elderly Male：中老年男性人像内容优化扩写\n• [Design] Art Illustration：艺术插画内容优化扩写\n• [Design] Poster Design：海报设计文本优化\n• [Design] Scene Design：场景设计内容优化扩写\n• [Design] Interior Design：室内装修设计内容优化扩写\n• [Design] Architecture Rendering：建筑外观与园林渲染内容优化扩写\n• [Design] Ecommerce Product：电商产品内容优化扩写\n• [Design] Food Photography：美食摄影内容优化扩写\n• [Text to Video] T2V：根据关键词内容优化扩写\n• [Image to Video] I2V：根据图片内容优化扩写\n• [Image to Video] FL2V：根据首尾帧图片内容优化扩写\n• [Image to Video] Multi Storyboard:根据图片与文本内容优化扩写\n• [Video Reverse] Frame Sequence：按帧序列反推视频内容\n• [Video Reverse] Describe：通用视频提示词反推\n• [Video Reverse] Scene Breakdown：按分镜场景反推视频内容\n• [Video Reverse] Subtitle：结合字幕与视频反推情绪化文本\n• [Audio] Multi-Speaker Dialogue：多人对话情绪化优化调整\n• [Music] Song Creation：歌词创作内容优化扩写"}),
-                "system_prompt": ("STRING", {"multiline": True, "default": "你是一位优秀的AI提示词处理专家。", "tooltip": "系统提示词，定义AI助手的角色和行为，可包含预设模板占位符#和自定义内容"}),
+                "system_prompt": ("STRING", {"multiline": True, "default": "提示词书写结构：主体+细节/特征+环境/场景+构图/视角+风格/媒介+画质/光影", "tooltip": "系统提示词，定义AI助手的角色和行为，可包含预设模板占位符#和自定义内容"}),
                 "text_input": ("STRING", {"default": "", "multiline": True, "tooltip": "用户输入文本，作为对话的用户消息内容"}),
                 
                 # ========== 语言设置 ==========
@@ -726,25 +733,29 @@ class omni_llm_unified_inference:
                 # ========== 输出格式设置 ==========
                 "output_format": (["natural", "structured"], {
                     "default": "natural",
-                    "tooltip": "输出格式控制：\n• natural：以自然段落格式输出纯文本内容，推荐日常使用\n• structured：输出结构化文本内容，适用于强理解模型"
+                    "tooltip": "输出格式控制：\n• natural：以自然段落格式输出纯文本内容，推荐日常使用\n• structured：输出结构化文本内容，适用于强理解模型（仅支持文生图预设模板）"
                 }),
                 "enable_constraints": ("BOOLEAN", {"default": False, "tooltip": "启用预设模板中的正向约束：\n• 正向约束：会添加到提示词最前面，引导模型生成更符合要求的内容，适用于Base模型"}),
                 "enable_negative_prompts": ("BOOLEAN", {"default": False, "tooltip": "启用预设模板中的负向提示词：\n• 负向提示词：会追加到提示词末尾，避免模型生成不想要的内容，部分模型不需要负向提示词"}),
                 "image_model": (IMAGE_MODEL_OPTIONS, {
                     "default": "Auto",
-                    "tooltip": "图像生成模型选择（通用类型，影响提示词构建风格）：\n• Auto：通用类型，自动适配默认模型\n• Flux1：氛围叙事，弱化关键词堆砌\n• Flux2_klein：平衡细节真实感与氛围感\n• Z_image：极致还原皮肤原生质感\n• Qwen_Image2512：色彩构图精准管控\n• Krea2：电影级光影胶片氛围\n• Boogu：极简干净松弛叙事\n• Mage_Flow：强化面部立体感\n• ERNIE_Image：柔和统一写实"
+                    "tooltip": "图像生成模型选择（通用类型，影响提示词构建风格）：\n• Auto：通用类型，自动适配默认模型\n• Flux1：擅长写实人像/场景/空间逻辑\n• Flux2_klein：擅长快速出图/轻量化/中英双语\n• Z_image：擅长写实人像/风光/静物\n• Qwen_Image2512：擅长长图文/海报/密集排版\n• Krea2：擅长摄影质感/画风融合\n• Boogu：擅长商用海报/商品图/密集文字\n• Mage_Flow：擅长文字生成、指令编辑、商业静物摄影\n• ERNIE_Image：擅长国风/国潮/科普图解"
                 }),
                 "video_model": (VIDEO_MODEL_OPTIONS, {
                     "default": "Auto",
                     "tooltip": "视频生成模型选择（仅视频类预设模板生效）：\n• Auto：自动适配默认模型\n• Wan2.2：原生单段最大5秒，仅支持单镜头\n• LTX2.5：原生单段最长20秒，支持音画同步\n• MiniMax-H3：时长4-15秒整数，支持音画同步"
                 }),
+                "audio_model": (AUDIO_MODEL_OPTIONS, {
+                    "default": "Auto",
+                    "tooltip": "音频生成模型选择（仅音频类预设模板生效）：\n• Auto：自动适配默认模型\n\n────────── TTS 语音合成 ──────────\n• IndexTTS-2.5：情感表达自然\n\n────────── 音乐生成 ──────────\n• Ace-Step1.5：控制维度丰富\n• MiniMax-Music3：人声演唱自然度高"
+                }),
                 
                 # ========== 视频处理参数 ==========
                 "video_max_frames": ("INT", {"default": 16, "min": 2, "max": 1024, "step": 1, 
                                               "tooltip": "视频模式：最大提取帧数"}),
-                "video_sampling": (["auto", "manual"], 
-                                  {"default": "auto", 
-                                   "tooltip": "视频帧采样方式：\n• auto：自动均衡提取视频帧\n• manual：自定义要提取的帧"}),
+                "video_sampling": (["Auto", "Manual"], 
+                                  {"default": "Auto", 
+                                   "tooltip": "视频帧采样方式：\n• Auto：自动均衡提取视频帧\n• Manual：自定义要提取的帧"}),
                 "video_manual_indices": ("STRING", {"default": "", 
                                                      "placeholder": "例如: 0,10,20 或 0-10", 
                                                      "tooltip": "手动模式下的帧索引，仅在手动采样时生效"}),
@@ -837,8 +848,47 @@ class omni_llm_unified_inference:
         return preset_key in (
             "IMAGE_REVERSE_TAGS", "IMAGE_REVERSE_DESCRIBE", "VIDEO_TO_PROMPT",
             "VIDEO_FRAME_SEQUENCE", "VIDEO_SCENE_BREAKDOWN", "VIDEO_SUBTITLE_FORMAT",
-            "MULTI_SPEAKER_DIALOGUE", "SONG_CREATION",
         )
+    
+    def _is_audio_preset(self, preset_key):
+        """判断是否为音频类预设（TTS语音合成/音乐生成，使用 audio_model 切换）"""
+        return preset_key in ("MULTI_SPEAKER_DIALOGUE", "SONG_CREATION")
+    
+    def _resolve_audio_model(self, preset_key, audio_model):
+        """按预设类型校验音频模型合法性：
+        MULTI_SPEAKER_DIALOGUE 仅接受 TTS 模型；SONG_CREATION 仅接受音乐模型；
+        非法选项（含 Auto 之外的错误模型）一律回退为 Auto
+        """
+        if preset_key == "MULTI_SPEAKER_DIALOGUE":
+            return audio_model if audio_model in AUDIO_TTS_MODELS else "Auto"
+        if preset_key == "SONG_CREATION":
+            return audio_model if audio_model in AUDIO_MUSIC_MODELS else "Auto"
+        return "Auto"
+    
+    def _resolve_effective_model(self, preset_key, image_model="Auto", video_model="Auto", audio_model="Auto"):
+        """按预设模板内可用的模型接口解析实际生效模型，忽略其他类型的模型选择：
+        - 反推/无模型预设 → Auto
+        - 音频类预设 → 按 TTS/音乐分类校验 audio_model，非法回退 Auto
+        - 视频类预设 → video_model 必须在接口库内，否则回退库内默认模型（库为空回退 Auto）
+        - 图像类预设 → image_model 必须在接口库内，否则回退库内默认模型（库为空回退 Auto）
+        保证图像/视频/音频三个选项同时切换时，只按预设自身的模型接口输出且不产生错误
+        """
+        if not preset_key or self._is_reverse_preset(preset_key):
+            return "Auto"
+        if self._is_audio_preset(preset_key):
+            return self._resolve_audio_model(preset_key, audio_model)
+        generator, _ = self._get_generator_entry(preset_key)
+        if generator is None:
+            return "Auto"
+        # 视频类预设：仅使用 video_model 接口
+        if self._is_video_preset(preset_key):
+            lib = generator.video_model_formula_library
+            return video_model if video_model in lib else (next(iter(lib)) if lib else "Auto")
+        # 图像类预设：仅使用 image_model 接口
+        if self._is_image_model_preset(preset_key):
+            lib = generator.model_formula_library
+            return image_model if image_model in lib else (next(iter(lib)) if lib else "Auto")
+        return "Auto"
     
     def _is_video_preset(self, preset_key):
         """判断是否为视频类预设（使用 video_model 切换）"""
@@ -863,7 +913,7 @@ class omni_llm_unified_inference:
         # 视频类预设
         if hasattr(generator, 'video_model_formula_library'):
             if model not in generator.video_model_formula_library:
-                model = next(iter(generator.video_model_formula_library))
+                model = next(iter(generator.video_model_formula_library)) if generator.video_model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input="",
                 preset_name=template_id,
@@ -878,7 +928,7 @@ class omni_llm_unified_inference:
         # 图像类预设
         if hasattr(generator, 'model_formula_library'):
             if model not in generator.model_formula_library:
-                model = next(iter(generator.model_formula_library))
+                model = next(iter(generator.model_formula_library)) if generator.model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input="",
                 preset_name=template_id,
@@ -926,7 +976,7 @@ class omni_llm_unified_inference:
         # 视频类预设
         if hasattr(generator, 'video_model_formula_library'):
             if model not in generator.video_model_formula_library:
-                model = next(iter(generator.video_model_formula_library))
+                model = next(iter(generator.video_model_formula_library)) if generator.video_model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input="",
                 preset_name=template_id,
@@ -941,7 +991,7 @@ class omni_llm_unified_inference:
         # 图像类预设
         if hasattr(generator, 'model_formula_library'):
             if model not in generator.model_formula_library:
-                model = next(iter(generator.model_formula_library))
+                model = next(iter(generator.model_formula_library)) if generator.model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input="",
                 preset_name=template_id,
@@ -952,6 +1002,23 @@ class omni_llm_unified_inference:
                 output_format="both"
             )
             return f"【下游模型】{model}\n{result.get('positive_constraint', '')}"
+        
+        # 音频类预设：使用 audio_model，输出附带下游模型标识
+        if self._is_audio_preset(preset_key):
+            model = self._resolve_audio_model(preset_key, model)
+            try:
+                result = generator.build_prompt(
+                    preset_name=template_id,
+                    user_keywords="",
+                    output_language=lang_code,
+                    output_format="both"
+                )
+                positive = result.get("positive_constraint", "")
+                if model != "Auto":
+                    return f"【下游模型】{model}\n{positive}"
+                return positive
+            except Exception:
+                return ""
         
         # 反推/无模型预设：支持正向约束
         try:
@@ -1042,10 +1109,14 @@ class omni_llm_unified_inference:
 
         lang_code = "zh" if language == "中文" else "en"
 
+        # 无 structured 输出接口的预设（视频/音频类等）一律强制 natural 输出
+        if "structured" not in (getattr(generator, "format_guide", None) or {}):
+            output_format = "natural"
+
         # 视频类预设：使用 video_model
         if hasattr(generator, 'video_model_formula_library'):
             if model not in generator.video_model_formula_library:
-                model = next(iter(generator.video_model_formula_library))
+                model = next(iter(generator.video_model_formula_library)) if generator.video_model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input=custom_prompt,
                 preset_name=template_id,
@@ -1061,7 +1132,7 @@ class omni_llm_unified_inference:
         # 图像类预设：使用 downstream_model
         if hasattr(generator, 'model_formula_library'):
             if model not in generator.model_formula_library:
-                model = next(iter(generator.model_formula_library))
+                model = next(iter(generator.model_formula_library)) if generator.model_formula_library else "Auto"
             result = generator.build_prompt(
                 user_input=custom_prompt,
                 preset_name=template_id,
@@ -1072,7 +1143,26 @@ class omni_llm_unified_inference:
                 output_format=output_format
             )
             print(f"【类生成器-图像】{preset_key} → 下游模型={model}，语言={lang_code}，格式={output_format}")
-            return result["llm_input_prompt"]
+            # 前置输出实际生效的下游模型名称，与内容组织公式保持一致，便于用户判定模型选择是否正确
+            return f"【目标模型适配：{model}】\n{result['llm_input_prompt']}"
+
+        # 音频类预设：使用 audio_model（生成器无模型库，提示词末尾追加目标模型指示）
+        if self._is_audio_preset(preset_key):
+            model = self._resolve_audio_model(preset_key, model)
+            try:
+                result = generator.build_prompt(
+                    preset_name=template_id,
+                    user_keywords=custom_prompt,
+                    output_language=lang_code,
+                    output_format=output_format
+                )
+                prompt = result["llm_input_prompt"]
+                if model and model != "Auto":
+                    prompt += f"\n\n【目标音频模型】{model}"
+                print(f"【类生成器-音频】{preset_key} → 音频模型={model}，语言={lang_code}，格式={output_format}")
+                return prompt
+            except Exception as e:
+                print(f"【类生成器-音频】{preset_key} 调用 build_prompt 失败: {e}")
 
         # 反推/无模型预设：使用 preset_name + user_keywords 签名
         try:
@@ -1427,7 +1517,7 @@ class omni_llm_unified_inference:
                 seed, force_offload,
                 parameters=None, images=None, video=None, audio=None,
                 asr_model=None, queue_handler=None, unique_id=None,
-                image_model="Auto", video_model="Auto"):
+                image_model="Auto", video_model="Auto", audio_model="Auto"):
         """处理推理请求"""
         try:
             # 检测模型类型
@@ -1467,21 +1557,10 @@ class omni_llm_unified_inference:
             # 获取预设提示词
             preset_key = self.preset_prompts.get(preset_prompt, "")
             
-            # 模型切换逻辑：确定实际使用的模型
-            # 反推类预设：强制使用默认模型（不支持模型切换）
-            if self._is_reverse_preset(preset_key):
-                effective_model = "Auto"
-            # 视频类预设：使用 video_model 参数
-            elif self._is_video_preset(preset_key):
-                effective_model = video_model if video_model != "Auto" else next(iter(self._get_generator_entry(preset_key)[0].video_model_formula_library))
-            # 图像类预设：使用 image_model 参数
-            elif self._is_image_model_preset(preset_key):
-                effective_model = image_model if image_model != "Auto" else next(iter(self._get_generator_entry(preset_key)[0].model_formula_library))
-            # 无模型预设（AnimeDreamVisual 等）：使用 "Auto"
-            else:
-                effective_model = "Auto"
+            # 模型切换逻辑：按预设模板可用的模型接口解析实际模型（图像/视频/音频可同时切换，互不干扰）
+            effective_model = self._resolve_effective_model(preset_key, image_model, video_model, audio_model)
             
-            print(f"【模型切换】{preset_prompt} → 实际模型={effective_model}（image_model={image_model}，video_model={video_model}）")
+            print(f"【模型切换】{preset_prompt} → 实际模型={effective_model}（image_model={image_model}，video_model={video_model}，audio_model={audio_model}）")
             
             # 获取预设提示词文本
             preset_text = self.get_preset_text_by_language(
@@ -1519,7 +1598,7 @@ class omni_llm_unified_inference:
                 from common import LLAMA_CPP_STORAGE
                 if LLAMA_CPP_STORAGE.current_config:
                     chat_handler = LLAMA_CPP_STORAGE.current_config.get("chat_handler", "")
-                    is_mimo_vl = chat_handler in ["MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]
+                    is_mimo_vl = "mimo" in chat_handler.lower()
                     if is_mimo_vl and mode == "text":
                         if output_language == "中文":
                             final_prompt += "\n\n**【重要】**请直接输出最终结果，不要输出分析过程、思考步骤或解释说明。"
@@ -1607,8 +1686,8 @@ class omni_llm_unified_inference:
                 from common import LLAMA_CPP_STORAGE
                 if LLAMA_CPP_STORAGE.current_config:
                     chat_handler = LLAMA_CPP_STORAGE.current_config.get("chat_handler", "")
-                    is_qwen3_series = chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL"]
-                    is_mimo_vl = chat_handler in ["MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]
+                    is_qwen3_series = chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL"]
+                    is_mimo_vl = "mimo" in chat_handler.lower()
                     has_visual = video_input or has_images
                     
                     if is_qwen3_series or (is_mimo_vl and has_visual):
@@ -1624,15 +1703,15 @@ class omni_llm_unified_inference:
                         gen_params["max_tokens"] = min(gen_params.get("max_tokens", 1024), 768)
                         # 降低top_p以减少内存使用
                         gen_params["top_p"] = max(gen_params.get("top_p", 0.9), 0.8)
-                        # 禁用思考模式以避免混乱输出
-                        gen_params["enable_thinking"] = False
+                        # 思考模式由ChatHandler初始化时控制（Qwen3-VL: force_reasoning；MiMo-VL模板无思考机制）
+                        # 注意：create_chat_completion不接受enable_thinking参数，此处不再设置
                         # 添加思考结束标记作为停止序列
                         stop_list = gen_params.get("stop", [])
                         if isinstance(stop_list, str):
                             stop_list = [stop_list]
                         stop_list.extend(["<|end_of_thinking|>", "<|end_of_solution|>", "</think>"])
                         gen_params["stop"] = stop_list
-                        print(f"【Qwen3优化】调整参数: n_batch={gen_params['n_batch']}, max_tokens={gen_params['max_tokens']}, top_p={gen_params['top_p']}, enable_thinking=False")
+                        print(f"【Qwen3优化】调整参数: n_batch={gen_params['n_batch']}, max_tokens={gen_params['max_tokens']}, top_p={gen_params['top_p']}")
             except Exception as e:
                 print(f"【Qwen3优化】内存参数调整时出错（忽略）: {e}")
                 self._perf_params_cache[cache_key] = gen_params.copy()
@@ -1679,7 +1758,7 @@ class omni_llm_unified_inference:
                 # Qwen3-VL视频模式：在推理前清理KV缓存以避免内存不足
                 try:
                     from common import LLAMA_CPP_STORAGE
-                    if LLAMA_CPP_STORAGE.llm and current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
+                    if LLAMA_CPP_STORAGE.llm and current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
                         # 清理KV缓存以腾出空间给视频帧
                         if hasattr(LLAMA_CPP_STORAGE.llm, '_ctx') and hasattr(LLAMA_CPP_STORAGE.llm._ctx, 'memory_clear'):
                             LLAMA_CPP_STORAGE.llm._ctx.memory_clear(True)
@@ -1694,7 +1773,7 @@ class omni_llm_unified_inference:
                 qwen3_image_size = image_max_size
                 qwen3_frame_limit = len(video_frames)
                 
-                if current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
+                if current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
                     # 限制帧数以避免内存不足（每帧大约需要256-512 tokens）
                     qwen3_frame_limit = min(len(video_frames), 8)
                     # 降低图像大小以减少内存使用
@@ -1730,7 +1809,7 @@ class omni_llm_unified_inference:
                 
                 # Qwen3系列模型特殊图像大小优化
                 qwen3_image_size = image_max_size
-                if current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
+                if current_chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
                     qwen3_image_size = min(image_max_size, 256)
                     if qwen3_image_size < 128:
                         qwen3_image_size = 128
@@ -1766,7 +1845,7 @@ class omni_llm_unified_inference:
                 if LLAMA_CPP_STORAGE.current_config:
                     enable_mmproj = LLAMA_CPP_STORAGE.current_config.get("enable_mmproj", False)
                     current_chat_handler_name = LLAMA_CPP_STORAGE.current_config.get("chat_handler", "")
-                    is_qwen3_model = current_chat_handler_name in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking"]
+                    is_qwen3_model = current_chat_handler_name in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking"]
             except Exception as e:
                 pass
             
@@ -1787,7 +1866,7 @@ class omni_llm_unified_inference:
                         text_parts.append(item)
                 content = ''.join(text_parts).strip()
                 if is_qwen3_model and enable_mmproj and is_text_mode:
-                    print(f"【Qwen3.5/3.6优化】文本生成模式，强制使用纯文本格式")
+                    print(f"【Qwen3.5/3.6/3.8优化】文本生成模式，强制使用纯文本格式")
                 else:
                     print(f"【回退模式】ChatHandler为None，已将content从列表格式转换为字符串格式")
             
@@ -1833,7 +1912,7 @@ class omni_llm_unified_inference:
                             from common import LLAMA_CPP_STORAGE
                             if LLAMA_CPP_STORAGE.current_config and LLAMA_CPP_STORAGE.llm is not None:
                                 chat_handler = LLAMA_CPP_STORAGE.current_config.get("chat_handler", "")
-                                if chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
+                                if chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
                                     if hasattr(LLAMA_CPP_STORAGE.llm, 'n_tokens'):
                                         LLAMA_CPP_STORAGE.llm.n_tokens = 0
                                     if hasattr(LLAMA_CPP_STORAGE.llm, '_ctx') and hasattr(LLAMA_CPP_STORAGE.llm._ctx, 'memory_clear'):
@@ -1894,7 +1973,7 @@ class omni_llm_unified_inference:
                 from common import LLAMA_CPP_STORAGE
                 if LLAMA_CPP_STORAGE.current_config and LLAMA_CPP_STORAGE.llm is not None:
                     chat_handler = LLAMA_CPP_STORAGE.current_config.get("chat_handler", "")
-                    if chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
+                    if chat_handler in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen3-VL", "MiMo-VL-7B-RL", "MiMo-VL-7B-RL-2508"]:
                         if hasattr(LLAMA_CPP_STORAGE.llm, 'n_tokens'):
                             LLAMA_CPP_STORAGE.llm.n_tokens = 0
                         if hasattr(LLAMA_CPP_STORAGE.llm, '_ctx') and hasattr(LLAMA_CPP_STORAGE.llm._ctx, 'memory_clear'):

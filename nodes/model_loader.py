@@ -186,6 +186,11 @@ class omni_llm_model_loader:
             import common
             from common import chat_handler_manager, detect_model_chat_handler
             
+            model_lower = model_name.lower()
+            # Qwen3.8 复用 Qwen35ChatHandler，但使用独立显示名以启用针对性优化
+            if "qwen3.8" in model_lower or "qwen38" in model_lower:
+                return "Qwen3.8-Thinking" if "thinking" in model_lower else "Qwen3.8"
+            
             # 首先尝试使用ChatHandlerManager的智能匹配
             handler_name, handler_cls = chat_handler_manager.get_handler_for_model(model_name)
             if handler_name and handler_cls:
@@ -273,9 +278,10 @@ class omni_llm_model_loader:
         print(f"【自动参数】n_batch={n_batch}, n_ubatch={n_ubatch}, n_threads={n_threads}, n_threads_batch={n_threads_batch}")
         
         # 检查是否是Qwen3系列模型
-        is_qwen3 = "qwen3" in model.lower() or "qwen35" in model.lower() or "qwen36" in model.lower()
+        is_qwen3 = "qwen3" in model.lower() or "qwen35" in model.lower() or "qwen36" in model.lower() or "qwen38" in model.lower()
         is_qwen35 = "qwen35" in model.lower() or "qwen3.5" in model.lower()
         is_qwen36 = "qwen36" in model.lower() or "qwen3.6" in model.lower()
+        is_qwen38 = "qwen38" in model.lower() or "qwen3.8" in model.lower()
         is_qwen3vl = "qwen3-vl" in model.lower() or "qwen3vl" in model.lower()
         is_qwen36vl = "qwen36-vl" in model.lower() or "qwen3.6-vl" in model.lower()
         is_mimo_vl = "mimo-vl" in model.lower()
@@ -287,6 +293,8 @@ class omni_llm_model_loader:
         is_qwen35_mtp = is_qwen35 and ("mtp" in model.lower() or "multitoken" in model.lower())
         # Qwen3.6-MTP支持MTP推测解码，也需要较大的上下文
         is_qwen36_mtp = is_qwen36 and ("mtp" in model.lower() or "multitoken" in model.lower())
+        # Qwen3.8-MTP支持MTP推测解码，也需要较大的上下文
+        is_qwen38_mtp = is_qwen38 and ("mtp" in model.lower() or "multitoken" in model.lower())
         
         # 初始化 image_min_tokens，将在后续根据模型类型自动设置
         image_min_tokens = 0
@@ -328,6 +336,24 @@ class omni_llm_model_loader:
                 if enable_mmproj:
                     image_min_tokens = 256
                     print(f"【GPU模式优化】Qwen3.6模型自动设置image_min_tokens为256")
+                # 自动设置image_max_tokens（如果未设置或小于image_min_tokens）
+                if enable_mmproj and image_max_tokens < image_min_tokens:
+                    image_max_tokens = image_min_tokens
+                    print(f"【GPU模式优化】自动设置image_max_tokens为{image_max_tokens}")
+            
+            # 针对Qwen3.8模型的特殊优化（27B稠密视觉-语言模型，原生262k上下文，支持MTP）
+            if is_qwen38:
+                print(f"【GPU模式优化】Qwen3.8模型启用特殊GPU参数配置")
+                # Qwen3.8模型需要更大的上下文长度
+                if n_ctx < 8192:
+                    print(f"【GPU模式优化】Qwen3.8模型需要至少8192的上下文长度，自动调整从{n_ctx}到8192")
+                    n_ctx = 8192
+                # Qwen3.8复用Qwen35ChatHandler（基于Qwen3.5架构）
+                print(f"【提示】Qwen3.8模型将使用Qwen35ChatHandler（基于Qwen3.5架构兼容）")
+                # Qwen3.8模型需要合理的image tokens（自动设置）
+                if enable_mmproj:
+                    image_min_tokens = 256
+                    print(f"【GPU模式优化】Qwen3.8模型自动设置image_min_tokens为256")
                 # 自动设置image_max_tokens（如果未设置或小于image_min_tokens）
                 if enable_mmproj and image_max_tokens < image_min_tokens:
                     image_max_tokens = image_min_tokens
@@ -378,6 +404,14 @@ class omni_llm_model_loader:
                 if n_ctx < 32768:
                     print(f"【GPU模式优化】Qwen3.6-MTP模型需要至少32768的上下文长度，自动调整从{n_ctx}到32768")
                     n_ctx = 32768
+            
+            # 针对Qwen3.8-MTP模型的特殊优化（支持MTP推测解码）
+            if is_qwen38_mtp:
+                print(f"【GPU模式优化】Qwen3.8-MTP模型启用特殊GPU参数配置")
+                # MTP模型需要较大的上下文长度以支持推测解码
+                if n_ctx < 32768:
+                    print(f"【GPU模式优化】Qwen3.8-MTP模型需要至少32768的上下文长度，自动调整从{n_ctx}到32768")
+                    n_ctx = 32768
         
         # 针对MiMo-VL模型的特殊优化（基于Qwen2.5-VL架构）
         if is_mimo_vl:
@@ -395,6 +429,11 @@ class omni_llm_model_loader:
         def get_auto_chat_handler(model_name):
             import common
             from common import chat_handler_manager, detect_model_chat_handler
+            
+            model_lower = model_name.lower()
+            # Qwen3.8 复用 Qwen35ChatHandler，但使用独立显示名以启用针对性优化
+            if "qwen3.8" in model_lower or "qwen38" in model_lower:
+                return "Qwen3.8-Thinking" if "thinking" in model_lower else "Qwen3.8"
             
             # 首先尝试使用ChatHandlerManager的智能匹配
             handler_name, handler_cls = chat_handler_manager.get_handler_for_model(model_name)
@@ -443,7 +482,6 @@ class omni_llm_model_loader:
             "image_min_tokens": image_min_tokens, "image_max_tokens": image_max_tokens,
             "n_batch": n_batch, "n_ubatch": n_ubatch, "n_threads": n_threads,
             "n_threads_batch": n_threads_batch, "attention_type": attention_type,
-            "cache_prompt": False,
             "tensor_split": tensor_split,
         }
         
