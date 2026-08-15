@@ -156,18 +156,18 @@
 
 ### qwen3.5、qwen3.6等思考类模型使用文本生成模式必须启用加载mmproj模型
 
-**具体型号**：Qwen3.5-4B
-**核心特点**：Qwen3.5系列的轻量版本，参数量适中，兼顾推理能力与资源消耗，支持多模态输入和工具调用，响应速度快，适合低显存设备使用。
-**适配场景**：低显存设备部署、快速推理、移动端应用、轻量级对话、基础多模态任务、实时交互
-**下载链接（nsfw）**：https://huggingface.co/mradermacher/Qwen3.5-4B_Abliterated-GGUF（含mmproj模型）
-**备用链接（nsfw）**：https://huggingface.co/HauhauCS/Qwen3.5-4B-Uncensored-HauhauCS-Aggressive（含mmproj模型）
-
-
 **具体型号**：Qwen3.5-9B
 **核心特点**：Qwen3.5系列的平衡版本，参数量适中，兼顾推理能力与资源消耗，支持多模态输入和工具调用，适合中等显存设备。
 **适配场景**：中等显存设备部署、高质量多模态推理、复杂图文对话、图像理解分析、视频帧内容识别
 **下载链接（nsfw）**：https://huggingface.co/mradermacher/Huihui-Qwen3.5-9B-abliterated-GGUF（含mmproj模型）
 **备用链接（nsfw）**：https://huggingface.co/llmfan46/Qwen3.5-9B-ultra-uncensored-heretic-v2-GGUF（含mmproj模型）
+
+
+**具体型号**：Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF
+**核心特点**：Qwen3.5系列的平衡版本，参数量适中，兼顾推理能力与资源消耗，支持多模态输入和工具调用，适合中等显存设备。
+**适配场景**：中等显存设备部署、高质量多模态推理、复杂图文对话、图像理解分析、视频帧内容识别
+**下载链接（nsfw）**：https://huggingface.co/DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF（含mmproj模型）
+
 
 ### Qwen3.5变体系列
 
@@ -190,6 +190,18 @@
 **适配场景**：中等显存设备部署、高质量多模态推理、复杂图文分析、长文本理解、视频内容深度分析
 **下载链接（nsfw）**：https://huggingface.co/HauhauCS/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive（含mmproj模型）
 
+**具体型号**：DavidAU/Qwen3.6-27B-Heretic-Uncensored-FINETUNE-NEO-CODE-Di-IMatrix-MAX-GGUF（大显存专用）
+**核心特点**：Qwen3.6系列的高性能版本，参数量大、推理能力强，支持复杂多模态任务和长上下文处理，适合大显存设备部署。
+**适配场景**：大显存设备部署、复杂图文推理、专业图像分析、长文本理解、视频内容深度分析、高精度生成任务
+**下载链接（nsfw）**：https://huggingface.co/DavidAU/Qwen3.6-27B-Heretic-Uncensored-FINETUNE-NEO-CODE-Di-IMatrix-MAX-GGUF（含mmproj模型）
+
+
+### Qwen3.8系列
+
+**具体型号**：Qwen3.8-27B（大显存专用）
+**核心特点**：Qwen3.8系列的高性能版本，参数量大、推理能力更强，支持复杂多模态任务和更大的长上下文处理，适合大显存设备部署。
+**适配场景**：大显存设备部署、复杂图文推理、专业图像分析、长文本理解、视频内容深度分析、高精度生成任务
+**下载链接（nsfw）**：https://huggingface.co/JonathanColetti/Qwen3.8-27B-Uncensored-GGUF（含mmproj模型）
 
 
 ### OCR专项系列
