@@ -948,10 +948,14 @@ class ChatHandlerManager:
         'llama32visioninstruct': 'Llama-3.2-11B-Vision-Instruct',
         'llama31vision': 'LLaMA-3.1-Vision',
         'gemma3': 'Gemma-3',
+        'gemma4': 'Gemma-4',
         'granitedocling': 'Granite-DocLing',
         'lfm2vl': 'Lfm-2-VL',
+        'lfm25vl': 'Lfm-2.5-VL',
         'paddleocr': 'PaddleOCR-VL-1.5',
         'obsidian': 'Obsidian',
+        'step3vl': 'Step3-VL',
+        'mtmd': 'DeepSeek-OCR',
         'cogvlm2': 'CogVLM2',
         'cogvlmmoe': 'CogVLM-MOE',
         'phi35vision': 'Phi-3.5-vision-instruct',
@@ -1166,7 +1170,7 @@ base_models = ["LLaVA-1.6", "nanoLLaVA", "llama-joycaption", "moondream3-preview
                "MiniCPM-Llama3-V 2.5", "Llama-3.2-11B-Vision-Instruct", "CogVLM2", 
                "CogVLM-MOE", "Phi-3.5-vision-instruct", "Phi-3-vision-128k-instruct", 
                "Qwen2.5-VL", "Qwen3-VL", "Qwen3-VL-Thinking", "Qwen3-VL-Chat", "Qwen3-VL-Instruct", 
-               "Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.6-VL", "Qwen3.6-VL-Thinking", "Qwen2.5-Omni", "MiniCPM-O-4.5", "MiniCPM-O-4.6",
+               "Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.6-VL", "Qwen3.6-VL-Thinking", "Qwen3.8", "Qwen3.8-Thinking", "Qwen2.5-Omni", "MiniCPM-O-4.5", "MiniCPM-O-4.6",
                "LLaMA-3.1-Vision", "olmOCR-2", 
                "InternVL-1.5", "InternVL-2.0", "Yi-VL-2.0", "Gemma-3", "Gemma-4", "Granite-DocLing", 
                "Lfm-2-VL", "Lfm-2.5-VL", "Llama3-Vision-Alpha", "LLaVA-1.5", "MiniCPM-v2.6", "Obsidian", 
@@ -1547,6 +1551,9 @@ MODEL_REGISTRY = [
     ('qwen35', 'Qwen35ChatHandler', 'Qwen3.5', 15),
     ('qwen3.6', 'Qwen35ChatHandler', 'Qwen3.6', 15),
     ('qwen36', 'Qwen35ChatHandler', 'Qwen3.6', 15),
+    ('qwen3.8-thinking', 'Qwen35ChatHandler', 'Qwen3.8-Thinking', 20),
+    ('qwen3.8', 'Qwen35ChatHandler', 'Qwen3.8', 15),
+    ('qwen38', 'Qwen35ChatHandler', 'Qwen3.8', 15),
     ('deepseek-v4-flash', 'Qwen35ChatHandler', 'Qwen3.5-DeepSeek-V4-Flash', 15),
     ('qwen3.5-mtp', 'Qwen35ChatHandler', 'Qwen3.5-MTP', 15),
     ('qwen35-mtp', 'Qwen35ChatHandler', 'Qwen3.5-MTP', 15),
@@ -1706,6 +1713,29 @@ def draw_bbox(image, json_data, mode):
         draw.text((x0+2, text_y), label, fill=(255,255,255))
     return torch.from_numpy(np.array(img).astype(np.float32) / 255.0).unsqueeze(0)
 
+# -------------------------- llama.cpp 枚举值安全访问 --------------------------
+def _get_llama_enum_value(enum_name, member_name, fallback=None):
+    """安全获取 llama_cpp 中的枚举值，兼容不同版本/导出路径。
+
+    不同 llama-cpp-python 版本会把 llama_context_type / llama_ftype 等枚举
+    导出到不同模块（llama_cpp.llama_cpp、llama_cpp.llama_types 或包根命名空间），
+    这里逐一探测以避免因导入路径变化而报错。
+    """
+    for module in (
+        getattr(llama_cpp, "llama_cpp", None),
+        getattr(llama_cpp, "llama_types", None),
+        llama_cpp,
+    ):
+        if module is None:
+            continue
+        enum_cls = getattr(module, enum_name, None)
+        if enum_cls is not None:
+            value = getattr(enum_cls, member_name, None)
+            if value is not None:
+                return int(value)
+    return fallback
+
+
 # -------------------------- 模型存储类（单例模式） --------------------------
 class LLAMA_CPP_STORAGE:
     llm = None
@@ -1834,6 +1864,8 @@ class LLAMA_CPP_STORAGE:
             "Qwen3.6-Thinking": "Qwen35ChatHandler",
             "Qwen3.6-VL": "Qwen3VLChatHandler",
             "Qwen3.6-VL-Thinking": "Qwen3VLChatHandler",
+            "Qwen3.8": "Qwen35ChatHandler",
+            "Qwen3.8-Thinking": "Qwen35ChatHandler",
             "Qwen3-VL": "Qwen3VLChatHandler",
             "Qwen3-VL-Thinking": "Qwen3VLChatHandler",
             "Qwen2.5-VL": "Qwen25VLChatHandler",
@@ -1856,12 +1888,20 @@ class LLAMA_CPP_STORAGE:
             "MiniCPM-O-4.6": "MiniCPMv46ChatHandler",
             "Gemma3": "Gemma3ChatHandler",
             "Gemma4": "Gemma4ChatHandler",
+            "Gemma-3": "Gemma3ChatHandler",
+            "Gemma-4": "Gemma4ChatHandler",
             "GLM-4.6V": "GLM46VChatHandler",
             "GLM-4.1V-Thinking": "GLM41VChatHandler",
             "Lfm-2-VL": "LFM2VLChatHandler",
             "LFM2-VL": "LFM2VLChatHandler",
             "LFM2.5-VL": "LFM25VLChatHandler",
+            "Lfm-2.5-VL": "LFM25VLChatHandler",
             "Granite-Docling": "GraniteDoclingChatHandler",
+            "Granite-DocLing": "GraniteDoclingChatHandler",
+            "PaddleOCR-VL-1.5": "PaddleOCRChatHandler",
+            "PaddleOCR": "PaddleOCRChatHandler",
+            "Obsidian": "ObsidianChatHandler",
+            "olmOCR-2": "ObsidianChatHandler",
         }
 
         handler_name = display_name_to_handler.get(chat_handler_name)
@@ -1875,6 +1915,8 @@ class LLAMA_CPP_STORAGE:
         if chat_handler_name.startswith("Qwen3.6"):
             if "VL" in chat_handler_name or "vl" in chat_handler_name:
                 return chat_handler_manager.get_handler("Qwen3VLChatHandler")
+            return chat_handler_manager.get_handler("Qwen35ChatHandler")
+        if chat_handler_name.startswith("Qwen3.8"):
             return chat_handler_manager.get_handler("Qwen35ChatHandler")
         if chat_handler_name.startswith("Qwen3-VL"):
             return chat_handler_manager.get_handler("Qwen3VLChatHandler")
@@ -1925,8 +1967,8 @@ class LLAMA_CPP_STORAGE:
             if chat_handler_name in ["MiniCPM-v4.5", "MiniCPM-v4.5-Thinking", "MiniCPM-v4.6", "MiniCPM-v4.6-Thinking", "GLM-4.6V", "GLM-4.6V-Thinking"]:
                 init_params["enable_thinking"] = think_mode
             
-            # Qwen3.5/Qwen3.6 需要特殊处理
-            if chat_handler_name in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking"]:
+            # Qwen3.5/Qwen3.6/Qwen3.8 需要特殊处理
+            if chat_handler_name in ["Qwen3.5", "Qwen3.5-Thinking", "Qwen3.6", "Qwen3.6-Thinking", "Qwen3.8", "Qwen3.8-Thinking"]:
                 init_params["enable_thinking"] = think_mode
                 # Qwen35ChatHandler可以在没有mmproj的情况下运行（文本模式）
                 if mmproj_path:
@@ -1936,7 +1978,7 @@ class LLAMA_CPP_STORAGE:
                     if image_min_tokens > 0:
                         init_params["image_min_tokens"] = image_min_tokens
                 else:
-                    print(f"【ChatHandler初始化】Qwen3.5/Qwen3.6 无mmproj，以纯文本模式运行")
+                    print(f"【ChatHandler初始化】Qwen3.5/Qwen3.6/Qwen3.8 无mmproj，以纯文本模式运行")
             
             if _has_mtmd:
                 if image_max_tokens > 0:
@@ -1974,10 +2016,9 @@ class LLAMA_CPP_STORAGE:
             
             # 新增参数
             n_batch = config.get("n_batch", 2048)
-            n_ubatch = 0
+            n_ubatch = config.get("n_ubatch", 0)
             n_threads = config.get("n_threads", 0)
             n_threads_batch = config.get("n_threads_batch", 0)
-            cache_prompt = config.get("cache_prompt", False)
             enable_thinking = config.get("enable_thinking", False)
             
             # MoE模型优化（完全自动，无需用户配置）
@@ -2009,13 +2050,14 @@ class LLAMA_CPP_STORAGE:
                 print(f"【MoE检测】非MoE模型，跳过MoE优化：{model}")
             
             # MTP (Multi-Token Prediction) 模型检测
-            # MTP模型文件名可能包含"mtp"，或者文件夹名包含"mtp"
-            # 例如：Qwen3.5-9B-MTP, Qwen3.5-9B-Q6_K.gguf（在Qwen3.5-9B-MTP文件夹中）
-            is_mtp_model = "mtp" in model.lower() or "multitoken" in model.lower()
+            # MTP 模型文件名通常包含 "mtp"（如 Qwen3.6-27B-MTP、NEO-IMATRIX-MAX-MTP），
+            # 也可能在文件夹名中（例如 Qwen3.5-9B-MTP/Qwen3.5-9B-Q6_K.gguf）
+            mtp_keywords = ("mtp", "multitoken", "multi-token", "multi_token")
+            is_mtp_model = any(keyword in model.lower() for keyword in mtp_keywords)
             
             if is_mtp_model:
                 print(f"【MTP检测】检测到MTP（Multi-Token Prediction）模型：{model}")
-                print(f"【MTP提示】MTP模型需要llama.cpp源码编译版本才能启用推测解码加速")
+                print(f"【MTP提示】MTP模型需llama-cpp-python支持load_mtp/ctx_type参数才能启用推测解码加速")
             else:
                 print(f"【MTP检测】非MTP模型，跳过MTP功能：{model}")
             
@@ -2024,14 +2066,9 @@ class LLAMA_CPP_STORAGE:
             flash_attention = "Auto"
             # K/Q/V卸载：默认启用（提升GPU性能）
             offload_kqv = True
-            # 低显存模式：根据显存大小自动决定
-            low_vram = False
-            # 内存映射：默认启用（减少内存占用）
-            use_mmap = True
-            # 内存锁定：默认禁用（除非AMD GPU）
-            use_mlock = False
-            # 半精度KV缓存：默认启用（减少显存占用）
-            f16_kv = True
+            # 模型加载模式（llama-cpp-python 0.3.40+ 统一API，替代废弃的 use_mmap/use_mlock）
+            # LLAMA_LOAD_MODE_MMAP=1, LLAMA_LOAD_MODE_MLOCK=2, LLAMA_LOAD_MODE_MMAP_MLOCK=3, LLAMA_LOAD_MODE_DIRECT_IO=4
+            load_mode = 1  # MMAP（内存映射，默认）
             
             # 根据设备模式调整参数
             if device_mode == "CPU":
@@ -2061,6 +2098,14 @@ class LLAMA_CPP_STORAGE:
             # 检查模型路径是否存在
             if not os.path.exists(model_path):
                 raise FileNotFoundError(f"模型文件不存在：{model_path}")
+
+            # 结合解析后的完整路径（含文件夹名）再次检测 MTP，
+            # 覆盖文件名不含 "mtp"、但所在目录名包含 "mtp" 的情况
+            if not is_mtp_model:
+                path_for_mtp_check = os.path.dirname(model_path).lower()
+                is_mtp_model = any(keyword in path_for_mtp_check for keyword in mtp_keywords)
+                if is_mtp_model:
+                    print(f"【MTP检测】根据模型路径补充检测到MTP模型：{model_path}")
             
             # 获取模型格式
             model_ext = os.path.splitext(model)[1].lower()
@@ -2110,6 +2155,8 @@ class LLAMA_CPP_STORAGE:
                 "qwen3.5",
                 "qwen36",
                 "qwen3.6",
+                "qwen38",
+                "qwen3.8",
             ]
             
             # 检查是否需要mmproj
@@ -2122,11 +2169,12 @@ class LLAMA_CPP_STORAGE:
                     f"【提示】Qwen3.5/Qwen3.6/MiniCPM-O系列是视觉-语言模型，需要mmproj才能正常使用"
                 )
             
-            # Qwen3系列模型（Qwen3.5、Qwen3.6）需要特定的ChatHandler来处理消息格式
+            # Qwen3系列模型（Qwen3.5、Qwen3.6、Qwen3.8）需要特定的ChatHandler来处理消息格式
             # 注意：Qwen35ChatHandler继承自MTMDChatHandler，需要clip_model_path参数
             # 因此只有在启用mmproj时才初始化ChatHandler，纯文本模型跳过初始化
             is_qwen3_model = "qwen35" in model_lower or "qwen3.5" in model_lower or \
-                            "qwen36" in model_lower or "qwen3.6" in model_lower
+                            "qwen36" in model_lower or "qwen3.6" in model_lower or \
+                            "qwen38" in model_lower or "qwen3.8" in model_lower
             
             need_chat_handler = enable_mmproj and not is_text_only_model or \
                                 (is_qwen3_model and enable_mmproj)
@@ -2162,8 +2210,9 @@ class LLAMA_CPP_STORAGE:
 
             # 计算推荐的最大GPU层数（仅在 GPU 模式下）
             recommended_gpu_layers = n_gpu_layers
-            # 检测是否为Qwen3.5/MiMo-VL模型（需要特殊内存优化）
+            # 检测是否为Qwen3.5/Qwen3.8/MiMo-VL模型（需要特殊内存优化）
             is_qwen35 = "qwen35" in model_lower or "qwen3.5" in model_lower
+            is_qwen38 = "qwen38" in model_lower or "qwen3.8" in model_lower
             is_mimo_vl = "mimo-vl" in model_lower
 
             if device_mode == "GPU" and (HARDWARE_INFO["has_cuda"] or HARDWARE_INFO["has_rocm"]) and n_gpu_layers > 0:
@@ -2178,14 +2227,15 @@ class LLAMA_CPP_STORAGE:
                     recommended_gpu_layers = calculate_vram_layers(model_path, gpu_vram, mmproj_size_gb)
                     print(f"【VRAM计算】推荐GPU层数={recommended_gpu_layers}")
                     
-                    # Qwen3.5/MiMo-VL/Qwen3.6模型特殊内存优化：降低GPU层数以确保推理成功
+                    # Qwen3.5/MiMo-VL/Qwen3.6/Qwen3.8模型特殊内存优化：降低GPU层数以确保推理成功
                     is_qwen35_model = "qwen35" in model_lower or "qwen3.5" in model_lower or \
                                       "mimo-vl" in model_lower
                     is_qwen36_model = "qwen36" in model_lower or "qwen3.6" in model_lower
-                    if (is_qwen35_model or is_qwen36_model) and recommended_gpu_layers > 16:
+                    is_qwen38_model = "qwen38" in model_lower or "qwen3.8" in model_lower
+                    if (is_qwen35_model or is_qwen36_model or is_qwen38_model) and recommended_gpu_layers > 16:
                         original_layers = recommended_gpu_layers
                         recommended_gpu_layers = min(recommended_gpu_layers, 16)
-                        model_type = "Qwen3.6" if is_qwen36_model else "Qwen3.5"
+                        model_type = "Qwen3.6" if is_qwen36_model else ("Qwen3.8" if is_qwen38_model else "Qwen3.5")
                         print(f"【{model_type}优化】降低GPU层数从{original_layers}到{recommended_gpu_layers}以确保推理成功")
             elif device_mode == "CPU":
                 print(f"【CPU模式】跳过GPU层数计算")
@@ -2198,26 +2248,17 @@ class LLAMA_CPP_STORAGE:
                 n_batch = 1024
                 n_threads = os.cpu_count() or 8
                 n_threads_batch = os.cpu_count() or 8
-                low_vram = True
-                use_mmap = True
-                use_mlock = False
-                f16_kv = True
+                load_mode = 1  # MMAP
             elif gpu_vendor == "amd":
                 n_batch = 1024
                 n_threads = os.cpu_count() or 8
                 n_threads_batch = os.cpu_count() or 8
-                low_vram = HARDWARE_INFO["is_low_perf"]
-                use_mmap = False
-                use_mlock = True
-                f16_kv = True
+                load_mode = 2  # MLOCK（AMD ROCm推荐使用内存锁定避免换页抖动）
             else:
                 n_batch = 2048
                 n_threads = os.cpu_count() or 8
                 n_threads_batch = os.cpu_count() or 16
-                low_vram = HARDWARE_INFO["is_low_perf"]
-                use_mmap = True
-                use_mlock = False
-                f16_kv = True
+                load_mode = 1  # MMAP
             
             # Qwen3.5模型特殊内存优化：降低n_batch以确保推理成功
             if is_qwen35 and device_mode == "GPU":
@@ -2229,6 +2270,17 @@ class LLAMA_CPP_STORAGE:
                 if n_ctx < 4096:
                     print(f"【Qwen3.5优化】提高n_ctx从{n_ctx}到4096以满足模型最小要求")
                     n_ctx = 4096
+
+            # Qwen3.8模型特殊内存优化：降低n_batch并保证足够上下文（原生262k上下文，27B稠密模型）
+            if is_qwen38 and device_mode == "GPU":
+                original_batch = n_batch
+                n_batch = min(n_batch, 512)
+                if original_batch > n_batch:
+                    print(f"【Qwen3.8优化】降低n_batch从{original_batch}到{n_batch}以确保推理成功")
+                # Qwen3.8模型需要至少8192的上下文长度
+                if n_ctx < 8192:
+                    print(f"【Qwen3.8优化】提高n_ctx从{n_ctx}到8192以满足模型最小要求")
+                    n_ctx = 8192
             
             # DeepSeek-V4-Flash模型特殊优化（支持1M上下文长度）
             is_deepseek_v4_flash = "deepseek-v4-flash" in model.lower() or "deepseek_v4_flash" in model.lower()
@@ -2259,56 +2311,59 @@ class LLAMA_CPP_STORAGE:
                     print(f"【Qwen3.6-MTP优化】提高n_ctx从{n_ctx}到32768以支持MTP推测解码")
                     n_ctx = 32768
 
+            # Qwen3.8-MTP模型特殊优化（支持MTP推测解码）
+            is_qwen38_mtp = is_qwen38 and ("mtp" in model.lower() or "multitoken" in model.lower())
+            if is_qwen38_mtp and device_mode == "GPU":
+                # MTP模型需要较大的上下文长度以支持推测解码
+                if n_ctx < 32768:
+                    print(f"【Qwen3.8-MTP优化】提高n_ctx从{n_ctx}到32768以支持MTP推测解码")
+                    n_ctx = 32768
+
             llama_kwargs = {
                 "model_path": model_path,
                 "chat_handler": cls.chat_handler,
                 "n_gpu_layers": recommended_gpu_layers if device_mode == "GPU" else 0,
                 "n_ctx": n_ctx,
                 "n_batch": n_batch,
+                "n_ubatch": n_ubatch,
                 "verbose": False,
                 "n_threads": n_threads,
                 "n_threads_batch": n_threads_batch,
-                "low_vram": low_vram,
-                "use_mmap": use_mmap,
-                "use_mlock": use_mlock,
-                "f16_kv": f16_kv,
-                "cache_prompt": cache_prompt,
+                "load_mode": load_mode,
+                "offload_kqv": offload_kqv,
             }
 
-            # Qwen3.5/Qwen3.6模型需要设置chat_format为qwen以确保消息格式正确
+            # Qwen3.5/Qwen3.6/Qwen3.8模型需要设置chat_format为qwen以确保消息格式正确
             # 当ChatHandler为None时，使用chat_format参数指定消息格式
             is_qwen35_model = "qwen35" in model.lower() or "qwen3.5" in model.lower()
             is_qwen36_model = "qwen36" in model.lower() or "qwen3.6" in model.lower()
-            if (is_qwen35_model or is_qwen36_model) and cls.chat_handler is None:
+            is_qwen38_model = "qwen38" in model.lower() or "qwen3.8" in model.lower()
+            if (is_qwen35_model or is_qwen36_model or is_qwen38_model) and cls.chat_handler is None:
                 try:
                     llama_sig = inspect.signature(llama_cpp.Llama.__init__)
                     if 'chat_format' in llama_sig.parameters:
                         llama_kwargs["chat_format"] = "qwen"
-                        print(f"【Qwen3.5/3.6优化】已设置chat_format=qwen")
+                        print(f"【Qwen3.5/3.6/3.8优化】已设置chat_format=qwen")
                     else:
-                        print(f"【Qwen3.5/3.6优化】当前llama-cpp-python版本不支持chat_format参数")
+                        print(f"【Qwen3.5/3.6/3.8优化】当前llama-cpp-python版本不支持chat_format参数")
                 except Exception as e:
-                    print(f"【Qwen3.5/3.6优化】设置chat_format失败: {e}")
+                    print(f"【Qwen3.5/3.6/3.8优化】设置chat_format失败: {e}")
 
-            # Flash Attention 配置（仅 NVIDIA GPU）
+            # Flash Attention 配置（llama-cpp-python 0.3.46+ 使用 flash_attn_type 参数）
             if device_mode == "GPU" and gpu_vendor == "NVIDIA":
                 attention_type = config.get("attention_type", "Auto")
                 try:
-                    # 检测 Flash Attention 是否可用
-                    flash_available, flash_version = check_flash_attention()
                     llama_sig = inspect.signature(llama_cpp.Llama.__init__)
-                    if 'flash_attn' in llama_sig.parameters:
+                    if 'flash_attn_type' in llama_sig.parameters:
+                        flash_available, flash_version = check_flash_attention()
                         if attention_type == "Flash" or (attention_type == "Auto" and flash_available):
-                            llama_kwargs["flash_attn"] = True
+                            # LLAMA_FLASH_ATTN_TYPE_ENABLED = 1
+                            llama_kwargs["flash_attn_type"] = 1
                             print(f"【Flash Attention】已启用{flash_version if flash_version else ''}")
                 except Exception as e:
                     print(f"【Flash Attention】配置失败: {e}")
                     pass
-            
-            # Qwen3.5模型启用低显存模式
-            if is_qwen35 and device_mode == "GPU":
-                llama_kwargs["low_vram"] = True
-            
+
             # MoE模型优化配置（完全自动，仅MoE模型生效）
             if is_moe_model and device_mode == "GPU":
                 try:
@@ -2340,46 +2395,65 @@ class LLAMA_CPP_STORAGE:
                         except Exception as e:
                             print(f"【MoE优化】自动设置tensor_split失败: {e}")
                     
-                    # MoE模型建议：使用flash attention以提升性能
-                    if 'flash_attn' not in llama_kwargs and gpu_vendor == "NVIDIA":
-                        try:
-                            flash_available, _ = check_flash_attention()
-                            if flash_available:
-                                llama_kwargs["flash_attn"] = True
-                                print(f"【MoE优化】为MoE模型启用Flash Attention以提升性能")
-                        except:
-                            pass
-                            
                 except Exception as e:
                     print(f"【MoE优化】MoE优化配置失败: {e}，跳过MoE优化")
 
             # MTP (Multi-Token Prediction) 推测解码配置
+            # 需要 llama-cpp-python（JamePeng fork）提供的 load_mtp / ctx_type / n_outputs_max 参数，
+            # MTP 通过模型内置的多令牌预测头实现推测解码，可将解码吞吐提升约 1.4-1.7 倍。
+            # 注意：MTP 上下文与普通上下文是互斥的，因此必须同时设置 ctx_type=LLAMA_CONTEXT_TYPE_MTP
+            # 以及 n_outputs_max_per_seq（草稿深度 + 1），仅设置 load_mtp=True 不足以启用加速。
             if is_mtp_model and device_mode == "GPU":
                 try:
                     llama_sig = inspect.signature(llama_cpp.Llama.__init__)
-                    
-                    # 检查是否支持MTP相关参数
-                    # llama.cpp的推测解码参数：spec_type, spec_draft_n_max
-                    mtp_params = {}
-                    
-                    if 'spec_type' in llama_sig.parameters:
-                        mtp_params['spec_type'] = 'draft-mtp'
-                        print(f"【MTP优化】已启用MTP推测解码类型")
+                    mtp_configured = False
+
+                    # 1) 加载 MTP 预测头层
+                    if 'load_mtp' in llama_sig.parameters:
+                        llama_kwargs["load_mtp"] = True
+                        mtp_configured = True
+                        print(f"【MTP优化】已设置 load_mtp=True（加载MTP预测头）")
                     else:
-                        print(f"【MTP优化】当前llama-cpp-python版本不支持spec_type参数，跳过MTP")
-                    
-                    if 'spec_draft_n_max' in llama_sig.parameters and mtp_params:
-                        # 默认n=2，平衡速度和准确率
-                        mtp_params['spec_draft_n_max'] = 2
-                        print(f"【MTP优化】已设置spec_draft_n_max=2")
-                    
-                    if mtp_params:
-                        # 合并MTP参数到llama_kwargs
-                        llama_kwargs.update(mtp_params)
-                        print(f"【MTP优化】MTP推测解码加速已启用（需llama.cpp源码编译版本）")
-                    else:
-                        print(f"【MTP优化】无法启用MTP，推测解码功能不可用")
-                        
+                        print(f"【MTP优化】当前llama-cpp-python不支持load_mtp参数，跳过MTP")
+
+                    # 2) 设置 MTP 上下文类型（LLAMA_CONTEXT_TYPE_MTP = 1）
+                    if mtp_configured and 'ctx_type' in llama_sig.parameters:
+                        mtp_ctx_type = _get_llama_enum_value(
+                            "llama_context_type", "LLAMA_CONTEXT_TYPE_MTP", 1
+                        )
+                        llama_kwargs["ctx_type"] = mtp_ctx_type
+                        print(f"【MTP优化】已设置 ctx_type={mtp_ctx_type}（LLAMA_CONTEXT_TYPE_MTP）")
+                    elif mtp_configured:
+                        print(f"【MTP优化】当前llama-cpp-python不支持ctx_type参数，MTP可能无法生效")
+
+                    # 3) 设置多输出物理批次大小以支持多令牌推测解码
+                    #    n_outputs_max_per_seq = 草稿深度 + 1（草稿深度2 -> 3）
+                    #    n_outputs_max = n_outputs_max_per_seq（单序列推理）
+                    if mtp_configured and 'n_outputs_max_per_seq' in llama_sig.parameters:
+                        mtp_draft_depth = 2  # 默认草稿深度2，平衡速度与接受率
+                        mtp_outputs_per_seq = mtp_draft_depth + 1
+                        llama_kwargs["n_outputs_max_per_seq"] = mtp_outputs_per_seq
+                        if 'n_outputs_max' in llama_sig.parameters:
+                            llama_kwargs["n_outputs_max"] = mtp_outputs_per_seq
+                        print(f"【MTP优化】已设置 n_outputs_max_per_seq={mtp_outputs_per_seq}，"
+                              f"n_outputs_max={mtp_outputs_per_seq}（草稿深度{mtp_draft_depth}）")
+                    elif mtp_configured:
+                        print(f"【MTP优化】当前llama-cpp-python不支持n_outputs_max_per_seq参数")
+
+                    # 4) MTP 需为草稿头额外分配显存，启用 KV Cache 量化（Q8_0）以缓解显存压力
+                    if mtp_configured and 'type_k' in llama_sig.parameters and 'type_v' in llama_sig.parameters:
+                        kv_type = _get_llama_enum_value(
+                            "llama_ftype", "LLAMA_FTYPE_MOSTLY_Q8_0", None
+                        )
+                        if kv_type is not None:
+                            llama_kwargs["type_k"] = kv_type
+                            llama_kwargs["type_v"] = kv_type
+                            print(f"【MTP优化】已设置 type_k/type_v=Q8_0（KV Cache量化，节省显存）")
+                        else:
+                            print(f"【MTP优化】未找到Q8_0枚举值，跳过KV Cache量化")
+                    elif mtp_configured:
+                        print(f"【MTP优化】当前llama-cpp-python不支持type_k/type_v参数，跳过KV Cache量化")
+
                 except Exception as e:
                     print(f"【MTP优化】MTP配置失败: {e}，跳过MTP优化")
 
@@ -2423,8 +2497,6 @@ class LLAMA_CPP_STORAGE:
                     print(f"【建议】降低n_gpu_layers({recommended_gpu_layers})或n_ctx({n_ctx})，或使用更小模型")
                     print(f"【尝试降级】使用纯CPU模式加载...")
                     llama_kwargs["n_gpu_layers"] = 0
-                    llama_kwargs["low_vram"] = True
-                    llama_kwargs["f16_kv"] = False
 
                     try:
                         # 直接加载模型（降级模式）
@@ -2748,12 +2820,34 @@ class BaseInferenceEngine:
             if "seed" in params:
                 completion_params["seed"] = params["seed"]
 
-            # 添加推理预算控制参数（支持Qwen3.5-Thinking等模型）
-            # reasoning_budget: -1=无限制推理，0=关闭思考模式，N=限制N个推理token
+            # 添加推理预算控制参数（支持Qwen3.5-Thinking等模型的thinking模式）
             reasoning_budget = params.get("reasoning_budget", -1)
             if reasoning_budget != -1:
                 completion_params["reasoning_budget"] = reasoning_budget
                 print(f"【推理预算】设置 reasoning_budget={reasoning_budget}")
+
+            # 推理控制高级参数（llama-cpp-python 0.3.40+）
+            # reasoning_start_in_prompt: 在prompt中注入思考开始标记（反推/打标场景推荐）
+            _start_in_prompt = params.get("reasoning_start_in_prompt", "")
+            if _start_in_prompt:
+                completion_params["reasoning_start_in_prompt"] = _start_in_prompt
+                print(f"【推理控制】设置 reasoning_start_in_prompt={_start_in_prompt!r}")
+            # reasoning_start: 自定义思考开始标记
+            _start = params.get("reasoning_start", "")
+            if _start:
+                completion_params["reasoning_start"] = _start
+            # reasoning_end: 自定义思考结束标记
+            _end = params.get("reasoning_end", "")
+            if _end:
+                completion_params["reasoning_end"] = _end
+            # reasoning_budget_message: 预算耗尽时的提示语
+            _budget_msg = params.get("reasoning_budget_message", "")
+            if _budget_msg:
+                completion_params["reasoning_budget_message"] = _budget_msg
+            # reasoning_start_max_tokens: 思考开始区域最大token数
+            _start_max = params.get("reasoning_start_max_tokens", 0)
+            if _start_max > 0:
+                completion_params["reasoning_start_max_tokens"] = _start_max
 
             # 添加present_penalty参数（注意：llama-cpp-python使用present_penalty而非presence_penalty）
             if "presence_penalty" in params:

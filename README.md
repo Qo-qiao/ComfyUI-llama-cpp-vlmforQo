@@ -6,7 +6,7 @@ Run LLM/VLM models natively in ComfyUI based on llama.cpp, supporting multimodal
 
 ## Project Overview
 
-ComfyUI-omni-llm is a fully-featured ComfyUI plugin, deeply rebuilt and enhanced based on ComfyUI-llama-cpp-vlm. It focuses on providing localized, efficient image and video prompt backtracking and content optimization/expansion (image generation supports popular models like Z-Image, Krea2, Flux2-Klein, Qwen-Image, etc., while video generation supports popular models like wan2.2, LTX-2.5, MiniMax-H3, etc. for prompt optimization and expansion).Dedicated to addressing pain points like not knowing how to write prompts and content restrictions, helping beginners quickly get started with content creation. The plugin supports over 40 VLM models, more than 200 LLM models, and over 30 preset templates.
+ComfyUI-omni-llm is a fully-featured ComfyUI plugin, deeply rebuilt and enhanced based on ComfyUI-llama-cpp-vlm. It focuses on providing localized, efficient image and video prompt backtracking and content optimization/expansion (Image generation supports popular models like Z-Image, Krea2, Flux2-Klein, and Qwen-Image. Video generation supports prompt optimization and expansion for mainstream models like Wan2.2, LTX-2.5, and MiniMax-H3, and generates text optimization for models like IndexTTS-2.5, Ace-Step1.5, and MiniMax-Music3.).Dedicated to addressing pain points like not knowing how to write prompts and content restrictions, helping beginners quickly get started with content creation. The plugin supports over 40 VLM models, more than 200 LLM models, and over 30 preset templates.
 
 ### Core Advantages
 
@@ -111,16 +111,23 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 
 ## Changelog
 
-The following updates are based on llama-cpp-python version 0.3.45, so please install this version first
+The following updates are based on llama-cpp-python version 0.3.46, so please install this version first
 
-#### v3.3.1 （2026-08-12）
+#### v3.3.2 （2026-08-15）
 
-- **Node Optimization Adjustments**: The multi-image input node interface has been adjusted to 9 inputs, ltx2.3 updated to ltx2.5
-- **Preset Template Optimization**: Optimized video preset templates to fit LTX-2.5 model prompt generation
+- **Node Optimization and Adjustments**: 1. Optimized internal code, adapted parameters for llama-cpp-python 0.3.46, added support for the Qwen3.8 model (untested), and improved MTP processing.  
+2. Added audio model options, supporting IndexTTS-2.5, Ace-Step1.5, and MiniMax-Music3 models.  
+3. Added output model labels to help users confirm results.  
+- **Preset Template Optimization**: The multi-person chat template now aligns with the output of the IndexTTS-2.5 model, the music template aligns with Ace-Step1.5 and MiniMax-Music3 outputs, the video generation template aligns with LTX-2.5 and MiniMax-H3 outputs, and the image creation template hasn't been fully aligned yet due to the volume of content (feedback or co-creation is welcome).
 
 
 <details>
 <summary>📋 Older Versions</summary>
+
+#### v3.3.1 （2026-08-12）
+
+- **Node Optimization Adjustments**: The multi-image input node interface has been adjusted to 9 inputs, LTX2.3 updated to LTX2.5
+- **Preset Template Optimization**: Optimized video preset templates to fit LTX-2.5 model prompt generation
 
 #### v3.3.0 (2026-08-08)
 

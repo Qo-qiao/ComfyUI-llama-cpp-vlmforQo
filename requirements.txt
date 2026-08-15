@@ -23,6 +23,7 @@ diskcache
 gguf
 packaging
 transformers
+tqdm
 # ===========================================
 # llama-cpp-python 依赖（必须安装）
 # 使用 JamePeng 构建的带 CUDA/MPS 加速的预编译版本
