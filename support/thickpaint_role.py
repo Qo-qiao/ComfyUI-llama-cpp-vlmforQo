@@ -27,44 +27,62 @@ class ThickPaintRole:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：角色结构五官造型 → 体积光影层次 → 服饰材质细节 → 克制环境。平衡手绘笔触/3DCG材质细节与画面氛围感，光影过渡自然。",
-                "formula_en": "Content order: character structure & facial features → volume lighting layers → clothing texture details → restrained environment. Balance hand-painted stroke/3DCG material and atmosphere."
+                "formula_zh": "内容组织顺序：3D 角色（装备、材质、五官）→ 次世代厚涂与 PBR 质感 → 戏剧化布光与特效 → 三分法或动态低角、强调体积",
+                "formula_en": "Content order: 3D character (equipment, material, facial features) → next-gen thick paint and PBR texture → dramatic lighting and effects → rule of thirds or dynamic low angle, emphasizing volume"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：角色人体结构材质优先 → 面部五官轮廓 → 体态姿态 → 布光光影 → 极简场景。精准把控人体比例，规避结构崩坏，区分厚涂/3DCG两套质感标准。",
-                "formula_en": "Content order: character body structure & material first → facial contour → body posture → lighting → minimalist scene. Strictly control human proportion, separate thick paint /3DCG texture standards."
+                "formula_zh": "内容组织顺序：3D 角色主体（装备、材质、五官）→ 次世代厚涂与 PBR 质感 → 戏剧化布光与特效氛围 → 三分法或动态低角、强调体积（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: 3D character subject (equipment, material, facial features) → next-gen thick paint and PBR texture → dramatic lighting and effects atmosphere → rule of thirds or dynamic low angle, emphasizing volume (write any rendered text directly, supports Chinese and English). Negative prompt provided by preset template."
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉重心 → 人物神态体态 → 色彩分层管控 → 光影层次 → 干净背景。色彩主次辅点缀搭配规整，主体突出，厚涂强化色块层叠，3DCG强化物理光影。",
-                "formula_en": "Content order: composition focus → expression and posture → color hierarchy → lighting layers → clean background. Standard color matching, thick paint highlights color stacking, 3DCG highlights physical lighting."
+                "formula_zh": "内容组织顺序：角色身份、装备与厚涂笔触特征 → 风格与画质（次世代 CG、立体笔触与材质） → 戏剧性光效塑造体积与金属/布料质感 → 三分法或动态构图、景深突出角色 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: character identity, equipment and thick paint brushwork features → style & quality (next-gen CG, three-dimensional brushwork and material) → dramatic lighting shaping volume and metal/fabric texture → rule of thirds or dynamic composition, depth of field highlighting character → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：情绪光影氛围 → 人物体态情绪 → 风格质感细节 → 服饰面料 → 极简布景。强化体积光影叙事，厚涂侧重主观艺术光影，3DCG侧重物理追踪光照。",
-                "formula_en": "Content order: emotional lighting atmosphere → body emotion → texture details → fabric → minimalist set. Strengthen volume light narration, thick paint uses artistic lighting, 3DCG uses ray tracing light."
+                "formula_zh": "内容组织顺序：情绪光影氛围 → 人物体态情绪 → 风格质感细节 → 服饰面料 → 极简布景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: emotional lighting atmosphere → body pose and emotion → style texture details → clothing fabric → minimalist set (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体画面基调 → 人物松弛姿态 → 专属质感表现 → 简约留白环境。极简叙事，厚涂保留艺术留白，3DCG弱化冗余环境元素。",
-                "formula_en": "Content order: overall tone → relaxed pose → exclusive texture performance → simple negative space. Minimalist narration, thick paint retains artistic blank space."
+                "formula_zh": "内容组织顺序：整体画面基调 → 人物松弛姿态 → 专属质感表现 → 简约留白环境",
+                "formula_en": "Content order: overall image tone → relaxed character pose → exclusive texture performance → simple blank environment"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：面部五官人体结构 → 体态姿态 → 光影层次 → 服饰材质细节 → 轻量环境。强化人体结构准确度，厚涂笔触分层清晰，3DCG材质区分明确。",
-                "formula_en": "Content order: facial & body structure → body posture → lighting layers → fabric details → lightweight environment. Accurate human anatomy, clear thick paint strokes, distinct 3DCG materials."
+                "formula_zh": "内容组织顺序：面部五官人体结构、装备造型 → 体态姿态 → 光影层次、戏剧光效 → 服饰材质细节 → 轻量环境（密集关键词，中英术语并列）",
+                "formula_en": "Content order: facial features and body structure, equipment design → body pose → lighting layers, dramatic light effects → clothing material details → lightweight environment (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物整体气质人设 → 毛发皮肤材质细节 → 专业布光体系 → 服饰造型装饰 → 极简场景。色调统一协调，二次元理想化五官贯穿两类风格。",
-                "formula_en": "Content order: character temperament & setting → hair skin texture details → professional lighting → clothing styling → minimalist scene. Unified tone, idealized anime facial features for both styles."
+                "formula_zh": "内容组织顺序：角色身份、装备与厚涂笔触特征 → 风格与画质（次世代 CG、立体笔触与材质） → 戏剧性光效塑造体积与金属/布料质感 → 三分法或动态构图、景深突出角色 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: character identity, equipment and thick-paint brush features → style & quality (next-gen CG, three-dimensional brush and material) → dramatic lighting sculpting volume with metal/fabric texture → rule-of-thirds or dynamic composition, depth of field highlighting character → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：3D 角色头部与半身 → 次世代厚涂风格、PBR 材质与雕刻细节 → 三光源戏剧光、史诗氛围 → 近景特写、动态角度 → 强调高完成度无破面、避免低模感。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: 3D character head and half body → next-gen thick paint style, PBR material and sculpting detail → three-light dramatic lighting, epic atmosphere → close-up shot, dynamic angle → emphasize high completion without broken surfaces, avoid low-poly feel. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：3D 角色主体与五官装备 → 场景与构图（近景特写动态角度）→ 光影与氛围（三光源戏剧光史诗）→ 画种/摄影风格（次世代厚涂PBR材质）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: 3D character subject & facial equipment → scene & composition (close-up, dynamic angle) → light & atmosphere (three-light dramatic, epic) → art/photography style (next-gen thick paint PBR material) → wrap rendered text in quotes."
             }
         }
 
@@ -84,7 +102,7 @@ All works strictly separate two style baselines: thick paint focuses on hand str
 Unified anime aesthetic standard: large eyes, delicate facial features, idealized human proportions; composition must have clear visual guidance and narrative, color divided into main/auxiliary/accent layers.
 Fully retain all user input info including style, character design, clothing, scene, lighting, shot, perspective, only add exclusive texture, stroke, rendering details without irrelevant objects or extra passersby.
 Natural relaxed character poses without stiff posing, accurate human bone structure, avoid proportion collapse, model clipping, plastic skin and other defects.
-Taboo: Forbid specified forbidden words; no weight symbols, redundant rendering parameters; no low-poly jagged edges, distorted facial features, crushed shadows, overexposed highlights, messy backgrounds; no pure photographic realistic descriptions.
+Forbidden: Forbid specified forbidden words; no weight symbols, redundant rendering parameters; no low-poly jagged edges, distorted facial features, crushed shadows, overexposed highlights, messy backgrounds; no pure photographic realistic descriptions.
 Strictly output two formats without extra comments.
 """
         }
@@ -95,8 +113,8 @@ Strictly output two formats without extra comments.
                 "display_name": THICKPAINT_ROLE["name"],
                 "description": THICKPAINT_ROLE["description"],
                 "positive_constraints": {
-                    "zh": "次世代PBR级高精度材质表现，3S次表面散射真实皮肤质感，精准人体比例与骨骼结构，面部天然轻微不对称，厚涂块面光影层次扎实，风格化写实质感统一；物理级全局光照、环境光遮蔽与真实投影，金属、布料、皮肤、毛发材质区分明确，纹理细节清晰自然；画面干净主体突出，环境服务角色叙事，动态姿态舒展自然，情绪表达贴合人设，无僵硬摆拍感；次世代渲染通透干净，厚涂笔触自然融合，体积感与空间感扎实，整体风格统一完整。",
-                    "en": "High-precision sub-era PBR materials, translucent skin with 3S subsurface scattering, accurate human bone structure, natural slight facial asymmetry; thick paint with solid block light-shadow layers, unified stylized realistic texture; global physical ray tracing, ambient occlusion and authentic shadow projection, well-distinguished metal, fabric, skin and hair micro textures, clear natural details; clean frame focused on character, scene serves character narration, natural dynamic poses with authentic mood, no stiff posing; clean transparent sub-era rendering, naturally blended thick paint strokes, solid volume and spatial hierarchy, consistent integrated art style."
+                    "zh": "次世代PBR级高精度材质，3S次表面散射真实皮肤，精准人体比例与骨骼结构，面部天然轻微不对称，厚涂块面光影扎实，风格化写实质感统一；物理级全局光照、环境光遮蔽与真实投影，金属/布料/皮肤/毛发材质区分明确，纹理细节清晰自然；画面干净主体突出，环境服务角色叙事，动态姿态舒展自然，情绪贴合人设，无僵硬摆拍；次世代渲染通透干净，厚涂笔触自然融合，体积感与空间感扎实，整体风格统一",
+                    "en": "High-precision PBR materials, 3S subsurface scattering skin, accurate human bone structure, natural slight facial asymmetry, solid thick paint block light-shadow, unified stylized realism; physical global illumination, ambient occlusion, authentic shadow, distinct metal/fabric/skin/hair textures, clear details; clean frame focused on character, scene serves narration, natural dynamic pose, authentic mood, no stiff posing; clean sub-era rendering, blended thick paint strokes, solid volume and spatial hierarchy, consistent style"
                 },
                 "preset_rules": {
                     "zh": """
@@ -125,8 +143,8 @@ All themes strictly follow semantic weight priority: character structure & mater
 """
                 },
                 "negative_base": {
-                    "zh": "低多边形建模，模型穿模，面数不足，贴图模糊拉伸，锯齿边缘，塑料质感皮肤，平涂无体积，光影扁平，笔触脏乱细碎，线条杂乱突兀，人体比例失调，五官崩坏扭曲，对称刻板五官，零瑕疵假皮肤，死黑阴影，过曝高光，无环境光遮蔽，投影虚假漂浮，毛发僵硬成片，布料无自然褶皱，金属无真实质感，背景杂乱堆砌，多余杂物路人，低分辨率，噪点颗粒，AI错误肢体，重复纹理，卡通低幼化，边缘生硬抠图感，色彩溢出，色调脏污，画面油腻，无空间层次，真实照片，皮肤毛孔，4K照片，电影感",
-                    "en": "Low-poly mesh, model clipping, insufficient mesh count, blurry stretched texture, jagged edges, plastic fake skin, flat coloring without volume, flat lighting, messy fragmented strokes, chaotic harsh lines, malformed human proportion, distorted facial features, rigid perfectly symmetric face, flawless wax fake skin, crushed pure black shadow, overblown highlight, no ambient occlusion, floating fake shadow, stiff clumped hair, fabric without natural folds, unrealistic metal texture, cluttered background, extra strangers, low resolution, noise grain, AI deformed limbs, repeated textures, childish cartoon style, harsh cutout edges, color overflow, muddy tone, greasy frame, no spatial layers, real photo, skin pores, 4K photo, cinematic"
+                    "zh": "低多边形建模，模型穿模，贴图模糊拉伸，锯齿边缘，塑料质感皮肤，平涂无体积，光影扁平，笔触脏乱细碎，线条杂乱突兀，人体比例失调，五官崩坏扭曲，对称刻板五官，零瑕疵假皮肤，死黑阴影，过曝高光，无环境光遮蔽，投影虚假漂浮，毛发僵硬成片，布料无自然褶皱，金属无真实质感，背景杂乱堆砌，多余杂物路人，低分辨率噪点，AI错误肢体，重复纹理，卡通低幼化，边缘生硬抠图感，色彩溢出脏污，画面油腻无层次，真实照片，皮肤毛孔，4K照片，电影感",
+                    "en": "Low-poly mesh, model clipping, blurry stretched texture, jagged edges, plastic fake skin, flat coloring without volume, flat lighting, messy fragmented strokes, chaotic harsh lines, malformed proportion, distorted features, rigid symmetric face, flawless wax skin, crushed black shadow, overblown highlight, no ambient occlusion, floating shadow, stiff clumped hair, fabric without folds, unrealistic metal, cluttered background, extra strangers, low resolution noise, AI deformed limbs, repeated textures, childish cartoon, harsh cutout edges, color overflow muddy tone, greasy frame, real photo, skin pores, 4K photo, cinematic"
                 }
             }
         }
@@ -140,21 +158,69 @@ All themes strictly follow semantic weight priority: character structure & mater
                 "zh": """【结构化模式】严格顺序输出：
 1. 类别：厚涂/3DCG写实人像
 2. 风格模式：次世代写实/厚涂插画/二次元厚涂/奇幻史诗/古风仙侠/赛博朋克/科幻未来
-3. 构图与景别：构图方式、视点角度、景别、视觉重心
+   - 次世代写实：PBR材质物理光照，超写实毛孔毛发，电影级景深与色彩科学
+   - 厚涂插画：可见笔触肌理，色彩饱和浓郁，体积感强调，非写实光影逻辑
+   - 二次元厚涂：大眼睛精致五官，日系赛璐璐上色+厚涂体积感，高饱和动漫配色
+   - 半写实二次元：保留二次元大眼睛精致五官，但皮肤质感真实通透，光影符合物理逻辑，介于二次元与写实之间，兼具动漫美感与真实质感
+   - 奇幻史诗：史诗感大场景，奇幻生物/盔甲/魔法特效，暗调戏剧性光影
+   - 古风仙侠：水墨留白意境，飘逸衣袂发丝，东方色彩体系（朱砂/石青/藤黄）
+   - 赛博朋克：霓虹光污染，潮湿反光表面，机械义体改造，暗色调+高饱和霓虹
+   - 科幻未来：极简流线造型，全息投影界面，冷调金属质感，未来科技光效
+3. 三维度镜头视角与构图
+   - 距离维度（景别）：微距特写 / 标准特写 / 肩特写 / 七分人像 / 九分人像 / 全景人像，对应叙事重心与细节展现层级
+   - 水平视角维度：正面 / 四分之三斜侧 / 正侧面，标注主体展现效果与叙事特点
+   - 垂直俯仰维度：小俯视角 / 平视 / 小仰视角，对应心理感受与画面张力
+   - 景深氛围：浅景深柔焦虚化 / 中景深环境兼顾 / 深景深全景清晰，标注虚实层次对应的主次关系
 4. 角色信息：外貌、姿态、表情、服装
+   - 头部姿态：微侧/仰头/低头/回眸，颈部线条与视线方向
+   - 躯干姿态：挺直/放松/前倾/后仰，肩线角度与身体重心
+   - 上肢姿态：手臂弯曲角度、手部摆放位置（叉腰/托腮/自然下垂/手持武器道具）
+   - 下肢姿态：站姿重心分配、坐姿腿部交叠、动态战斗/静止站立
+   - 表情神态：眼神聚焦方向、嘴角弧度、眉宇情绪（威严/冷峻/温柔/狂野）
 5. 风格化质感：厚涂笔触/3DCG材质细节
+   - 厚涂笔触：可见笔触方向、色彩叠加层次、边缘虚实过渡
+   - 3DCG材质：PBR金属度/粗糙度、次表面散射皮肤、各向异性高光
 6. 光影与氛围：主光、边缘光、环境光、特效光
 7. 艺术风格：画风标签、氛围关键词
-8. 风格标签：3-5个关键词概括整体视觉气质""",
+8. 风格标签：3-5个关键词概括整体视觉气质
+9.【技术参数建议】仅structured模式可输出，natural模式禁用；允许完整相机参数描述（焦距、光圈、快门速度、ISO、白平衡），附带空间效果释义：
+   - 奇幻史诗/科幻：50mm标准中焦，f/4-f/5.6光圈，1/125s-1/250s快门，ISO400-1600，与主体保持常规距离，展示完整装备与环境
+   - 古风仙侠/二次元厚涂：85mm中长焦，f/2.8-f/4光圈，1/125s-1/250s快门，ISO200-800，摄影机远离主体，背景虚化突出角色五官
+   - 特写面部细节：85mm-100mm中长焦，f/1.8-f/2.8光圈，1/160s-1/320s快门，ISO100-400，聚焦PBR材质与厚涂笔触细节
+   - 动态抓拍：200mm长焦，f/2.8-f/4光圈，1/1000s-1/4000s高速快门，ISO400-1600，冻结高速运动瞬间
+   - 蓝调时刻/夜景：35mm-50mm，f/1.4-f/2大光圈，1/30s-1/60s慢速快门，ISO800-3200，捕捉低光环境氛围""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Category: Thick paint / 3DCG realistic portrait
 2. Style Mode: Sub-era realism / thick illustration / anime thick paint / fantasy epic / ancient xianxia / cyberpunk / sci-fi future
-3. Composition & Shot: Composition method, view angle, shot range, visual focus
+   - Sub-era realism: PBR material physical lighting, ultra-realistic pores & hair, cinematic DOF & color science
+   - Thick illustration: visible brush texture, saturated rich colors, volume emphasis, non-realistic lighting logic
+   - Anime thick paint: big eyes refined features, cel-shading + thick volume, high saturation anime palette
+   - Semi-realistic anime: retains anime big eyes refined features, but skin texture realistic and translucent, lighting follows physical logic, between anime and realistic, combining anime aesthetics with real texture
+   - Fantasy epic: epic grand scene, fantasy creatures/armor/magic effects, dark dramatic lighting
+   - Ancient xianxia: ink wash blank space, flowing robes & hair, eastern color system (vermillion/azurite/gamboge)
+   - Cyberpunk: neon light pollution, wet reflective surfaces, cybernetic implants, dark tone + high saturation neon
+   - Sci-fi future: minimalist streamlined design, holographic interface, cold metallic texture, futuristic light effects
+3. Three-dimensional camera view and composition
+   - Distance (shot type): macro close-up / standard close-up / shoulder shot / three-quarter portrait / nine-tenth portrait / full-scene portrait, mark narrative focus
+   - Horizontal view: front / three-quarter / profile, describe display effect & narrative feature
+   - Vertical pitch: slight high-angle / eye-level / slight low-angle, describe mental feeling & frame tension
+   - Depth of field: shallow DOF soft bokeh / medium DOF environment balanced / deep DOF full sharpness
 4. Character Info: Appearance, pose, expression, costume
+   - Head pose: slight tilt/up/down/turn back, neck line & gaze direction
+   - Torso pose: upright/relaxed/lean forward/back, shoulder angle & body weight
+   - Upper limb: arm bend angle, hand placement (on waist/under chin/hanging/holding weapons props)
+   - Lower limb: standing weight distribution/leg cross sitting/dynamic combat/static standing
+   - Expression: eye focus direction, mouth curve, brow emotion (majestic/cold/gentle/wild)
 5. Stylized Texture: Brush stroke details for thick paint / material details for 3DCG
+   - Thick paint brush: visible brush direction, color layering, edge soft-hard transition
+   - 3DCG material: PBR metalness/roughness, subsurface scattering skin, anisotropic highlights
 6. Lighting & Atmosphere: Key light, rim light, ambient light, special effect light
 7. Art Style: Painting tag, atmosphere keywords
-8. Style Tags: 3-5 keywords to summarize overall visual temperament"""
+8. Style Tags: 3-5 keywords to summarize overall visual temperament
+9.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - Fantasy epic/Sci-fi: 50mm standard mid-telephoto, maintain normal distance from subject, show complete equipment and environment
+   - Ancient xianxia/Anime thick paint: 85mm mid-telephoto, camera far from subject, background blur highlights facial features
+   - Close-up facial details: 85mm-100mm mid-telephoto, focus on PBR material and thick paint brush details"""
             }
         }
 

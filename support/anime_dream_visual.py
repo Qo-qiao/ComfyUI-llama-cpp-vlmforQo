@@ -30,8 +30,10 @@ class AnimeDreamVisual:
         # 全局底层规则
         self.global_base_rules = {
             "zh": """
-你是专业二次元梦幻画面提示词扩写专家，覆盖自然奇观、都市幻景、异世界、微缩室内等题材，可引用新海诚、宫崎骏等日漫大师创作风格。
+你是专业二次元梦幻画面提示词扩写专家，适配Anima等Danbooru标签式动漫模型，覆盖自然奇观、都市幻景、异世界、微缩室内等题材，可引用新海诚、宫崎骏等日漫大师创作风格。
 坚守二次元插画绘画基线，禁止写实真人、照片类词汇。
+标签格式规范：标签使用小写，空格代替下划线（如"looking at viewer"而非"looking_at_viewer"），逗号分隔；score标签使用下划线（score_7）。
+标签推荐顺序：[质量/元数据/安全标签] [人数] [角色] [系列] [画师] [通用标签]。
 natural模式输出2‑4段诗意画面描写，总字数300‑600；structured模式严格按照给定分类字段输出。禁止简单罗列术语，构图必须写明引导逻辑与叙事功能，色彩明确主色辅色点缀色并说明色彩服务情绪的逻辑，光影需要具备叙事性。
 完整保留用户输入的角色、场景、姿态、情绪、风格全部信息，仅补充构图、光影、色彩、幻想细节，不新增无关物体多余元素。
 若输入包含二次元角色名/Booru标签，必须精准还原角色标志性外貌特征。
@@ -39,8 +41,10 @@ natural模式输出2‑4段诗意画面描写，总字数300‑600；structured�
 支持natural与structured两种输出格式，不添加额外注释、说明、解释。
 """,
             "en": """
-You are a professional dreamy anime‑scene prompt expert. Cover natural wonders, urban fantasy, other‑world, miniature interior, supporting master‑style reference of Makoto Shinkai, Hayao Miyazaki etc.
+You are a professional dreamy anime‑scene prompt expert, compatible with Anima and other Danbooru‑tag‑based anime models. Cover natural wonders, urban fantasy, other‑world, miniature interior, supporting master‑style reference of Makoto Shinkai, Hayao Miyazaki etc.
 Stick to anime illustration baseline, forbid photorealistic / photograph‑related words.
+Tag format: lowercase tags, spaces instead of underscores (e.g. "looking at viewer" not "looking_at_viewer"), comma‑separated; score tags use underscores (score_7).
+Recommended tag order: [quality/meta/safety tags] [person count] [character] [series] [artist] [general tags].
 Natural mode: 2‑4 poetic paragraphs within 300‑600 words. Structured mode strictly follow given category fields. Avoid plain term listing. Composition shall include guidance logic and narrative function; color shall define main/auxiliary/accent color and emotion logic; lighting shall serve narrative purpose.
 Fully preserve user input character, scene, pose, mood and style, only add composition, lighting, color and fantasy details, no irrelevant extra objects.
 If anime‑character / booru tag provided, strictly reproduce signature features.
@@ -55,37 +59,41 @@ Support natural and structured output format, no extra comments or explanations.
                 "template_id": "anime_dream_visual",
                 "display_name": ANIME_PROMPT["name"],
                 "description": ANIME_PROMPT["description"],
-                # 中英双语固定正向约束
+                # 中英双语固定正向约束（通用标签，适用于所有题材）
                 "positive_constraints": {
-                    "zh": "杰作，最佳质量，超精细，动漫风格，插画，日系二次元特征，大眼睛，闪亮高光，精致睫毛，小鼻子，柔和轮廓，色彩心理学，互补配色，邻近配色，光影叙事，逆光轮廓，辉光效果，丁达尔效应，体积光，幻想元素，悬浮岛屿，魔法阵，光翼，星尘，异质结构，画面情绪饱满，视觉冲击力强，梦幻感十足，叙事深度丰富，色彩艳丽和谐，视觉重心清晰，动态元素流动，细节精致生动",
-                    "en": "masterpiece, best quality, ultra‑detailed, anime style, illustration, japanese‑anime features, big eyes, sparkling highlight, delicate eyelashes, small nose, soft contour, color psychology, complementary color scheme, analogous color scheme, light‑shadow narration, backlight outline, glow effect, tyndall effect, volumetric light, fantasy elements, floating island, magic circle, light‑wing, stardust, exotic structure, full of emotion, strong visual impact, dreamy atmosphere, rich narrative depth, gorgeous harmonious colors, clear visual focus, flowing dynamic elements, exquisite vivid details"
+                    "zh": "杰作，最佳质量，score_7，安全，超精细，动漫风格，插画，鲜艳色彩，精细背景，动态构图，高对比度，丰富细节，清晰线条，逆光，辉光效果，丁达尔效应，体积光，幻想元素",
+                    "en": "masterpiece, best quality, score_7, safe, ultra‑detailed, anime style, illustration, vibrant colors, detailed background, dynamic composition, high contrast, rich details, clear lines, backlighting, glow effect, tyndall effect, volumetric light, fantasy elements"
                 },
                 # 全题材细分专属规则
                 "preset_rules": {
                     "zh": """
 【Anime二次元梦幻视觉专属规则】
-1. 通用基线：natural模式2‑4段文字，300‑600字，语言富有诗意画面感；structured模式完整输出指定分类。强制质量标签：杰作，最佳质量，超精细，动漫风格，插画。禁用写实相关词汇。
-2. 自然奇观题材：山川云海、花海、神树、星空；优先丁达尔光效、薄雾雾气，色彩层次丰富，可加入飞舞花瓣、光之蝶、星尘粒子，氛围偏向治愈、壮丽、神圣。
-3. 都市幻景题材：霓虹都市、雨夜街道、浮空都市；多用放射线/对角线构图，霓虹辉光、体积光，冷暖撞色，氛围赛博、迷离。
-4. 异世界题材：浮空岛屿、时空裂隙、魔法城堡；大量幻想元素，魔法阵、光翼、悬浮碎石，高饱和度奇幻配色，动态放射构图，氛围神秘、狂气、史诗感。
-5. 微缩室内题材：精致房间、魔法书斋；框架式/三分法构图，柔和漫射光，低‑中饱和度配色，细节丰富，氛围静谧温馨。
-6. 大师风格引用：新海诚侧重极致光影云海；宫崎骏侧重自然童话手绘温度；大友克洋侧重赛博机械锐利动态；押井守侧重深邃构图雨夜冰冷；今敏侧重超现实转场迷幻色彩；庵野秀明侧重冲击构图高饱和对比。
+1. 通用基线：natural模式2‑4段文字，300‑600字，语言富有诗意画面感；structured模式完整输出指定分类。强制质量标签：杰作，最佳质量，score_7，安全，超精细，动漫风格，插画。禁用写实相关词汇。
+2. 标签格式：标签使用小写，空格代替下划线，逗号分隔；推荐顺序：[质量/安全标签] [人数] [角色] [系列] [画师] [通用标签]。
+3. 人物题材补充标签：当画面包含人物时，应补充角色面部特征标签（大眼睛，闪亮高光，精致睫毛，小鼻子，柔和轮廓）；无人物场景类题材无需添加。
+4. 自然奇观题材：山川云海、花海、神树、星空；优先丁达尔光效、薄雾雾气，色彩层次丰富，可加入飞舞花瓣、光之蝶、星尘粒子，氛围偏向治愈、壮丽、神圣。
+5. 都市幻景题材：霓虹都市、雨夜街道、浮空都市；多用放射线/对角线构图，霓虹辉光、体积光，冷暖撞色，氛围赛博、迷离。
+6. 异世界题材：浮空岛屿、时空裂隙、魔法城堡；大量幻想元素，魔法阵、光翼、悬浮碎石，高饱和度奇幻配色，动态放射构图，氛围神秘、狂气、史诗感。
+7. 微缩室内题材：精致房间、魔法书斋；框架式/三分法构图，柔和漫射光，低‑中饱和度配色，细节丰富，氛围静谧温馨。
+8. 大师风格引用：新海诚（《你的名字》《天气之子》）侧重极致光影云海；宫崎骏（《千与千寻》《龙猫》）侧重自然童话手绘温度；大友克洋（《阿基拉》《蒸汽少年》）侧重赛博机械锐利动态；押井守（《攻壳机动队》《空中杀手》）侧重深邃构图雨夜冰冷；今敏（《千年女优》《红辣椒》）侧重超现实转场迷幻色彩；庵野秀明（《新世纪福音战士》《新哥斯拉》）侧重冲击构图高饱和对比。
 所有题材：用户输入特征优先级最高，只补充细节，不篡改用户设定角色、场景、情绪氛围。
 """,
                     "en": """
 【Anime Dream‑Visual Preset Rules】
-1. General baseline: natural mode 2‑4 paragraphs 300‑600 words, poetic visual language; structured mode output full categories. Mandatory quality tags: masterpiece, best quality, ultra‑detailed, anime style, illustration. Forbid photorealistic words.
-2. Natural wonder theme: mountain‑sea cloud‑sea, flower sea, sacred tree, starry sky; prioritize tyndall effect, mist, rich color layers, flying petals, light‑butterfly, stardust particles; mood: healing, grand, sacred.
-3. Urban fantasy theme: neon city, rainy street, floating metropolis; use diagonal / radial composition, neon glow, volumetric light, cold‑warm color contrast; mood: cyber, dreamy blurred.
-4. Other‑world theme: floating island, space rift, magic castle; rich fantasy elements: magic circle, light‑wing, floating debris, high‑saturation fantasy palette, dynamic radial composition; mood: mysterious, wild, epic.
-5. Miniature interior theme: delicate room, magic study; frame / rule‑of‑third composition, soft diffused light, low‑medium saturation, abundant details; mood: quiet cozy.
-6. Master‑style reference: Shinkai for extreme lighting & cloud; Miyazaki for fairy‑tale hand‑drawn warmth; Otomo for cyber‑mech sharp dynamics; Oshii for deep composition & cold rainy night; Kon for surreal transition psychedelic colors; Anno for impact composition & high‑saturation contrast.
+1. General baseline: natural mode 2‑4 paragraphs 300‑600 words, poetic visual language; structured mode output full categories. Mandatory quality tags: masterpiece, best quality, score_7, safe, ultra‑detailed, anime style, illustration. Forbid photorealistic words.
+2. Tag format: lowercase tags, spaces instead of underscores, comma‑separated; recommended order: [quality/safety tags] [person count] [character] [series] [artist] [general tags].
+3. Character theme supplement: when the image contains characters, add facial feature tags (big eyes, sparkling highlight, delicate eyelashes, small nose, soft contour); not needed for scene‑only themes without characters.
+4. Natural wonder theme: mountain‑sea cloud‑sea, flower sea, sacred tree, starry sky; prioritize tyndall effect, mist, rich color layers, flying petals, light‑butterfly, stardust particles; mood: healing, grand, sacred.
+5. Urban fantasy theme: neon city, rainy street, floating metropolis; use diagonal / radial composition, neon glow, volumetric light, cold‑warm color contrast; mood: cyber, dreamy blurred.
+6. Other‑world theme: floating island, space rift, magic castle; rich fantasy elements: magic circle, light‑wing, floating debris, high‑saturation fantasy palette, dynamic radial composition; mood: mysterious, wild, epic.
+7. Miniature interior theme: delicate room, magic study; frame / rule‑of‑third composition, soft diffused light, low‑medium saturation, abundant details; mood: quiet cozy.
+8. Master‑style reference: Makoto Shinkai (Your Name, Weathering with You) for extreme lighting & cloud; Hayao Miyazaki (Spirited Away, My Neighbor Totoro) for fairy‑tale hand‑drawn warmth; Katsuhiro Otomo (AKIRA, Steamboy) for cyber‑mech sharp dynamics; Mamoru Oshii (Ghost in the Shell, The Sky Crawlers) for deep composition & cold rainy night; Satoshi Kon (Millennium Actress, Paprika) for surreal transition psychedelic colors; Hideaki Anno (Neon Genesis Evangelion, Shin Godzilla) for impact composition & high‑saturation contrast.
 For all themes: user input has highest priority, add details only, never overwrite user‑defined character, scene or emotion.
 """
                 },
                 "negative_base": {
-                    "zh": "真实皮肤，毛孔，4K纹理，照片级，电影感，realistic，skin texture，pores，写实风格，平涂无体积，光影扁平，塑料质感，比例失调，五官崩坏，对称刻板五官，零瑕疵假皮肤，死黑阴影，过曝高光，画面杂乱，多余装饰，无动态感，无情绪表达，色彩脏污，高饱和撞色，卡通低幼化，边缘生硬，抠图感，AI错误肢体，重复纹理，噪点，低分辨率",
-                    "en": "real skin, pores, 4k texture, photo‑level, cinematic, realistic, skin texture, pores, photorealistic style, flat shading no volume, flat lighting, plastic texture, bad proportion, distorted facial features, rigid perfect‑symmetry face, flawless fake skin, crushed black shadow, overexposed highlight, cluttered frame, redundant ornaments, no dynamism, no emotional expression, muddy color, harsh oversaturated clashing color, overly childish cartoon style, harsh edge, cutout feeling, ai broken limbs, repeated texture, noise, low resolution"
+                    "zh": "最差质量，低质量，score_1，score_2，score_3，画家名，模糊，JPEG伪影，色差，变形手指，坏手，多余手指，缺失手指，低分辨率，水印，文字，签名",
+                    "en": "worst quality, low quality, score_1, score_2, score_3, artist name, blurry, jpeg artifacts, chromatic aberration, deformed fingers, bad hands, extra fingers, missing fingers, lowres, text, watermark, signature"
                 }
             }
         }
@@ -98,14 +106,16 @@ For all themes: user input has highest priority, add details only, never overwri
             },
             "structured": {
                 "zh": """【结构化模式】严格顺序输出：
-【类别】动漫二次元
+【质量与安全标签】杰作，最佳质量，score_7，安全，超精细，动漫风格，插画
+【类别】动漫二次元 - [具体题材]（自然奇观/都市幻景/异世界/微缩室内，优先画面识别，可使用合规用户关键词辅助校准）
 【构图与景别】
   - 构图方式：对角线/放射线/S型/框架式/三分法（写明具体引导线及其叙事功能）
   - 视点角度：仰视/俯视/平视，动感/平稳，以及该视角带来的情绪感受
   - 景别：全景/全身/七分/半身/特写，截断位置明确
   - 视觉重心：主体位置（百分比或九宫格交点）与视线流动路径
-【角色信息】
-  - 外貌：发型、发色、瞳色、面部特征（闪亮大眼、精致睫毛、小鼻），表情细节
+【角色信息】（无人物场景类题材可省略本整块）
+  - 角色面部特征标签（有人物时补充）：大眼睛，闪亮高光，精致睫毛，小鼻子，柔和轮廓
+  - 外貌：发型、发色、瞳色、表情细节
   - 姿态：动态/静态，肢体语言与道具互动，传递的情绪状态
   - 表情：情绪与神态（自信/温柔/坚毅/迷茫/狂气等），眼神方向与焦点
   - 服装：款式、颜色、材质、装饰细节，与角色设定和场景风格统一
@@ -122,14 +132,16 @@ For all themes: user input has highest priority, add details only, never overwri
   - 氛围关键词：治愈/壮丽/神秘/赛博/超现实/神圣/狂气等
 【风格标签】3‑5个关键词概括整体视觉气质""",
                 "en": """[Structured Mode] Output strictly in this order:
-【Category】Anime illustration
+【Quality & Safety Tags】masterpiece, best quality, score_7, safe, ultra‑detailed, anime style, illustration
+【Category】Anime illustration - [specific theme](natural wonder / urban fantasy / other‑world / miniature interior, image recognition first, valid user‑keywords assist calibrate)
 【Composition & Shot Scale】
   - Composition method: diagonal / radial / S‑curve / frame / rule‑of‑third (describe guide‑line and narrative function)
   - Viewpoint angle: low‑angle / high‑angle / eye‑level, dynamic / calm, corresponding emotional effect
   - Shot scale: full‑scene / full‑body / three‑quarter / half‑body / close‑up, clear cropping position
   - Visual focus: subject position (percent / grid intersection) and sight flow path
-【Character Information】
-  - Appearance: hairstyle, hair‑color, eye‑color, facial features(shiny big eyes, delicate eyelashes, small nose), expression details
+【Character Information】(DELETE whole block for scene‑only themes without characters)
+  - Character facial feature tags (add when characters present): big eyes, sparkling highlight, delicate eyelashes, small nose, soft contour
+  - Appearance: hairstyle, hair‑color, eye‑color, expression details
   - Pose: dynamic / static, body‑language & prop interaction, conveyed emotional state
   - Expression: mood and demeanor(confident / gentle / resolute / confused / wild etc.), gaze direction & focus
   - Costume: style, color, material, decoration details, consistent with character & scene
@@ -194,6 +206,12 @@ For all themes: user input has highest priority, add details only, never overwri
         else:
             prompt_parts.append(natural_guide)
             prompt_parts.append(structured_guide)
+
+        # 输出语言硬性要求：由节点选项传入的 lang 决定最终输出语言
+        if lang == "zh":
+            prompt_parts.append("【输出语言】全部输出内容必须使用中文撰写，禁止输出任何英文或其他语言内容。")
+        else:
+            prompt_parts.append("[Output Language] All output content must be written in English, do not output any Chinese or other language content.")
 
         final_llm_prompt = "\n".join(prompt_parts)
         negative_prompt = preset["negative_base"][lang] if enable_negative_prompt else ""

@@ -28,44 +28,62 @@ class MiddleElderlyMale:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物核心体态五官 → 光影立体层次 → 服饰质感 → 克制环境。平衡细节真实感与氛围感，光影过渡细腻自然。",
-                "formula_en": "Content order: character face and body → lighting layers → clothing texture → restrained environment. Balance realism and atmosphere."
+                "formula_zh": "内容组织顺序：中老年男性（白发、神态、衣着）→ 写实肌理与气质 → 窗外自然光、沉静氛围 → 半身或坐姿肖像",
+                "formula_en": "Content order: middle-aged elderly male (white hair, expression, outfit) → realistic skin grain and temperament → natural window light, calm atmosphere → half-body or seated portrait"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：真人肤质细节优先 → 面部五官轮廓 → 体态姿态 → 光影布光 → 极简场景。极致还原皮肤原生质感，严格控制面部畸变。",
-                "formula_en": "Content order: real skin texture first → facial contour → body posture → studio lighting → minimalist scene."
+                "formula_zh": "内容组织顺序：中老年男性主体（白发、神态、衣着）→ 写实肌理与气质 → 窗外自然光、沉静氛围 → 半身或坐姿肖像、温和景深（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: middle-aged elderly male subject (white hair, expression, attire) → realistic skin grain and temperament → natural light through window, serene atmosphere → half-body or seated portrait, gentle depth of field (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉重心 → 人物神态体态 → 色彩和谐管控 → 光影层次 → 干净背景。色彩精准管控，构图规整克制，画面干净通透，强化肤色自然过渡。",
-                "formula_en": "Content order: composition focus → expression and posture → color harmony → lighting layers → clean background."
+                "formula_zh": "内容组织顺序：中老年男性身份、厚重神情与阅历感 → 风格与画质（真实肤质、斑纹与须发细节） → 侧光或暖光刻画轮廓与纹理 → 胸像或特写、浅景深 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: middle-aged elderly male identity, solemn expression and life experience → style & quality (real skin, age spots and beard/hair details) → side light or warm light carving contour and texture → chest portrait or close-up, shallow depth of field → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：电影级光影氛围 → 人物体态情绪 → 胶片质感细节 → 服饰面料 → 极简布景。强化影调层次与高级氛围感。",
-                "formula_en": "Content order: cinematic lighting → body emotion → film texture details → fabric → minimalist set."
+                "formula_zh": "内容组织顺序：电影级光影氛围、自然光暖灯 → 人物体态情绪、阅历神情 → 胶片质感细节、皱纹皮肤纹理 → 服饰面料材质 → 极简布景、work portrait（密集关键词，中英术语并列）",
+                "formula_en": "Content order: cinematic lighting atmosphere with natural light and warm lamp → body pose and emotion, experienced expression → film grain texture details, wrinkle and skin texture → fabric material → minimalist set, work portrait (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体画面基调 → 人物松弛姿态 → 自然肌肤胡须质感 → 简约留白环境。极简干净叙事，弱化冗余修饰。",
-                "formula_en": "Content order: overall tone → relaxed pose → natural skin beard texture → simple negative space."
+                "formula_zh": "内容组织顺序：整体画面基调（沉稳厚重氛围）→ 人物松弛姿态与阅历神情 → 真实皮肤皱纹质感 → 简约留白环境",
+                "formula_en": "Content order: overall image tone (steady profound atmosphere) → relaxed pose with experienced expression → realistic skin wrinkle texture → simple negative-space environment"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：面部五官肤质 → 体态姿态 → 光影层次 → 服饰细节 → 轻量环境。强化面部立体感，光影层次柔和，画面干净通透。",
-                "formula_en": "Content order: facial skin features → body posture → lighting layers → fabric details → lightweight environment."
+                "formula_zh": "内容组织顺序：中老年男性五官肤质、皱纹胡须 → 体态姿态、稳重神情 → 光影层次、低调光沉稳 → 服饰细节、衣着质感 → 轻量环境（密集关键词，中英术语并列）",
+                "formula_en": "Content order: middle-aged elderly male facial features and skin, wrinkles and beard → body pose, steady expression → lighting layers, subdued light calm → clothing details, attire texture → lightweight environment (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物主体气质 → 肤质毛发胡须细节 → 专业布光 → 服饰造型 → 极简场景。色彩柔和统一，神态刻画细腻，画面写实自然。",
-                "formula_en": "Content order: character temperament → skin hair beard details → professional lighting → clothing styling → minimalist scene."
+                "formula_zh": "内容组织顺序：中老年男性身份、厚重神情与阅历 → 风格与画质（真实肤质、斑纹须发） → 侧光或暖光刻画轮廓 → 胸像或特写、浅景深 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: middle-aged elderly male identity, solemn expression and life experience → style & quality (real skin, age spots and beard/hair) → side light or warm light carving contour → chest portrait or close-up, shallow depth of field → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：中老年男性稳重肖像 → 纪实风格、皱纹与灰发质感 → 低调自然光、沉稳氛围 → 胸像直视、端庄姿态 → 强调阅历真实、避免年轻化修饰。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: middle-aged elderly male steady portrait → documentary style, wrinkle and grey hair texture → low-key natural light, calm atmosphere → chest portrait direct gaze, dignified pose → emphasize life experience realism, avoid youthful retouching. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：中老年男性主体与稳重神情 → 场景与构图（胸像直视端庄）→ 光影与氛围（低调自然光沉稳）→ 画种/摄影风格（纪实风）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: middle-aged elderly male subject & steady expression → scene & composition (chest portrait direct dignified) → light & atmosphere (low-key natural light, calm) → art/photography style (documentary) → wrap rendered text in quotes."
             }
         }
         # 全局底层规则 修改为中老年男性专用
@@ -76,7 +94,7 @@ class MiddleElderlyMale:
 原生淡妆状态面部干净整洁，无大面积杂乱瑕疵，完整保留中老年男性原生深浅皱纹、面部软组织松弛、淡老年斑、细微干纹、胡茬颗粒与剃须青印，拒绝过度磨皮带来的塑胶假肤、紧致年轻化肌肤效果。
 姿态必须使用中老年舒缓硬朗肢体结构描述，禁止模糊形容词、少年活泼夸张动作；光线方向明确，光影过渡柔和通透；人物为绝对画面主体，环境仅衬托岁月沉稳叙事氛围。
 完整保留用户输入的风格、服饰、场景、色调、姿态、视角所有信息，仅补充摄影、材质、光影、岁月肤质、花白银发胡须专业细节，不新增少年青春相关无关物体、装饰道具。
-所有服饰（羊毛西装/亚麻长衫/户外冲锋衣/通勤大衣）均作为成熟男性高端人像题材，姿态克制沉稳、松弛自然，禁止低俗化、畸形夸张体态。
+所有服饰（羊毛西装/亚麻长衫/户外冲锋衣/通勤大衣）均作为成熟男性高端人像题材，姿态克制沉稳、松弛自然。
 输出禁忌：禁止权重符号、多余相机参数、冗余堆砌；禁止卡通二次元、畸形肢体、坏手烂指、网红假脸、磨皮蜡皮；禁止少年风杂乱背景、空洞甜腻假笑、自拍抓拍、透视畸变、强行紧致年轻化。
 严格输出两种格式，不添加额外注释、说明、解释。
 """,
@@ -86,8 +104,8 @@ All styles strictly adhere to photorealistic baseline for men aged 40+, differen
 Light natural makeup, clean face without large blemishes, fully retain natural wrinkles, sagging facial tissue, faint age spots, fine dry lines, stubble and shaving shadow of mature male skin; reject plastic fake skin and artificially tightened youthful skin caused by heavy retouching.
 All poses described with relaxed stiff limb structure for elder men, no vague words or exaggerated youthful movements. Clear light direction and soft shadow transition. Male subject dominates the frame, background only serves aging steady narrative atmosphere.
 Completely retain user input style, clothing, scene, tone, pose and perspective. Only supplement professional details of photography, texture, light, aged skin, gray-white hair and beard, no irrelevant youthful decorations or props.
-All costumes (wool suit, linen long gown, outdoor jacket, commuter overcoat) are high-end mature male portrait themes with restrained steady relaxed poses, no vulgar or deformed exaggerated body shapes.
-Taboo: no weight symbols, redundant camera parameters, anime/cartoon/illustration, deformed anatomy, defective hands, over-retouched wax skin, messy youthful background, empty sweet fake smile, snapshot selfie, perspective distortion, forced youthful tightening.
+All costumes (wool suit, linen long gown, outdoor jacket, commuter overcoat) are high-end mature male portrait themes with restrained steady relaxed poses.
+Forbidden: no weight symbols, redundant camera parameters, anime/cartoon/illustration, deformed anatomy, defective hands, over-retouched wax skin, messy youthful background, empty sweet fake smile, snapshot selfie, perspective distortion, forced youthful tightening.
 Strictly output two formats without extra comments.
 """
         }
@@ -99,8 +117,8 @@ Strictly output two formats without extra comments.
                 "description": MIDDLE_ELDERLY_MALE["description"],
                 # 中英双语前置约束 中老年男性专属
                 "positive_constraints": {
-                    "zh": "影视级超写实真人质感，40岁以上中老年男性硬朗松弛面部骨骼，眉眼唇皱纹分布天然轻微不对称；原生淡妆干净无大面积瑕疵，完整保留深浅皱纹、面部松弛肌理、淡老年斑、肤色不均、细微干纹、真实胡茬与剃须青印，零过度磨皮、无塑胶蜡皮、无AI网红模板脸；柔软分层花白/全白发丝，层次自然胡须，干净克制中老年男性生活化布景，松弛沉稳真人抓拍姿态，内敛睿智平静成熟情绪，无透视畸变。居家/茶室/户外/商务/胶片均为熟龄男性题材分支，不破坏岁月写实基线，姿态沉稳从容",
-                    "en": "Cinematic photorealistic real human texture, stiff sagging facial bone structure unique to men over 40, natural slight asymmetry of eyes, eyebrows, lips and wrinkle distribution; light natural makeup without large blemishes, fully retain deep & shallow wrinkles, sagging facial texture, faint age spots, uneven skin tone, fine dry lines, real stubble and shaving shadow, no over-smoothing, no plastic wax skin, no AI influencer template face; soft layered gray-white hair, naturally layered beard, restrained daily scene matching elder men, relaxed steady snapshot pose, restrained wise calm mature emotion, no perspective distortion. Home/teahouse/outdoor/business/film are mature male theme branches only, never break aging realism baseline with steady calm posture"
+                    "zh": "超写实真人质感，40岁以上中老年男性硬朗松弛面部骨骼，眉眼唇皱纹分布轻微不对称；原生淡妆干净，保留深浅皱纹、面部松弛肌理、淡老年斑、肤色不均、细微干纹、真实胡茬与剃须青印，无过度磨皮与塑胶假肤、无AI模板脸；柔软花白发丝，层次自然胡须，干净布景，松弛沉稳抓拍姿态，内敛成熟情绪，无透视畸变。居家/茶室/户外/商务/胶片均为熟龄题材分支，保持岁月写实基线",
+                    "en": "photorealistic real human texture, stiff sagging facial bone structure unique to men over 40, natural slight asymmetry of eyes, eyebrows, lips and wrinkle distribution; light natural makeup, retain deep & shallow wrinkles, sagging facial texture, faint age spots, uneven skin tone, fine dry lines, real stubble and shaving shadow, no over-smoothing or plastic wax skin or AI template face; soft gray-white hair, layered beard, restrained daily scene, relaxed steady snapshot pose, mature emotion, no perspective distortion. Home/teahouse/outdoor/business/film are mature theme branches only, maintain aging realism baseline"
                 },
                 # 中老年男性全风格细分专属规则
                 "preset_rules": {
@@ -130,8 +148,8 @@ All themes are only created for mature men, retain user-specified scenes, costum
 """
                 },
                 "negative_base": {
-                    "zh": "少年、青年、学生、粉嫩肌肤、马卡龙亮色、紧致少年轮廓、完美对称五官、零皱纹、无老年斑、过度磨皮无毛孔、塑料蜡皮、AI网红模板脸、僵硬影楼摆拍、空洞甜腻假笑、夸张活泼肢体、畸形手脚、多手指、透视畸变、高饱和荧光艳色、杂乱少年装饰、二次元插画、卡通动漫画风、面部大面积无瑕疵、强行紧致年轻化、乌黑假发、光滑无胡茬下颌、无剃须青印、整齐虚假统一胡须、年龄感丢失、油画滤镜、涂抹模糊质感",
-                    "en": "Young boy, teenager, student, pink tender skin, macaron bright colors, tight youthful facial contour, perfectly symmetrical facial features, wrinkle-free skin, no age spots, over-smoothed poreless plastic wax skin, AI influencer template face, stiff studio pose, empty sweet fake smile, exaggerated lively limbs, deformed hands and feet, extra fingers, perspective distortion, oversaturated fluorescent bright colors, messy youthful decorations, anime illustration, cartoon art style, flawless face, forced youthful tightening, black wig, stubble-free smooth jaw, no shaving shadow, fake uniform neat beard, lost aging texture, oil painting filter, blurry smudged texture"
+                    "zh": "少年青年粉嫩肌肤，马卡龙亮色，紧致少年轮廓，完美对称五官，零皱纹无老年斑，过度磨皮，塑胶假肤，AI模板脸，僵硬摆拍，空洞假笑，夸张肢体，畸形手脚多手指，透视畸变，高饱和荧光艳色，杂乱少年装饰，二次元卡通画风，强行年轻化，乌黑假发，无胡茬下颌无剃须青印，整齐虚假胡须，年龄感丢失，油画滤镜模糊质感",
+                    "en": "Young boy teenager pink tender skin, macaron bright colors, tight youthful contour, perfectly symmetrical face, wrinkle-free no age spots, over-smoothed plastic wax skin, AI template face, stiff pose, empty fake smile, exaggerated limbs, deformed hands feet extra fingers, perspective distortion, oversaturated fluorescent colors, messy youthful decorations, anime cartoon art style, forced youthful tightening, black wig stubble-free jaw no shaving shadow, fake uniform beard lost aging texture, oil painting filter blurry texture"
                 }
             }
         }
@@ -146,22 +164,86 @@ All themes are only created for mature men, retain user-specified scenes, costum
 1.人种五官轮廓特征
 2.风格与服饰造型定位
 3.肤质毛发胡须原生细节
-4.构图景别与视觉重心
-5.视角方位与俯仰角度
-6.姿态体态与表情神态
-7.色彩配比与整体调性
-8.专业布光方式与光影层次
-9.画面精简约束与环境要求""",
+4.三维度镜头视角与构图
+   - 画面比例：竖版人像（4:5/3:4）/ 横版环境人像（16:9/3:2）/ 方形（1:1）
+   - 距离维度（景别）：微距特写 / 标准特写 / 肩特写 / 七分人像 / 九分人像 / 全景人像，对应叙事重心与细节展现层级
+   - 水平视角维度：正面 / 四分之三斜侧 / 正侧面，标注主体展现效果与叙事特点
+   - 垂直俯仰维度：小俯视角 / 平视 / 小仰视角 / 强仰视角（脚部前景延伸），对应心理感受与画面张力
+   - 景深氛围：浅景深柔焦虚化 / 中景深环境兼顾 / 深景深全景清晰，标注虚实层次对应的主次关系
+5.姿态体态与表情神态
+   - 头部姿态：微侧/仰头/低头/回眸，颈部线条与视线方向
+   - 躯干姿态：挺直/放松/前倾/后仰，肩线角度与身体重心
+   - 上肢姿态：手臂弯曲角度、手部摆放位置（叉腰/托腮/自然下垂/手持道具）
+   - 下肢姿态：站姿重心分配、坐姿腿部交叠、躺卧腿部伸展/蜷缩、动态迈步/静止支撑
+   - 表情神态：眼神聚焦方向、嘴角弧度、眉宇情绪（平静/专注/柔和/自信）
+5.1 人像专属细节（仅人像类使用）
+   - 眼神光：环形眼神光（眼下圆形光斑）/ 方形眼神光（窗光反射）/ 自然窗光（柔和反射）
+   - 肤质表现：毛孔细腻（可见细微毛孔）/ 丝绒柔滑（磨皮但保留质感）/ 光泽水润（高光通透）/ 丝绸光泽（面料反光）
+   - 发丝质感：根根分明（发丝清晰可见）/ 柔顺飘逸（动态飘动）/ 蓬松空气感（发量充盈）
+   - 面部光影：高光区（额头/鼻梁/颧骨提亮）/ 中间调（面颊/下巴自然过渡）/ 阴影区（鼻翼侧/脸颊侧立体）
+6.色彩配比与整体调性
+   - 主色调：占比70%，奠定整体基调（暖调/冷调/中性）
+   - 辅助色：占比25%，丰富层次与环境过渡
+   - 点缀色：占比5%，制造视觉焦点与细节提亮
+   - 色温情绪：暖调（3200K-4500K）=温馨/复古/亲切；冷调（5500K-7000K）=清冷/高级/疏离；中性（5000K-5500K）=自然/真实/平和
+   - 饱和度：低饱和=高级/文艺/复古；中饱和=自然/真实；高饱和=活力/时尚/冲击
+   - 肤色还原：偏黄调（亚洲肤色自然）/ 偏粉调（欧美肤色白皙）/ 自然通透（健康血色）
+7.专业布光方式与光影层次
+   - 主光类型：伦勃朗光（鼻翼三角光影）/蝴蝶光（鼻下对称阴影）/侧光（明暗分割）/环形光（面部均匀立体）
+   - 光源方向：正侧光45°/90°侧光/逆光轮廓/顶光戏剧/底光诡异/窗光网格投影
+   - 光质软硬：硬光（清晰边缘阴影）/柔光（渐变过渡阴影）/散射光（均匀无影）
+   - 环境光：补光比例、反光板效果、环境反射色调
+8.背景与环境
+   - 虚化程度：奶油般化开（f/1.4-1.8极致虚化）/ 柔美光斑（f/2.8光斑）/ 环境可辨（f/4-5.6）
+   - 环境呼应：色彩呼应（背景与服装色调统一）/ 光影呼应（环境光与主光协调）
+   - 负空间：眼神方向留白（看向处留空间）/ 呼吸空间（头顶/两侧留白）
+9.画面精简约束
+10.【技术参数建议】仅structured模式可输出，natural模式禁用；允许完整相机参数描述（焦距、光圈、快门速度、ISO、白平衡），附带空间效果释义：
+- 书房/茶室/棚拍：85mm-100mm中长焦，f/2.8-f/4光圈，1/125s-1/250s快门，ISO200-800，摄影机远离主体，背景虚化柔和，真实呈现岁月肌理
+- 户外风景/居家：50mm标准中焦，f/4-f/5.6光圈，1/60s-1/125s快门，ISO400-1600，自然纪实，环境与人物比例协调
+- 动态抓拍：200mm长焦，f/2.8-f/4光圈，1/1000s-1/4000s高速快门，ISO400-1600，冻结高速运动瞬间
+- 蓝调时刻/夜景：35mm-50mm，f/1.4-f/2大光圈，1/30s-1/60s慢速快门，ISO800-3200，捕捉低光环境氛围""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Ethnic facial features
 2. Style and clothing positioning
 3. Skin hair beard natural details
-4. Composition shot type and visual focus
-5. View angle and pitch
-6. Pose body and facial expression
-7. Color ratio and overall tone
-8. Professional lighting method
-9. Frame simplification constraint"""
+4. Three-dimensional camera view and composition
+   - Aspect ratio: vertical portrait (4:5/3:4) / horizontal environmental (16:9/3:2) / square (1:1)
+   - Distance (shot type): macro close-up / standard close-up / shoulder shot / three-quarter portrait / nine-tenth portrait / full-scene portrait, mark narrative focus
+   - Horizontal view: front / three-quarter / profile, describe display effect & narrative feature
+   - Vertical pitch: slight high-angle / eye-level / slight low-angle / strong low-angle (soles foreground extension), describe mental feeling & frame tension
+   - Depth of field: shallow DOF soft bokeh / medium DOF environment balanced / deep DOF full sharpness
+5. Pose body and expression
+   - Head pose: slight tilt/up/down/turn back, neck line & gaze direction
+   - Torso pose: upright/relaxed/lean forward/back, shoulder angle & body weight
+   - Upper limb: arm bend angle, hand placement (on waist/under chin/hanging/holding props)
+   - Lower limb: standing weight distribution/leg cross sitting/lying legs extended/curled/dynamic stepping/static support
+   - Expression: eye focus direction, mouth curve, brow emotion (calm/focused/soft/confident)
+5.1 Portrait-specific details (portrait only)
+   - Catchlight: ring catchlight (circular under-eye) / square catchlight (window reflection) / natural window light (soft reflection)
+   - Skin texture: fine pores (visible subtle pores) / velvet smooth (retouched but textured) / dewy glow (translucent highlight) / silk sheen (fabric reflection)
+   - Hair texture: strand-defined (individual hairs visible) / silky flowing (dynamic movement) / fluffy airy (voluminous)
+   - Facial lighting: highlight zone (forehead/nose bridge/cheekbone brightening) / midtone (cheek/chin natural transition) / shadow zone (nose side/cheek side dimension)
+6. Color ratio and overall tone
+   - Main Color: 70%, set overall tone (warm/cool/neutral)
+   - Auxiliary Color: 25%, enrich hierarchy & environment transition
+   - Accent Color: 5%, create visual focal point & detail highlight
+   - Color temperature mood: warm (3200K-4500K) = cozy/retro/intimate; cool (5500K-7000K) = cold/high-end/detached; neutral (5000K-5500K) = natural/true/peaceful
+   - Saturation: low saturation = high-end/artistic/retro; medium = natural/true; high = vibrant/fashion/impact
+   - Skin tone: yellowish (Asian natural) / pinkish (Western fair) / natural translucent (healthy blood color)
+7. Professional lighting method
+   - Key light type: Rembrandt (triangle under nose) / butterfly (symmetric shadow under nose) / side light (light-dark split) / ring light (even facial dimension)
+   - Light direction: 45° side / 90° side / backlit outline / top dramatic / bottom eerie / window grid projection
+   - Light quality: hard (clear edge shadow) / soft (gradual transition) / diffused (even shadowless)
+   - Ambient light: fill light ratio, reflector effect, environmental reflection tone
+8. Background & Environment
+   - Bokeh: creamy smooth (f/1.4-1.8 extreme blur) / beautiful light orbs (f/2.8 bokeh) / environment discernible (f/4-5.6)
+   - Environment echo: color echo (background-clothing tone unity) / lighting echo (ambient light-key light coordination)
+   - Negative space: gaze direction留白 (space where looking) / breathing room (headroom/sides margin)
+9. Frame simplification constraint
+10. [Tech params] Only structured mode can output, natural mode forbidden; only qualitative focal length/aperture description with spatial effect explanation, shutter/ISO/white balance numerical parameters forbidden:
+- Study/teahouse/studio: 85mm-100mm medium telephoto, camera away from subject, soft background blur, authentically presenting aged texture
+- Outdoor landscape/home: 50mm standard mid-range, natural documentary, balanced environment-subject ratio"""
             }
         }
     def detect_language(self, text: str) -> str:

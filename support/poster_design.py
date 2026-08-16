@@ -28,44 +28,62 @@ class PosterDesign:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：海报主题风格定位 → 光影色彩层次 → 主视觉材质细节 → 克制文字区域。平衡视觉主体与文字信息，光影过渡贴合海报镜头逻辑。",
-                "formula_en": "Content order: poster theme style positioning → light color layers → main visual texture details → restrained text area. Balance subject and text information."
+                "formula_zh": "内容组织顺序：海报主题与主体（人物/产品/标题文字）→ 设计感与印刷级画质 → 对比光或霓虹氛围 → 强中心或对角线构图、留白版式",
+                "formula_en": "Content order: poster theme and subject (character/product/title text) → design sense and print-grade quality → contrast light or neon atmosphere → strong centered or diagonal composition, blank layout"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：主视觉材质肌理优先 → 画面透视构图 → 三维镜头视角 → 全局分层布光 → 极简文字区。精准把控海报透视比例，统一国潮/电影/商业海报质感标准。",
-                "formula_en": "Content order: main visual texture details first → picture perspective composition → 3D lens view → global layered lighting → minimalist text zone. Strictly control poster perspective ratio."
+                "formula_zh": "内容组织顺序：海报主题与主体（人物/产品/标题文字）→ 设计感与印刷级画质 → 对比光或霓虹氛围 → 强中心或对角线构图、留白与版式（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: poster theme and subject (character/product/title text) → design sense and print-grade quality → contrast light or neon atmosphere → strong centered or diagonal composition, blank and layout (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉核心主体 → 主体动态情绪 → 70/25/5色彩管控 → 光影明暗层次 → 干净文字留白。构图规整克制，色彩层级清晰，镜头虚实过渡自然柔和。",
-                "formula_en": "Content order: composition core subject → subject movement emotion → 70/25/5 color control → light shadow layers → clean text blank. Neat composition, natural depth of field transition."
+                "formula_zh": "内容组织顺序：主视觉主体与情绪、文字层级（标题/标语直接写入提示词） → 风格与画质（平面化或插画风、强对比） → 色彩与光影烘托主题氛围 → 中心或对角线构图、留白排版 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: main visual subject and emotion, text hierarchy (title/slogan written directly into prompt) → style & quality (flat or illustration style, strong contrast) → color and light supporting theme atmosphere → centered or diagonal composition, blank layout → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：全局电影光影基调 → 主体情绪表达 → 印刷材质细节 → 字体面料肌理 → 极简文字布景。强化镜头叙事，区分电影/国潮/商业专属光影体系。",
-                "formula_en": "Content order: global cinematic light tone → subject emotion expression → printing texture details → font fabric texture → minimalist text set. Strengthen lens narration logic."
+                "formula_zh": "内容组织顺序：全局电影光影基调 → 主体情绪表达 → 印刷材质细节 → 字体面料肌理 → 极简文字布景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: global cinematic lighting tone → subject emotion expression → print material details → font and fabric texture → minimalist text set (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整张海报基础风格基调 → 舒展主体造型 → 统一印刷质感 → 简约文字留白。极简海报叙事，删减冗余装饰，突出视觉与文字核心。",
-                "formula_en": "Content order: whole poster basic tone → relaxed subject shape → unified printing texture → simple text blank. Minimal poster narration, remove redundant ornaments."
+                "formula_zh": "内容组织顺序：整张海报基础风格基调 → 舒展主体造型 → 统一印刷质感 → 简约文字留白",
+                "formula_en": "Content order: whole poster basic style tone → relaxed subject shape → unified print texture → simple text blank"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：画面透视主视觉肌理 → 远近虚实层次 → 光影冷暖过渡 → 字体层级细节 → 轻量化留白。海报透视精准，材质区分清晰，光影连贯柔和。",
-                "formula_en": "Content order: perspective main visual texture → near-far layers → light warm-cold transition → font hierarchy details → lightweight blank. Accurate poster perspective."
+                "formula_zh": "内容组织顺序：画面透视主视觉肌理、文字层级 → 远近虚实层次 → 光影冷暖过渡 → 字体层级细节 → 轻量化留白（密集关键词，中英术语并列）",
+                "formula_en": "Content order: perspective main visual texture, text hierarchy → near-far virtual layers → light warm-cold transition → font hierarchy details → lightweight blank (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
                 "formula_zh": "内容组织顺序：海报整体主题气质 → 主视觉材质细节 → 专业分层布光 → 专属字体排版 → 极简留白。整体色调统一，信息层级细腻，海报沉浸叙事强烈。",
                 "formula_en": "Content order: overall poster temperament → main visual texture details → professional layered lighting → exclusive font layout → minimalist blank. Unified tone, delicate information hierarchy."
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：海报主视觉与标题主体 → 平面设计风格、配色与排版质感 → 高对比光影、视觉张力 → 中心构图、留白与字体区 → 强调信息明确无杂乱、避免元素堆叠。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: poster main visual and title subject → graphic design style, color and typography texture → high contrast light, visual tension → centered composition, blank and type zone → emphasize clear information without clutter, avoid element stacking. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：海报主视觉与标题主体 → 场景与构图（中心构图留白字体区）→ 光影与氛围（高对比光影张力）→ 画种/摄影风格（平面设计风）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: poster main visual and title → scene & composition (centered composition, blank type zone) → light & atmosphere (high contrast light, tension) → art/photography style (graphic design) → wrap rendered text in quotes."
             }
         }
         # 全局底层规则
@@ -87,7 +105,7 @@ All creations follow poster information narration baseline, differentiated by th
 Light complies with cinematic lens rules, distinguish suspense/guochao/commercial light; paper, fabric, metal, hot stamping printing texture match poster style.
 Fully retain user input poster type, frame, view, subject, text info, only add lens, texture, font, pattern details without clutter.
 Strict simplification rule, only keep core narrative & info elements, avoid crowded text.
-Taboo: no weight symbols, numeric params like resolution/font size/DPI; no chaotic styles, distorted perspective, fake plastic texture; no watermark/logo, perfect symmetry, flawless description.
+Forbidden: no weight symbols, numeric params like resolution/font size/DPI; no chaotic styles, distorted perspective, fake plastic texture; no watermark/logo, perfect symmetry, flawless description.
 Strictly output two formats without extra comments.
 """
         }
@@ -99,19 +117,23 @@ Strictly output two formats without extra comments.
                 "description": POSTER_DESIGN["description"],
                 # 中英双语固定前置正向约束
                 "positive_constraints": {
-                    "zh": "海报风格统一连贯，构图叙事逻辑严谨，70/25/5色彩配比和谐分层，主视觉材质印刷质感真实，镜头透视精准无畸变；文字层级清晰有序，字体与画面自然融合不突兀；电影海报具备镜头张力，国潮传统纹样与现代排版自然融合，商业海报印刷细腻无过度锐化；光影冷暖过渡柔和，画面干净聚焦主体，仅保留核心叙事信息元素，留白参与视觉节奏，兼具信息传递力与画面艺术质感",
-                    "en": "Unified poster style, rigorous composition logic, harmonious 70/25/5 color layers, authentic printing texture, accurate lens perspective; clear text hierarchy, fonts blend naturally with frame; movie posters own lens tension, guochao combines traditional patterns & modern layout, commercial print delicate without over-sharpening; soft light transition, clean subject-focused frame, blank space adjusts visual rhythm, balance info delivery & artistic texture."
+                    "zh": "海报风格统一连贯，构图叙事逻辑严谨，70/25/5色彩配比和谐分层，主视觉材质印刷质感真实，镜头透视精准无畸变；文字层级清晰有序，字体与画面自然融合不突兀；电影海报具备镜头张力，国潮传统纹样与现代排版自然融合，商业海报印刷细腻无过度锐化；光影冷暖过渡柔和，画面干净聚焦主体，仅保留核心叙事元素，留白参与视觉节奏，兼具信息传递力与艺术质感",
+                    "en": "Unified poster style, rigorous composition logic, harmonious 70/25/5 color layers, authentic printing texture, accurate lens perspective; clear text hierarchy, fonts blend naturally with frame; movie posters own lens tension, guochao combines traditional patterns & modern layout, commercial print delicate without over-sharpening; soft light transition, clean subject-focused frame, blank space adjusts visual rhythm, balance info delivery & artistic texture"
                 },
                 # 全风格细分专属规则
                 "preset_rules": {
                     "zh": """
 【全海报专属细分规则】
 1. 通用基线：语义权重：主题目标情感→风格调性→三维构图→色彩配比→主视觉→文字层级；用户画幅视角优先，无则选合规镜头；70/25/5色彩，精简约束；禁用["8K", "4K", "分辨率", "DPI", "色彩模式", "字号", "尺寸", "帧率", "码率", "采样率", "编码器", "HDR", "杜比", "字幕", "水印", "logo", "完美对称", "零瑕疵", "塑料感", "崩坏", "扭曲"]。
-2. 现代极简商业海报：柔和漫射柔光，干净平涂/摄影质感，纤细无衬线字体，低饱和纯色背景，文字克制少，留白充足，产品/人物居中。
-3. 国潮活动海报：书法标题、传统祥云缠枝纹样，红金米主色调，工笔/平涂结合，书法字体搭配简约信息字，大面积国风留白。
-4. 电影悬疑海报：低角度仰拍镜头，高对比冷调光影，粗体风化标题，大面积云层/暗背景，文字极简退让不抢主体。
-5. 复古胶片海报：暖褪色颗粒肌理，粗衬线复古字体，柔和黄昏柔光，低饱和旧色调，年代装饰元素克制点缀。
-6. 礼盒包装海报：细腻哑光纸质，柔和漫射光，纤细精致字体，低饱和高级配色，静物产品居中，少量烫金点缀。
+2. 字体样式限制：整张海报最多使用3种字体，标题字体+副标题/信息字体+点缀字体；字体风格需与海报调性统一，禁止风格冲突的字体混搭；字体与画面自然融合，不突兀抢戏。
+3. 文字颜色限制：文字颜色从70/25/5主色系中选取，最多使用2-3种文字颜色；主标题可用点缀色突出，副标题/正文用辅助色或中性色；文字与背景需保持足够对比度，确保可读性。
+4. 字号层级限制：整张海报最多3-4级字号层级，主标题（最大）→副标题/标语→辅助信息/正文→点缀文字（最小）；层级清晰，视觉引导明确，禁止字号混乱。
+5. 排版构图规则：文字对齐方式统一（左对齐/居中/右对齐），禁止无规律散落；文字与主视觉保持适当间距，不遮挡核心主体；留白参与视觉节奏，文字区域与图像区域形成虚实对比；文字作为设计元素融入画面，而非简单叠加。
+6. 现代极简商业海报：柔和漫射柔光，干净平涂/摄影质感，纤细无衬线字体，低饱和纯色背景，文字克制少，留白充足，产品/人物居中。
+7. 国潮活动海报：书法标题、传统祥云缠枝纹样，红金米主色调，工笔/平涂结合，书法字体搭配简约信息字，大面积国风留白。
+8. 电影悬疑海报：低角度仰拍镜头，高对比冷调光影，粗体风化标题，大面积云层/暗背景，文字极简退让不抢主体。
+9. 复古胶片海报：暖褪色颗粒肌理，粗衬线复古字体，柔和黄昏柔光，低饱和旧色调，年代装饰元素克制点缀。
+10. 礼盒包装海报：细腻哑光纸质，柔和漫射光，纤细精致字体，低饱和高级配色，静物产品居中，少量烫金点缀。
 所有题材：用户原始需求优先级最高，仅补充镜头、材质、字体、纹样专业细节，不改动海报主题与核心排版。
 """,
                     "en": """
@@ -127,7 +149,7 @@ All themes: User demand highest priority, only add lens/texture/font/pattern det
                 },
                 "negative_base": {
                     "zh": "多种风格混乱混搭，色彩脏污溢出，构图失衡主体偏移，装饰杂物冗余堆砌，文字排版拥挤层级混乱，字体风格冲突，透视错误，塑料虚假印刷质感，光影生硬断层，边缘锯齿过度锐化，字幕水印logo，高饱和杂乱撞色，人物神态僵硬，国潮元素生硬拼贴，画面无留白节奏，信息杂乱抢夺视觉焦点",
-                    "en": "Mixed chaotic styles, muddy overflow color, unbalanced composition, stacked clutter, crowded messy text, conflicting fonts, wrong perspective, fake plastic print texture, stiff disjoint light, jagged over-sharpening, watermark/logo, messy saturated color, stiff character expressions, forced guochao elements, no blank rhythm, distracting cluttered info."
+                    "en": "Mixed chaotic styles, muddy overflow color, unbalanced composition, stacked clutter, crowded messy text, conflicting fonts, wrong perspective, fake plastic print texture, stiff disjoint light, jagged over-sharpening, watermark/logo, messy saturated color, stiff character expressions, forced guochao elements, no blank rhythm, distracting cluttered info"
                 }
             }
         }
@@ -149,7 +171,12 @@ All themes: User demand highest priority, only add lens/texture/font/pattern det
 8.国潮/复古专属传统纹样、年代装饰元素
 9.留白区域功能与画面疏密节奏
 10.印刷质感定性建议、全局禁止参数清单
-11.3-5个概括海报气质风格标签""",
+11.3-5个概括海报气质风格标签
+12.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - 电影悬疑海报：24mm-35mm广角，摄影机靠近主体，强化近大远小，低角度仰拍增强张力
+   - 现代极简商业海报：50mm标准中焦，摄影机与主体保持常规距离，干净平视
+   - 复古胶片海报：85mm中长焦，摄影机远离主体，柔和压缩营造年代感
+   - 国潮活动海报：35mm-50mm，适度强化透视张力""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Poster category, design style & global positive constraints
 2. Frame composition, visual guide, 70% subject ratio, aspect ratio, simplification rule
@@ -161,7 +188,12 @@ All themes: User demand highest priority, only add lens/texture/font/pattern det
 8. Guochao/vintage exclusive patterns & vintage ornaments
 9. Blank area function & frame density rhythm
 10. Qualitative print texture suggestion, forbidden param list
-11. 3-5 style tags summarizing poster temperament"""
+11. 3-5 style tags summarizing poster temperament
+12.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - Suspense movie poster: 24mm-35mm wide angle, camera close to subject, emphasize near-far contrast, low angle shot enhances tension
+   - Modern minimalist commercial poster: 50mm standard mid-telephoto, camera normal distance from subject, clean eye-level
+   - Vintage film poster: 85mm mid-telephoto, camera far from subject, soft compression creates vintage feel
+   - Guochao event poster: 35mm-50mm, moderate perspective tension enhancement"""
             }
         }
 

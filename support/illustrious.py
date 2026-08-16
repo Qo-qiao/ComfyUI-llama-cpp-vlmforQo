@@ -24,8 +24,8 @@ class Illustrious:
             "SDXL": {
                 "keyword_dense": True,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：角色基础属性 → 发型瞳色面部细节 → 姿势肢体动作 → 表情神态眼部嘴部细节 → 服饰配件道具 → 场景环境光线氛围 → 画风质量标签。输出Danbooru风格中文短标签，逗号分隔，标签数量严格控制30‑60个，拒绝长句描述。",
-                "formula_en": "Content order: character basic attributes → hair, eye and facial details → pose and limb movement → expression, eye and mouth details → clothing accessories props → scene environment lighting atmosphere → art style quality tags. Output Danbooru‑style short English tags separated by commas, strictly 30‑60 tags, no long sentences."
+                "formula_zh": "内容组织顺序：角色基础属性 → 发型瞳色面部细节 → 姿势肢体动作 → 表情神态眼部嘴部细节 → 服饰配件道具 → 场景环境光线氛围 → 画风质量标签。输出Danbooru风格中文短标签，逗号分隔，标签总数30‑60个（硬性上限，超出60个一律删除），拒绝长句描述。",
+                "formula_en": "Content order: character basic attributes → hair, eye and facial details → pose and limb movement → expression, eye and mouth details → clothing accessories props → scene environment lighting atmosphere → art style quality tags. Output Danbooru‑style short English tags separated by commas, tag count 30‑60 (hard limit, any tags beyond 60 must be deleted), no long sentences."
             }
         }
 
@@ -59,14 +59,14 @@ Support natural and structured output format, no extra comments or explanations.
                 "description": ILLUSTRIOUS["description"],
                 # 中英双语固定正向约束
                 "positive_constraints": {
-                    "zh": "杰作，最佳质量，高分辨率，超精细，动漫风格，干净线稿，高清，8K，漂亮细节眼睛，高精度角色特征，清晰姿势动作，生动表情神态，详细服饰配件，明确场景氛围，光影层次分明，色彩和谐统一，视觉重心突出，符合Danbooru标签规范，标签数量30‑60，无重复标签",
-                    "en": "masterpiece, best quality, high resolution, ultra‑detailed, anime style, clean line art, high‑definition, 8K, beautifully detailed eyes, high‑precision character features, clear pose, vivid expression, detailed clothing accessories, clear scene atmosphere, distinct light‑shadow layers, harmonious colors, prominent visual focus, follow Danbooru tag specification, 30‑60 tags, no duplicate tags"
+                    "zh": "杰作，最佳质量，高分辨率，超精细，动漫风格，干净线稿，高清，8K，漂亮细节眼睛，详细面部，动态姿势，生动表情，详细服饰，详细背景，动态光照，鲜艳色彩",
+                    "en": "masterpiece, best quality, high resolution, ultra‑detailed, anime style, clean line art, high‑definition, 8K, beautifully detailed eyes, detailed face, dynamic pose, vivid expression, detailed clothing, detailed background, dynamic lighting, vibrant colors"
                 },
                 # 全题材细分专属规则
                 "preset_rules": {
                     "zh": """
 【SDXL二次元标签专属规则】
-1. 标签基线：标签总数严格30‑60个，全部为中文短标签，逗号分隔；禁止重复标签、同义标签复用；每个标签仅单一语义单元，使用Danbooru高频视觉短词。强制必带画风标签：动漫风格，干净线稿。
+1. 标签基线：标签总数30‑60个（硬性上限，超出60个一律删除），全部为中文短标签，逗号分隔；禁止重复标签（完全相同的标签）与同义标签堆砌（如"开心"与"快乐"不得同时出现）；每个标签仅单一语义单元，使用Danbooru高频视觉短词。强制必带画风标签：动漫风格，干净线稿。
 2. 校园题材：适配校服、水手服、百褶裙、教室校园场景；多用柔和窗光、室内自然光，色调温暖，突出青春角色神态。
 3. 奇幻魔法题材：适配魔法少女、战斗服饰、法杖宝石、披风；增加魔法光晕、粒子光效、动态线条，可搭配废墟、奇幻城堡场景。
 4. 和风题材：适配和服、发簪发饰、油纸伞；庭院、樱花、灯笼布景，可搭配花瓣飘落，柔和暖调光线。
@@ -77,7 +77,7 @@ Support natural and structured output format, no extra comments or explanations.
 """,
                     "en": """
 【SDXL Anime Tag Preset Rules】
-1. Tag baseline: strictly 30‑60 short English tags separated by commas; no duplicate or synonym tags; each tag carries only one visual meaning, use high‑frequency Danbooru short words. Mandatory style tags: anime style, clean line art.
+1. Tag baseline: tag count 30‑60 (hard limit, any tags beyond 60 must be deleted), all short English tags separated by commas; no duplicate tags (identical tags) or synonym‑tag padding (e.g. do NOT output both "happy" and "joyful"); each tag carries only one visual meaning, use high‑frequency Danbooru short words. Mandatory style tags: anime style, clean line art.
 2. Campus theme: school uniform, sailor suit, pleated skirt, classroom campus scene; soft window light, indoor natural light, warm tone, youthful expression.
 3. Fantasy magic theme: magical girl, battle outfit, staff and gem, cloak; magic glow, particle effects, dynamic lines, ruins or fantasy castle background.
 4. Japanese style theme: kimono, hairpin, oil‑paper umbrella; courtyard, cherry blossom, lantern, falling petals, soft warm light.
@@ -88,8 +88,8 @@ For all themes: user input features have highest priority, only add detail tags,
 """
                 },
                 "negative_base": {
-                    "zh": "真实，照片，皮肤纹理，毛孔，4K纹理，电影感，写实，模糊表述，模板化姿势，无表情，简化服饰，无环境，无光线，色彩杂乱，高饱和撞色，低分辨率，噪点，AI错误肢体，比例失调，五官崩坏，塑料质感，平涂无体积，边缘生硬，抠图感，卡通低幼化，重复标签，长句描述",
-                    "en": "realistic, photograph, skin texture, pores, 4k texture, cinematic, vague description, template pose, expressionless, simplified clothing, no environment, no lighting, messy colors, clashing oversaturation, low resolution, noise, ai broken limbs, bad proportion, distorted facial features, plastic texture, flat shading without volume, harsh edge, cutout feeling, overly childish cartoon style, duplicate tags, long sentence description"
+                    "zh": "真实，照片，皮肤纹理，毛孔，4K纹理，电影感，写实，低分辨率，噪点，变形手指，坏手，比例失调，五官崩坏，多余肢体，缺失肢体，融合手指，塑料质感，平涂无体积，边缘生硬，抠图感，卡通低幼化，重复标签，长句描述",
+                    "en": "realistic, photograph, skin texture, pores, 4k texture, cinematic, low resolution, noise, deformed fingers, bad hands, bad proportion, distorted facial features, extra limbs, missing limbs, fused fingers, plastic texture, flat shading without volume, harsh edge, cutout feeling, overly childish cartoon style, duplicate tags, long sentence description"
                 }
             }
         }
@@ -97,8 +97,8 @@ For all themes: user input features have highest priority, only add detail tags,
         # 双输出格式指引
         self.format_guide = {
             "natural": {
-                "zh": "【自然标签模式】仅输出逗号分隔中文标签串，标签数量30‑60，只输出标签本体，不包含任何解释、标题、填充文字。",
-                "en": "[Natural Tag Mode] Output only comma‑separated English tag string, 30‑60 tags, tags only, no explanation, title or extra text."
+                "zh": "【自然标签模式】仅输出逗号分隔中文标签串，标签总数30‑60个（硬性上限，超出60个一律删除），只输出标签本体，不包含任何解释、标题、填充文字。",
+                "en": "[Natural Tag Mode] Output only comma‑separated English tag string, tag count 30‑60 (hard limit, any tags beyond 60 must be deleted), tags only, no explanation, title or extra text."
             },
             "structured": {
                 "zh": """【结构化模式】严格顺序输出：
@@ -218,6 +218,12 @@ For all themes: user input features have highest priority, only add detail tags,
         else:
             prompt_parts.append(natural_guide)
             prompt_parts.append(structured_guide)
+
+        # 输出语言硬性要求：由节点选项传入的 lang 决定最终输出语言
+        if lang == "zh":
+            prompt_parts.append("【输出语言】全部输出内容（标签、字段值）必须使用中文撰写，禁止输出任何英文或其他语言内容。")
+        else:
+            prompt_parts.append("[Output Language] All output content (tags, field values) must be written in English, do not output any Chinese or other language content.")
 
         final_llm_prompt = "\n".join(prompt_parts)
         negative_prompt = preset["negative_base"][lang] if enable_negative_prompt else ""

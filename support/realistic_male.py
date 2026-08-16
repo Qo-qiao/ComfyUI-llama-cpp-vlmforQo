@@ -28,44 +28,62 @@ class RealisticMale:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物核心体态五官 → 光影立体层次 → 服饰质感 → 克制环境。平衡细节真实感与氛围感，光影过渡细腻自然。",
-                "formula_en": "Content order: character face and body → lighting layers → clothing texture → restrained environment. Balance realism and atmosphere."
+                "formula_zh": "内容组织顺序：真实亚洲男性（脸型、发型、衣饰）→ 自然写实肤质 → 室内暖光、干净氛围 → 半身平视构图",
+                "formula_en": "Content order: realistic Asian male (face shape, hairstyle, outfit) → natural realistic skin → warm indoor light, clean atmosphere → half-body eye-level composition"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：真人肤质细节优先 → 面部五官轮廓 → 体态姿态 → 光影布光 → 极简场景。极致还原皮肤原生质感，严格控制面部畸变。",
-                "formula_en": "Content order: real skin texture first → facial contour → body posture → studio lighting → minimalist scene."
+                "formula_zh": "内容组织顺序：真实亚洲男性主体（脸型、发型、衣饰）→ 自然写实肤质 → 自然光或室内暖光、干净氛围 → 半身构图、平视镜头（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: realistic Asian male subject (face shape, hairstyle, outfit) → natural realistic skin → natural or warm indoor light, clean atmosphere → half-body composition, eye-level shot (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉重心 → 人物神态体态 → 色彩和谐管控 → 光影层次 → 干净背景。色彩精准管控，构图规整克制，画面干净通透，强化肤色自然过渡。",
-                "formula_en": "Content order: composition focus → expression and posture → color harmony → lighting layers → clean background."
+                "formula_zh": "内容组织顺序：亚洲男性特征、沉稳表情与日常气质 → 风格与画质（自然肤质、干净边缘） → 均匀室内光或阴天柔光 → 胸像平视构图、浅景深 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: Asian male features, steady expression and daily temperament → style and quality (natural skin, clean edges) → even indoor light or overcast soft light → chest portrait eye-level composition, shallow depth → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：电影级光影氛围 → 人物体态情绪 → 胶片质感细节 → 服饰面料 → 极简布景。强化影调层次与高级氛围感。",
-                "formula_en": "Content order: cinematic lighting → body emotion → film texture details → fabric → minimalist set."
+                "formula_zh": "内容组织顺序：电影级光影氛围、室内暖光户外散射 → 人物体态情绪、沉稳神情 → 胶片质感细节、写实肤质衣物 → 服饰面料材质 → 极简布景、natural pose（密集关键词，中英术语并列）",
+                "formula_en": "Content order: cinematic lighting atmosphere with warm indoor light and outdoor scatter → body pose and mood, steady expression → film grain texture details, realistic skin and clothing → fabric material → minimalist set, natural pose (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体画面基调 → 人物松弛姿态 → 自然肌肤质感 → 简约留白环境。极简干净叙事，弱化冗余修饰。",
-                "formula_en": "Content order: overall tone → relaxed pose → natural skin texture → simple negative space."
+                "formula_zh": "内容组织顺序：整体画面基调（干净日常氛围）→ 人物松弛姿态与沉稳神情 → 自然肤质与衣物质感 → 简约留白环境",
+                "formula_en": "Content order: overall image tone (clean daily atmosphere) → relaxed pose with steady expression → natural skin and clothing texture → simple negative-space environment"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：面部五官肤质 → 体态姿态 → 光影层次 → 服饰细节 → 轻量环境。强化面部立体感，光影层次柔和，画面干净通透。",
-                "formula_en": "Content order: facial skin features → body posture → lighting layers → fabric details → lightweight environment."
+                "formula_zh": "内容组织顺序：东亚男性五官肤质、日常气质 → 体态姿态、沉稳神情 → 光影层次、自然光柔光 → 服饰细节、衣物质感 → 轻量环境（密集关键词，中英术语并列）",
+                "formula_en": "Content order: East Asian male facial features and skin, daily temperament → body pose, steady expression → lighting layers, natural soft light → clothing details, fabric texture → lightweight environment (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物主体气质 → 肤质毛发细节 → 专业布光 → 服饰造型 → 极简场景。色彩柔和统一，神态刻画细腻，画面写实自然。",
-                "formula_en": "Content order: character temperament → skin hair details → professional lighting → clothing styling → minimalist scene."
+                "formula_zh": "内容组织顺序：亚洲男性特征、沉稳表情与日常感 → 风格与画质（自然肤质、干净边缘） → 均匀室内光或阴天柔光 → 胸像平视、浅景深 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: Asian male features, steady expression and daily feel → style and quality (natural skin, clean edges) → even indoor light or overcast soft light → chest portrait eye-level, shallow depth → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：东亚男性自然肖像 → 街头纪实风格、须发与衣物质感 → 阴天柔光、克制色调 → 腰部以上、松弛站姿 → 强调朴实无妆感、避免过度磨皮。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: East Asian male natural portrait → street documentary style, stubble hair and clothing texture → overcast soft light, restrained tone → waist-up, relaxed standing pose → emphasize plain no-makeup look, avoid excessive retouching. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：东亚男性主体与沉稳神情 → 场景与构图（腰部以上松弛站姿）→ 光影与氛围（阴天柔光克制）→ 画种/摄影风格（街头纪实）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: East Asian male subject & steady expression → scene & composition (waist-up relaxed stance) → light & atmosphere (overcast soft light, restrained) → art/photography style (street documentary) → wrap rendered text in quotes."  
             }
         }
 
@@ -88,7 +106,7 @@ Semantic priority: facial skin & stubble > pose & outfit > light & color > scene
 All poses are captured dynamic moments, rigid template posing forbidden; light described with real daily light sources, empty literary rhetoric removed. Human subject dominates frame, background only serves narrative, no extra irrelevant props or passers-by.
 Strict 70/25/5 color area ratio with saturation label, comfortable blank space. Prioritize native Asian male features: single/double-lid, three-dimensional nose, firm jaw, natural stubble, retain pores, acne marks, fine lines, uneven skin, no AI plastic fake face.
 Fully keep user-specified scene, outfit, tone, perspective and mood, only add skin, hair, fabric, lighting details without altering user request.
-Taboo: weight tags, redundant keywords; perfectly symmetrical face, flawless smoothed plastic skin, rigid neat hair, empty fake smile, blank stare; stage harsh light, cluttered background, extreme weird angles, perspective distortion. Natural mode blocks all optical numbers, only structured mode allows focal length & aperture with explanations.
+Forbidden: weight tags, redundant keywords; perfectly symmetrical face, flawless smoothed plastic skin, rigid neat hair, empty fake smile, blank stare; stage harsh light, cluttered background, extreme weird angles, perspective distortion. Natural mode blocks all optical numbers, only structured mode allows focal length & aperture with explanations.
 Output natural text and structured two formats only, no extra notes.
 """
         }
@@ -101,8 +119,8 @@ Output natural text and structured two formats only, no extra notes.
                 "description": REALISTIC_MALE["description"],
                 # 中英正向约束，完全取自素材原文无修改
                 "positive_constraints": {
-                    "zh": "真实亚洲男性面部,左右眉眼唇形天然轻微不对称,单眼皮内双,清晰面部轮廓,立体鼻梁,硬朗下颌线,保留自然毛孔淡细纹肤色不均轻微痘印淡疤痕,真实胡须质感胡茬剃须青印,原生真实肌肤质感,自然毛躁碎发,生活化场景环境仅衬托主体,自然抓拍松弛姿态,真实具象情绪,无刻意摆拍痕迹,视角符合纪实人像真实拍摄逻辑,三维度组合自然协调,无透视畸变与违和角度",
-                    "en": "real Asian male face, natural slight asymmetry of brows eyes lips, single/internal double eyelids, clear facial contour, tall nose, firm jawline, natural pores fine lines uneven tone acne marks faint scars, natural stubble shaving shadow, original real skin texture, messy broken hair, daily scene only for foil, captured relaxed pose authentic emotion, no deliberate posing, perspective fits documentary portrait logic, balanced three-dimensional composition, no perspective distortion"
+                    "zh": "真实亚洲男性面部，眉眼唇轻微不对称，单眼皮内双，清晰面部轮廓，立体鼻梁，硬朗下颌线，保留毛孔、淡细纹、肤色不均、轻微痘印疤痕、真实胡须质感与剃须青印，自然毛躁碎发，生活化场景仅衬托主体，自然抓拍松弛姿态，真实情绪，无刻意摆拍，视角符合纪实人像逻辑，无透视畸变",
+                    "en": "real Asian male face, natural slight asymmetry of brows eyes lips, single/internal double eyelids, clear facial contour, tall nose, firm jawline, retain pores fine lines uneven tone acne marks scars, natural stubble shaving shadow, messy broken hair, daily scene only for foil, captured relaxed pose authentic emotion, no deliberate posing, perspective fits documentary portrait logic, no perspective distortion"
                 },
                 # 全题材细分专属规则，完全提取素材内分类内容
                 "preset_rules": {
@@ -138,8 +156,8 @@ All themes: user-specified shot, pitch, horizontal angle take priority; no auto 
 """
                 },
                 "negative_base": {
-                    "zh": "完美对称五官,零瑕疵皮肤,人工对称双眼皮,厚重匀肤磨皮,塑料光滑哑光假皮,过度光滑肌肤,完全对称眉眼,厚重美颜,统一匀肤,过度美化皮肤,精致无瑕疵脸蛋,模板网红脸,无胡茬质感,虚假面部肌理,光滑无毛孔皮肤,空洞假笑,僵硬摆拍,刻意模特摆姿,多余肢体动作,无神凝视,多余绿植摆件,路人装饰杂物,杂乱背景,大量装饰,多余人物,舞台强光,画面堆砌元素,过度锐化,高饱和撞色,人工完美肌理,鸟瞰视角,虫眼视角,极端大俯大仰,透视畸变,肢体比例失调",
-                    "en": "perfect symmetrical facial features, blemish-free skin, artificial double lids, heavy skin smoothing, plastic matte fake skin, over-smooth complexion, fully symmetric brows, heavy beauty filter, flawless template influencer face, no stubble texture, poreless fake skin, empty fake smile, stiff model pose, redundant limbs, blank stare, extra plants ornaments passers-by, cluttered background, stage harsh light, over-sharpening, oversaturated clashing color, artificial perfect texture, bird/bug eye view, extreme pitch, perspective distortion, disproportionate body"
+                    "zh": "完美对称五官，零瑕疵皮肤，厚重磨皮，塑胶假肤，模板网红脸，无胡茬质感，光滑无毛孔，空洞假笑，僵硬摆拍，多余肢体动作，无神凝视，多余装饰路人，杂乱背景，舞台强光，过度锐化，高饱和撞色，鸟瞰虫眼视角，极端俯仰，透视畸变，肢体比例失调",
+                    "en": "perfect symmetrical features, blemish-free skin, heavy skin smoothing, plastic fake skin, template influencer face, no stubble texture, poreless skin, empty fake smile, stiff pose, redundant limbs, blank stare, extra ornaments passers-by, cluttered background, stage harsh light, over-sharpening, oversaturated color, bird/bug eye view, extreme pitch, perspective distortion, disproportionate body"
                 }
             }
         }
@@ -155,23 +173,89 @@ All themes: user-specified shot, pitch, horizontal angle take priority; no auto 
 1.类别风格定位
 2.全局肤质正向约束（面部基础/皮肤肌理/毛发胡须）
 3.画面构图（视觉引导/主体占比/画幅/精简约束）
-4.景别（类型/裁切边界/画面叙事特征）
-5.视角景深（距离/水平方位/垂直俯仰/虚实氛围）
-6.人物描述（外貌/动态/表情/服装色彩配比）
-7.肌肤细节（肤质/发丝/东方男性面部特质）
-8.环境氛围（空间/光源/色彩配比/叙事小物件）
-9.技术参数建议（仅焦距光圈镜头，附带释义，禁用快门ISO）
+4.三维度镜头视角与构图
+   - 画面比例：竖版人像（4:5/3:4）/ 横版环境人像（16:9/3:2）/ 方形（1:1）
+   - 距离维度（景别）：微距特写 / 标准特写 / 肩特写 / 七分人像 / 九分人像 / 全景人像，对应叙事重心与细节展现层级
+   - 水平视角维度：正面 / 四分之三斜侧 / 正侧面，标注主体展现效果与叙事特点
+   - 垂直俯仰维度：小俯视角 / 平视 / 小仰视角 / 强仰视角（脚部前景延伸），对应心理感受与画面张力
+   - 景深氛围：浅景深柔焦虚化 / 中景深环境兼顾 / 深景深全景清晰，标注虚实层次对应的主次关系
+5.姿态体态与表情神态
+   - 头部姿态：微侧/仰头/低头/回眸，颈部线条与视线方向
+   - 躯干姿态：挺直/放松/前倾/后仰，肩线角度与身体重心
+   - 上肢姿态：手臂弯曲角度、手部摆放位置（叉腰/托腮/自然下垂/手持道具）
+   - 下肢姿态：站姿重心分配、坐姿腿部交叠、躺卧腿部伸展/蜷缩、动态迈步/静止支撑
+   - 表情神态：眼神聚焦方向、嘴角弧度、眉宇情绪（平静/专注/柔和/自信）
+5.1 人像专属细节（仅人像类使用）
+   - 眼神光：环形眼神光（眼下圆形光斑）/ 方形眼神光（窗光反射）/ 自然窗光（柔和反射）
+   - 肤质表现：毛孔细腻（可见细微毛孔）/ 丝绒柔滑（磨皮但保留质感）/ 光泽水润（高光通透）/ 丝绸光泽（面料反光）
+   - 发丝质感：根根分明（发丝清晰可见）/ 柔顺飘逸（动态飘动）/ 蓬松空气感（发量充盈）
+   - 面部光影：高光区（额头/鼻梁/颧骨提亮）/ 中间调（面颊/下巴自然过渡）/ 阴影区（鼻翼侧/脸颊侧立体）
+6.色彩配比与整体调性
+   - 主色调：占比70%，奠定整体基调（暖调/冷调/中性）
+   - 辅助色：占比25%，丰富层次与环境过渡
+   - 点缀色：占比5%，制造视觉焦点与细节提亮
+   - 色温情绪：暖调（3200K-4500K）=温馨/复古/亲切；冷调（5500K-7000K）=清冷/高级/疏离；中性（5000K-5500K）=自然/真实/平和
+   - 饱和度：低饱和=高级/文艺/复古；中饱和=自然/真实；高饱和=活力/时尚/冲击
+   - 肤色还原：偏黄调（亚洲肤色自然）/ 偏粉调（欧美肤色白皙）/ 自然通透（健康血色）
+7.专业布光方式与光影层次
+   - 主光类型：伦勃朗光（鼻翼三角光影）/蝴蝶光（鼻下对称阴影）/侧光（明暗分割）/环形光（面部均匀立体）
+   - 光源方向：正侧光45°/90°侧光/逆光轮廓/顶光戏剧/底光诡异/窗光网格投影
+   - 光质软硬：硬光（清晰边缘阴影）/柔光（渐变过渡阴影）/散射光（均匀无影）
+   - 环境光：补光比例、反光板效果、环境反射色调
+8.背景与环境
+   - 虚化程度：奶油般化开（f/1.4-1.8极致虚化）/ 柔美光斑（f/2.8光斑）/ 环境可辨（f/4-5.6）
+   - 环境呼应：色彩呼应（背景与服装色调统一）/ 光影呼应（环境光与主光协调）
+   - 负空间：眼神方向留白（看向处留空间）/ 呼吸空间（头顶/两侧留白）
+9.【技术参数建议】仅structured模式可输出，natural模式禁用；允许完整相机参数描述（焦距、光圈、快门速度、ISO、白平衡），附带空间效果释义：
+- 古风汉服/正装礼服：85mm中长焦，f/2.8-f/4光圈，1/125s-1/250s快门，ISO200-800，摄影机远离主体，压缩空间突出沉稳气质
+- 运动健身：35mm小广角低角度，f/2.8-f/4光圈，1/500s-1/1000s快门，ISO400-1600，摄影机靠近主体，强化近大远小，增强肌肉力量透视
+- 街头潮牌/韩系：50mm标准中焦，f/2.8-f/4光圈，1/250s-1/500s快门，ISO100-400，自然抓拍，纪实感强
+- 复古文艺/居家：50mm-85mm，f/2.8-f/4光圈，1/60s-1/125s快门，ISO400-1600，自然或柔和压缩
+- 动态抓拍：200mm长焦，f/2.8-f/4光圈，1/1000s-1/4000s高速快门，ISO400-1600，冻结高速运动瞬间
+- 蓝调时刻/夜景：35mm-50mm，f/1.4-f/2大光圈，1/30s-1/60s慢速快门，ISO800-3200，捕捉低光环境氛围
 10.风格标签+画面收尾精简约束""",
                 "en": """[Structured Mode] Fixed output order:
 1. Category positioning
 2. Global skin constraints (face base / skin texture / hair stubble)
 3. Composition (visual guide / subject ratio / aspect ratio / cleanup limit)
-4. Shot type (type / crop / narrative feature)
-5. Perspective & DOF (distance / horizontal / vertical / blur mood)
-6. Character description (look / movement / expression / color ratio)
-7. Skin & hair details
-8. Environment (space / light / color / tiny props)
-9. Tech params (only focal length aperture lens with explanation, shutter ISO banned)
+4. Three-dimensional camera view and composition
+   - Aspect ratio: vertical portrait (4:5/3:4) / horizontal environmental (16:9/3:2) / square (1:1)
+   - Distance (shot type): macro close-up / standard close-up / shoulder shot / three-quarter portrait / nine-tenth portrait / full-scene portrait, mark narrative focus
+   - Horizontal view: front / three-quarter / profile, describe display effect & narrative feature
+   - Vertical pitch: slight high-angle / eye-level / slight low-angle / strong low-angle (soles foreground extension), describe mental feeling & frame tension
+   - Depth of field: shallow DOF soft bokeh / medium DOF environment balanced / deep DOF full sharpness
+5. Pose body and expression
+   - Head pose: slight tilt/up/down/turn back, neck line & gaze direction
+   - Torso pose: upright/relaxed/lean forward/back, shoulder angle & body weight
+   - Upper limb: arm bend angle, hand placement (on waist/under chin/hanging/holding props)
+   - Lower limb: standing weight distribution/leg cross sitting/lying legs extended/curled/dynamic stepping/static support
+   - Expression: eye focus direction, mouth curve, brow emotion (calm/focused/soft/confident)
+5.1 Portrait-specific details (portrait only)
+   - Catchlight: ring catchlight (circular under-eye) / square catchlight (window reflection) / natural window light (soft reflection)
+   - Skin texture: fine pores (visible subtle pores) / velvet smooth (retouched but textured) / dewy glow (translucent highlight) / silk sheen (fabric reflection)
+   - Hair texture: strand-defined (individual hairs visible) / silky flowing (dynamic movement) / fluffy airy (voluminous)
+   - Facial lighting: highlight zone (forehead/nose bridge/cheekbone brightening) / midtone (cheek/chin natural transition) / shadow zone (nose side/cheek side dimension)
+6. Color ratio and overall tone
+   - Main Color: 70%, set overall tone (warm/cool/neutral)
+   - Auxiliary Color: 25%, enrich hierarchy & environment transition
+   - Accent Color: 5%, create visual focal point & detail highlight
+   - Color temperature mood: warm (3200K-4500K) = cozy/retro/intimate; cool (5500K-7000K) = cold/high-end/detached; neutral (5000K-5500K) = natural/true/peaceful
+   - Saturation: low saturation = high-end/artistic/retro; medium = natural/true; high = vibrant/fashion/impact
+   - Skin tone: yellowish (Asian natural) / pinkish (Western fair) / natural translucent (healthy blood color)
+7. Professional lighting method
+   - Key light type: Rembrandt (triangle under nose) / butterfly (symmetric shadow under nose) / side light (light-dark split) / ring light (even facial dimension)
+   - Light direction: 45° side / 90° side / backlit outline / top dramatic / bottom eerie / window grid projection
+   - Light quality: hard (clear edge shadow) / soft (gradual transition) / diffused (even shadowless)
+   - Ambient light: fill light ratio, reflector effect, environmental reflection tone
+8. Background & Environment
+   - Bokeh: creamy smooth (f/1.4-1.8 extreme blur) / beautiful light orbs (f/2.8 bokeh) / environment discernible (f/4-5.6)
+   - Environment echo: color echo (background-clothing tone unity) / lighting echo (ambient light-key light coordination)
+   - Negative space: gaze direction留白 (space where looking) / breathing room (headroom/sides margin)
+9. [Tech params] Only structured mode can output, natural mode forbidden; only qualitative focal length/aperture description with spatial effect explanation, shutter/ISO/white balance numerical parameters forbidden:
+- Ancient Hanfu/formal suit: 85mm medium telephoto, camera away from subject, compressed space highlighting steady temperament
+- Sports fitness: 35mm small wide-angle low angle, camera close to subject, enhanced near-far perspective, strengthening muscle power perspective
+- Street fashion/Korean style: 50mm standard mid-range, natural capture, strong documentary feel
+- Retro literary/home: 50mm-85mm, natural or soft compression
 10. Style tags + frame cleanup rules"""
             }
         }

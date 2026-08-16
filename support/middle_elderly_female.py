@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-真实老年男性人像预设提示词库
+真实老年女性人像预设提示词库
 
 Author: 亲卿于情 (@Qo-qiao)
 GitHub: https://github.com/Qo-qiao
@@ -28,44 +28,62 @@ class MiddleElderlyFemale:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物核心体态五官 → 光影立体层次 → 服饰质感 → 克制环境。平衡细节真实感与氛围感，光影过渡细腻自然。",
-                "formula_en": "Content order: character face and body → lighting layers → clothing texture → restrained environment. Balance realism and atmosphere."
+                "formula_zh": "内容组织顺序：中老年女性（银发、皱纹、服饰）→ 写实岁月质感 → 柔和暖光、安宁氛围 → 胸像或生活场景、自然取景",
+                "formula_en": "Content order: middle-aged elderly female (silver hair, wrinkles, outfit) → realistic age texture → soft warm light, peaceful atmosphere → chest portrait or life scene, natural framing"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：真人肤质细节优先 → 面部五官轮廓 → 体态姿态 → 光影布光 → 极简场景。极致还原皮肤原生质感，严格控制面部畸变。",
-                "formula_en": "Content order: real skin texture first → facial contour → body posture → studio lighting → minimalist scene."
+                "formula_zh": "内容组织顺序：中老年女性主体（银发、皱纹、服饰）→ 写实肤质与岁月质感 → 柔和暖光、亲切安宁氛围 → 胸像或生活化场景、自然取景（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: middle-aged elderly female subject (silver hair, wrinkles, outfit) → realistic skin quality with age texture → soft warm light, warm and peaceful atmosphere → chest portrait or life scene, natural framing (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉重心 → 人物神态体态 → 色彩和谐管控 → 光影层次 → 干净背景。色彩精准管控，构图规整克制，画面干净通透，强化肤色自然过渡。",
-                "formula_en": "Content order: composition focus → expression and posture → color harmony → lighting layers → clean background."
+                "formula_zh": "内容组织顺序：中老年女性身份、从容神态与岁月气质 → 风格与画质（真实皱纹与肌肤纹理、自然而不修饰） → 暖调窗光或柔光营造亲切感 → 半身平视构图、柔化背景 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: middle-aged elderly female identity, composed expression and age temperament → style & quality (real wrinkles and skin texture, natural without retouching) → warm window light or soft light creating warmth → half-body eye-level composition, softened background → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：电影级光影氛围 → 人物体态情绪 → 胶片质感细节 → 服饰面料 → 极简布景。强化影调层次与高级氛围感。",
-                "formula_en": "Content order: cinematic lighting → body emotion → film texture details → fabric → minimalist set."
+                "formula_zh": "内容组织顺序：电影级光影氛围、温馨窗光柔光 → 人物体态情绪、从容神情 → 胶片质感细节、银发岁月纹理 → 服饰面料材质 → 极简布景、life portrait（密集关键词，中英术语并列）",
+                "formula_en": "Content order: cinematic lighting atmosphere with warm window soft light → body pose and emotion, composed expression → film grain texture details, silver hair and age texture → fabric material → minimalist set, life portrait (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体画面基调 → 人物松弛姿态 → 自然肌肤质感 → 简约留白环境。极简干净叙事，弱化冗余修饰。",
-                "formula_en": "Content order: overall tone → relaxed pose → natural skin texture → simple negative space."
+                "formula_zh": "内容组织顺序：整体画面基调（温馨从容氛围）→ 人物松弛姿态与岁月神态 → 细腻真实肤质银发 → 简约留白环境",
+                "formula_en": "Content order: overall image tone (warm composed atmosphere) → relaxed pose with age expression → delicate realistic skin and silver hair → simple negative-space environment"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：面部五官肤质 → 体态姿态 → 光影层次 → 服饰细节 → 轻量环境。强化面部立体感，光影层次柔和，画面干净通透。",
-                "formula_en": "Content order: facial skin features → body posture → lighting layers → fabric details → lightweight environment."
+                "formula_zh": "内容组织顺序：中老年女性五官肤质、岁月纹理 → 体态姿态、从容神情 → 光影层次、温暖柔光 → 服饰细节、银发质感 → 轻量环境（密集关键词，中英术语并列）",
+                "formula_en": "Content order: middle-aged elderly female facial features and skin, age texture → body pose, composed expression → lighting layers, warm soft light → clothing details, silver hair texture → lightweight environment (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：人物主体气质 → 肤质毛发细节 → 专业布光 → 服饰造型 → 极简场景。色彩柔和统一，神态刻画细腻，画面写实自然。",
-                "formula_en": "Content order: character temperament → skin hair details → professional lighting → clothing styling → minimalist scene."
+                "formula_zh": "内容组织顺序：中老年女性身份、从容神态与岁月气质 → 风格与画质（真实皱纹纹理、自然不修饰） → 暖调窗光或柔光亲切感 → 半身平视、柔化背景 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: middle-aged elderly female identity, composed expression and age temperament → style & quality (real wrinkle texture, natural without retouching) → warm window light or soft light warmth → half-body eye-level, softened background → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：中老年女性从容面容 → 自然写实风格、岁月纹理与银发 → 暖窗光、温润氛围 → 半身亲切视角 → 强调优雅真实、避免少女化与磨皮。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: middle-aged elderly female composed face → natural realistic style, age texture and silver hair → warm window light, gentle atmosphere → half-body friendly angle → emphasize elegant realism, avoid youthful look and retouching. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：中老年女性主体与从容神态 → 场景与构图（半身亲切视角）→ 光影与氛围（暖窗光温润）→ 画种/摄影风格（自然写实）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: middle-aged elderly female subject & composed expression → scene & composition (half-body friendly angle) → light & atmosphere (warm window light, gentle) → art/photography style (natural realism) → wrap rendered text in quotes."
             }
         }
         # 全局底层规则，修改为中老年女性专用
@@ -76,7 +94,7 @@ class MiddleElderlyFemale:
 原生淡妆状态面部干净整洁，无大面积杂乱瑕疵，完整保留中老年原生深浅皱纹、面部软组织松弛、淡老年斑、细微干纹与肤色不均，拒绝过度磨皮带来的塑胶假肤、紧致年轻化肌肤效果。
 姿态必须使用具体中老年舒缓肢体结构描述，禁止模糊形容词、少女活泼夸张动作；光线方向明确，光影过渡柔和通透；人物为绝对画面主体，环境仅衬托岁月叙事氛围。
 完整保留用户输入的风格、服饰、场景、色调、姿态、视角所有信息，仅补充摄影、材质、光影、岁月肤质、花白银发专业细节，不新增少女、青春相关无关物体、装饰道具。
-所有服饰（旗袍/羊绒大衣/宽松居家棉麻/艺术人体）均作为成熟女性高端人像题材，姿态克制温婉、松弛自然，禁止低俗化、过度性化、畸形夸张体态。
+所有服饰（旗袍/羊绒大衣/宽松居家棉麻/艺术人体）均作为成熟女性高端人像题材，姿态克制温婉、松弛自然。
 输出禁忌：禁止权重符号、多余相机参数、冗余堆砌；禁止卡通二次元、畸形肢体、坏手烂指、网红假脸、磨皮蜡皮；禁止杂乱少女风背景、空洞甜腻假笑、自拍抓拍、透视畸变、强行紧致年轻化。
 严格输出两种格式，不添加额外注释、说明、解释。
 """,
@@ -86,8 +104,8 @@ All styles strictly adhere to photorealistic baseline for women aged 40+, differ
 Light natural makeup, clean face without large blemishes, fully retain natural wrinkles, sagging facial tissue, faint age spots, fine dry lines and uneven skin tone of mature skin; reject plastic fake skin and artificially tightened youthful skin caused by heavy retouching.
 All poses described with specific relaxed limb structure for elders, no vague words or exaggerated youthful movements. Clear light direction and soft shadow transition. Elderly female subject dominates the frame, background only serves aging narrative atmosphere.
 Completely retain user input style, clothing, scene, tone, pose and perspective. Only supplement professional details of photography, texture, light, aged skin and gray-white hair, no irrelevant youthful decorations or props.
-All costumes (cheongsam, cashmere coat, loose linen home wear, artistic nude) are high-end mature portrait themes with restrained gentle relaxed poses, no vulgar or deformed exaggerated body shapes.
-Taboo: no weight symbols, redundant camera parameters, anime/cartoon/illustration, deformed anatomy, defective hands, over-retouched wax skin, messy youthful background, empty sweet fake smile, snapshot selfie, perspective distortion, forced youthful facial tightening.
+All costumes (cheongsam, cashmere coat, loose linen home wear, artistic nude) are high-end mature portrait themes with restrained gentle relaxed poses.
+Forbidden: no weight symbols, redundant camera parameters, anime/cartoon/illustration, deformed anatomy, defective hands, over-retouched wax skin, messy youthful background, empty sweet fake smile, snapshot selfie, perspective distortion, forced youthful facial tightening.
 Strictly output two formats without extra comments.
 """
         }
@@ -99,8 +117,8 @@ Strictly output two formats without extra comments.
                 "description": MIDDLE_ELDERLY_FEMALE["description"],
                 # 中英双语前置约束，中老年专属
                 "positive_constraints": {
-                    "zh": "影视级超写实真人质感，40岁以上中老年女性松弛面部骨骼结构，眉眼唇皱纹分布天然轻微不对称；原生淡妆干净无大面积瑕疵，完整保留深浅皱纹、面部松弛肌理、淡老年斑、肤色不均、细微干纹，零过度磨皮、无塑胶蜡皮、无AI网红模板脸；柔软分层花白/全白发丝，干净克制中老年生活化布景，松弛舒缓真人抓拍姿态，内敛沉静慈祥成熟情绪，无透视畸变。居家/旗袍/胶片/棚拍/艺术人体均为熟龄题材分支，不破坏岁月写实基线，姿态温婉松弛、自然从容",
-                    "en": "Cinematic photorealistic real human texture, sagging facial bone structure unique to women over 40, natural slight asymmetry of eyes, eyebrows, lips and wrinkle distribution; light natural makeup without large blemishes, fully retain deep & shallow wrinkles, sagging facial texture, faint age spots, uneven skin tone, fine dry lines, no over-smoothing, no plastic wax skin, no AI influencer template face; soft layered gray-white hair, restrained daily scene matching elders, relaxed snapshot pose, restrained calm kind mature emotion, no perspective distortion. Daily/cheongsam/film/studio/artistic nude are mature theme branches only, never break aging realism baseline with gentle relaxed posture"
+                    "zh": "超写实真人质感，40岁以上中老年女性松弛面部骨骼，眉眼唇皱纹分布轻微不对称；原生淡妆干净，保留深浅皱纹、面部松弛肌理、淡老年斑、肤色不均、细微干纹，无过度磨皮与塑胶假肤、无AI模板脸；柔软花白发丝，干净布景，松弛舒缓抓拍姿态，内敛沉静成熟情绪，无透视畸变。居家/旗袍/胶片/棚拍/艺术人体均为熟龄题材分支，保持岁月写实基线，姿态温婉自然",
+                    "en": "photorealistic real human texture, sagging facial bone structure unique to women over 40, natural slight asymmetry of eyes, eyebrows, lips and wrinkle distribution; light natural makeup, retain deep & shallow wrinkles, sagging facial texture, faint age spots, uneven skin tone, fine dry lines, no over-smoothing or plastic wax skin or AI template face; soft gray-white hair, restrained daily scene, relaxed snapshot pose, calm mature emotion, no perspective distortion. Daily/cheongsam/film/studio/artistic nude are mature theme branches only, maintain aging realism baseline with gentle posture"
                 },
                 # 中老年全风格细分专属规则
                 "preset_rules": {
@@ -113,7 +131,7 @@ Strictly output two formats without extra comments.
 5. 复古胶片纪实风格：带有轻微自然胶片颗粒，暖调褪色柔光，不刻意精修淡化皱纹，场景选用老式民居、老街，还原生活化松弛抓拍质感。
 6. 极简棚拍熟龄风格：低饱和纯色简约背景，均匀柔光铺光，重点突出面部岁月肌理与银发层次；服饰以羊绒、针织、宽松通勤外套为主。
 7. 居家日常纪实风格：宽松棉麻家居服饰，松弛坐卧体态，午后自然漫射阳光，搭配木家具、针线、旧书本等中老年专属生活道具。
-8. 艺术人体熟龄风格：纯白极简摄影空间，侧逆光勾勒成熟松弛身体曲线，完整保留全身岁月肌肤纹理，姿态沉静内敛、优雅克制，无低俗夸张体态。
+8. 艺术人体熟龄风格：纯白极简摄影空间，侧逆光勾勒成熟松弛身体曲线，完整保留全身岁月肌肤纹理，姿态沉静内敛、优雅克制。
 所有题材仅围绕熟龄女性创作，用户指定场景、服饰、视角优先保留，仅补充岁月肤质、银发、成熟光影细节，不新增少女、青年相关元素。
 """,
                     "en": """
@@ -125,13 +143,13 @@ Strictly output two formats without extra comments.
 5. Retro film documentary style: Slight natural film grain, warm faded soft light, no retouching to erase wrinkles, old houses and old streets as shooting scenes, relaxed daily snapshot texture.
 6. Minimal studio style for elder women: Low-saturation solid simple background, even soft box lighting, focus on facial aging texture and silver hair layers; costumes are mainly cashmere, knitwear and loose commuter coats.
 7. Daily home documentary style: Loose linen home wear, relaxed sitting and lying posture, afternoon diffuse natural sunlight, daily props for elders such as wooden furniture, needlework and old books.
-8. Artistic nude mature style: Pure white minimalist photo space, side backlight outlines mature relaxed body curves, fully retain aged skin texture all over body, calm restrained elegant posture without vulgar exaggerated shapes.
+8. Artistic nude mature style: Pure white minimalist photo space, side backlight outlines mature relaxed body curves, fully retain aged skin texture all over body, calm restrained elegant posture.
 All themes are only created for mature women, retain user-specified scenes, costumes and perspectives, only add details of aged skin, silver hair and mature light, no elements related to young girls or teenagers.
 """
                 },
                 "negative_base": {
-                    "zh": "少女、青年、学生、粉嫩肌肤、马卡龙亮色、紧致少女轮廓、完美对称五官、零皱纹、无老年斑、过度磨皮无毛孔、塑料蜡皮、AI网红模板脸、僵硬影楼摆拍、空洞甜腻假笑、夸张活泼肢体、畸形手脚、多手指、透视畸变、高饱和荧光艳色、杂乱少女装饰、二次元插画、卡通动漫画风、面部大面积无瑕疵、强行紧致年轻化、乌黑假发、年龄感丢失",
-                    "en": "Young girl, teenager, student, pink tender skin, macaron bright colors, tight youthful facial contour, perfectly symmetrical facial features, wrinkle-free skin, no age spots, over-smoothed poreless plastic wax skin, AI influencer template face, stiff studio pose, empty sweet fake smile, exaggerated lively limbs, deformed hands and feet, extra fingers, perspective distortion, oversaturated fluorescent bright colors, messy girlish decorations, anime illustration, cartoon art style, flawless face, forced youthful tightening, black wig, lost aging texture"
+                    "zh": "少女青年粉嫩肌肤，马卡龙亮色，紧致少女轮廓，完美对称五官，零皱纹无老年斑，过度磨皮，塑胶假肤，AI模板脸，僵硬摆拍，空洞假笑，夸张肢体，畸形手脚多手指，透视畸变，高饱和荧光艳色，杂乱少女装饰，二次元卡通画风，强行年轻化，乌黑假发，年龄感丢失",
+                    "en": "Young girl teenager pink tender skin, macaron bright colors, tight youthful contour, perfectly symmetrical face, wrinkle-free no age spots, over-smoothed plastic wax skin, AI template face, stiff pose, empty fake smile, exaggerated limbs, deformed hands feet extra fingers, perspective distortion, oversaturated fluorescent colors, messy girlish decorations, anime cartoon art style, forced youthful tightening, black wig lost aging texture"
                 }
             }
         }
@@ -146,22 +164,86 @@ All themes are only created for mature women, retain user-specified scenes, cost
 1.人种五官轮廓特征
 2.风格与服饰造型定位
 3.肤质与毛发原生细节
-4.构图景别与视觉重心
-5.视角方位与俯仰角度
-6.姿态体态与表情神态
-7.色彩配比与整体调性
-8.专业布光方式与光影层次
-9.画面精简约束与环境要求""",
+4.三维度镜头视角与构图
+   - 画面比例：竖版人像（4:5/3:4）/ 横版环境人像（16:9/3:2）/ 方形（1:1）
+   - 距离维度（景别）：微距特写 / 标准特写 / 肩特写 / 七分人像 / 九分人像 / 全景人像，对应叙事重心与细节展现层级
+   - 水平视角维度：正面 / 四分之三斜侧 / 正侧面，标注主体展现效果与叙事特点
+   - 垂直俯仰维度：小俯视角 / 平视 / 小仰视角 / 强仰视角（脚部前景延伸），对应心理感受与画面张力
+   - 景深氛围：浅景深柔焦虚化 / 中景深环境兼顾 / 深景深全景清晰，标注虚实层次对应的主次关系
+5.姿态体态与表情神态
+   - 头部姿态：微侧/仰头/低头/回眸，颈部线条与视线方向
+   - 躯干姿态：挺直/放松/前倾/后仰，肩线角度与身体重心
+   - 上肢姿态：手臂弯曲角度、手部摆放位置（叉腰/托腮/自然下垂/手持道具）
+   - 下肢姿态：站姿重心分配、坐姿腿部交叠、躺卧腿部伸展/蜷缩、动态迈步/静止支撑
+   - 表情神态：眼神聚焦方向、嘴角弧度、眉宇情绪（平静/专注/柔和/自信）
+5.1 人像专属细节（仅人像类使用）
+   - 眼神光：环形眼神光（眼下圆形光斑）/ 方形眼神光（窗光反射）/ 自然窗光（柔和反射）
+   - 肤质表现：毛孔细腻（可见细微毛孔）/ 丝绒柔滑（磨皮但保留质感）/ 光泽水润（高光通透）/ 丝绸光泽（面料反光）
+   - 发丝质感：根根分明（发丝清晰可见）/ 柔顺飘逸（动态飘动）/ 蓬松空气感（发量充盈）
+   - 面部光影：高光区（额头/鼻梁/颧骨提亮）/ 中间调（面颊/下巴自然过渡）/ 阴影区（鼻翼侧/脸颊侧立体）
+6.色彩配比与整体调性
+   - 主色调：占比70%，奠定整体基调（暖调/冷调/中性）
+   - 辅助色：占比25%，丰富层次与环境过渡
+   - 点缀色：占比5%，制造视觉焦点与细节提亮
+   - 色温情绪：暖调（3200K-4500K）=温馨/复古/亲切；冷调（5500K-7000K）=清冷/高级/疏离；中性（5000K-5500K）=自然/真实/平和
+   - 饱和度：低饱和=高级/文艺/复古；中饱和=自然/真实；高饱和=活力/时尚/冲击
+   - 肤色还原：偏黄调（亚洲肤色自然）/ 偏粉调（欧美肤色白皙）/ 自然通透（健康血色）
+7.专业布光方式与光影层次
+   - 主光类型：伦勃朗光（鼻翼三角光影）/蝴蝶光（鼻下对称阴影）/侧光（明暗分割）/环形光（面部均匀立体）
+   - 光源方向：正侧光45°/90°侧光/逆光轮廓/顶光戏剧/底光诡异/窗光网格投影
+   - 光质软硬：硬光（清晰边缘阴影）/柔光（渐变过渡阴影）/散射光（均匀无影）
+   - 环境光：补光比例、反光板效果、环境反射色调
+8.背景与环境
+   - 虚化程度：奶油般化开（f/1.4-1.8极致虚化）/ 柔美光斑（f/2.8光斑）/ 环境可辨（f/4-5.6）
+   - 环境呼应：色彩呼应（背景与服装色调统一）/ 光影呼应（环境光与主光协调）
+   - 负空间：眼神方向留白（看向处留空间）/ 呼吸空间（头顶/两侧留白）
+9.画面精简约束
+10.【技术参数建议】仅structured模式可输出，natural模式禁用；允许完整相机参数描述（焦距、光圈、快门速度、ISO、白平衡），附带空间效果释义：
+- 国风旗袍/极简棚拍：85mm中长焦，f/2.8-f/4光圈，1/125s-1/250s快门，ISO200-800，摄影机远离主体，柔化背景突出银发与温婉气质
+- 居家纪实/艺术人体：50mm标准中焦，f/2.8-f/4光圈，1/60s-1/125s快门，ISO400-1600，自然抓拍，岁月感真实
+- 动态抓拍：200mm长焦，f/2.8-f/4光圈，1/1000s-1/4000s高速快门，ISO400-1600，冻结高速运动瞬间
+- 蓝调时刻/夜景：35mm-50mm，f/1.4-f/2大光圈，1/30s-1/60s慢速快门，ISO800-3200，捕捉低光环境氛围""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Ethnic facial features
 2. Style and clothing positioning
 3. Skin and hair natural details
-4. Composition shot type and visual focus
-5. View angle and pitch
-6. Pose body and facial expression
-7. Color ratio and overall tone
-8. Professional lighting method
-9. Frame simplification constraint"""
+4. Three-dimensional camera view and composition
+   - Aspect ratio: vertical portrait (4:5/3:4) / horizontal environmental (16:9/3:2) / square (1:1)
+   - Distance (shot type): macro close-up / standard close-up / shoulder shot / three-quarter portrait / nine-tenth portrait / full-scene portrait, mark narrative focus
+   - Horizontal view: front / three-quarter / profile, describe display effect & narrative feature
+   - Vertical pitch: slight high-angle / eye-level / slight low-angle / strong low-angle (soles foreground extension), describe mental feeling & frame tension
+   - Depth of field: shallow DOF soft bokeh / medium DOF environment balanced / deep DOF full sharpness
+5. Pose body and expression
+   - Head pose: slight tilt/up/down/turn back, neck line & gaze direction
+   - Torso pose: upright/relaxed/lean forward/back, shoulder angle & body weight
+   - Upper limb: arm bend angle, hand placement (on waist/under chin/hanging/holding props)
+   - Lower limb: standing weight distribution/leg cross sitting/lying legs extended/curled/dynamic stepping/static support
+   - Expression: eye focus direction, mouth curve, brow emotion (calm/focused/soft/confident)
+5.1 Portrait-specific details (portrait only)
+   - Catchlight: ring catchlight (circular under-eye) / square catchlight (window reflection) / natural window light (soft reflection)
+   - Skin texture: fine pores (visible subtle pores) / velvet smooth (retouched but textured) / dewy glow (translucent highlight) / silk sheen (fabric reflection)
+   - Hair texture: strand-defined (individual hairs visible) / silky flowing (dynamic movement) / fluffy airy (voluminous)
+   - Facial lighting: highlight zone (forehead/nose bridge/cheekbone brightening) / midtone (cheek/chin natural transition) / shadow zone (nose side/cheek side dimension)
+6. Color ratio and overall tone
+   - Main Color: 70%, set overall tone (warm/cool/neutral)
+   - Auxiliary Color: 25%, enrich hierarchy & environment transition
+   - Accent Color: 5%, create visual focal point & detail highlight
+   - Color temperature mood: warm (3200K-4500K) = cozy/retro/intimate; cool (5500K-7000K) = cold/high-end/detached; neutral (5000K-5500K) = natural/true/peaceful
+   - Saturation: low saturation = high-end/artistic/retro; medium = natural/true; high = vibrant/fashion/impact
+   - Skin tone: yellowish (Asian natural) / pinkish (Western fair) / natural translucent (healthy blood color)
+7. Professional lighting method
+   - Key light type: Rembrandt (triangle under nose) / butterfly (symmetric shadow under nose) / side light (light-dark split) / ring light (even facial dimension)
+   - Light direction: 45° side / 90° side / backlit outline / top dramatic / bottom eerie / window grid projection
+   - Light quality: hard (clear edge shadow) / soft (gradual transition) / diffused (even shadowless)
+   - Ambient light: fill light ratio, reflector effect, environmental reflection tone
+8. Background & Environment
+   - Bokeh: creamy smooth (f/1.4-1.8 extreme blur) / beautiful light orbs (f/2.8 bokeh) / environment discernible (f/4-5.6)
+   - Environment echo: color echo (background-clothing tone unity) / lighting echo (ambient light-key light coordination)
+   - Negative space: gaze direction留白 (space where looking) / breathing room (headroom/sides margin)
+9. Frame simplification constraint
+10. [Tech params] Only structured mode can output, natural mode forbidden; only qualitative focal length/aperture description with spatial effect explanation, shutter/ISO/white balance numerical parameters forbidden:
+- Chinese cheongsam/minimal studio: 85mm medium telephoto, camera away from subject, softening background to highlight silver hair and gentle temperament
+- Home documentary/artistic nude: 50mm standard mid-range, natural capture, authentic aging feel"""
             }
         }
     def detect_language(self, text: str) -> str:

@@ -59,12 +59,19 @@ Support natural / structured output mode. Output must be pure tag content only, 
 1. 通用基线：主解析来源#IMAGE_SOURCE#，可选用户关键词#USER_KEYWORDS#；标签总数严格≤60（硬性上限，建议30‑60），不可重复；强制输出质量标签；超出部分一律删除，禁止用无关词汇凑数；natural输出逗号分隔标签字符串；structured模式按字段输出，最大标签数量60（硬性上限，不得超出）。
 2. 优先级铁则：图像像素视觉信息 > 用户可选关键词。关键词仅做风格、题材、氛围的辅助校准；若关键词描述与图片画面冲突，直接舍弃冲突关键词，严格遵从图片画面，绝不根据关键词新增画面不存在实体标签。无关键词则完全依靠图像解析。
 3. 景别判定规则：
+【人像题材】
 ‑ 微距特写：只截取人体极小局部，无完整面部，填满画面，极致细节（单只眼睛/嘴唇/指尖/皮肤肌理/发丝等）
 ‑ 标准特写：头顶至下巴，完整脸部不含肩膀，画面主体全是人脸
 ‑ 肩特写：头部+一点点肩线，只露出肩头一小截
 ‑ 七分人像：头顶到腰腹/腰线，截断于腰部肚脐附近，含完整头部肩膀胸口腰
 ‑ 九分人像：头顶到小腿膝盖下方/脚踝上方，裁切在脚踝/小腿中段，不完整露出双脚
 ‑ 全景人像：完整从头到脚全身入镜，四肢双脚全部包含无裁切
+【非人物题材】
+‑ 微距特写：极小物体填满画面，呈现肉眼难见的极致细节（花蕊/昆虫复眼/产品零件/食材纹理等）
+‑ 近景特写：物体局部占据画面主体，呈现材质纹理与细节特征
+‑ 中景：物体完整呈现，保留适度环境空间，主体与环境比例均衡
+‑ 远景：物体占画面较小比例，环境占主导，强调场景氛围与空间关系
+‑ 全景：物体完整入镜且周围环境充分展开，呈现主体与场景的完整关系
 4. 题材分支规则：人像类输出完整人物标签块；风景、产品、美食、动物等非人像题材省略人物标签块。
 5. 内容约束：仅以图像像素视觉信息为第一依据，禁止脑补故事、抽象情绪类标签；禁止输出哲学主义、心理学、社会学、文化理论等抽象概念性标签；不得生成原图不存在物体、道具标签；不得堆砌与画面视觉无关的延伸性修饰词汇；关键词不能用来新增画面不存在实体标签，仅用于校准风格氛围。
 6. SDXL标签格式约束：输出必须为Danbooru/SDXL风格简短标签词，逗号分隔，每个标签为独立名词或形容词（如"白色长发""蕾丝裙摆"），禁止主谓宾完整句式（如"佩戴白色宽檐帽""坐在红色软垫座椅上"）；质量标签置于输出开头；输出内容必须全部为标签，禁止任何说明、总结、报告、自我陈述文字（如"标签总数控制在60以内""质量标签已包含"等）。
@@ -75,12 +82,19 @@ Support natural / structured output mode. Output must be pure tag content only, 
 1. General baseline: primary source #IMAGE_SOURCE#, optional assist keywords #USER_KEYWORDS#; total tags strictly ≤60 (hard limit, recommended 30‑60) without duplication; quality tags mandatory. Any tags beyond 60 must be deleted, forbid padding with irrelevant words. Natural mode output comma‑separated tag string. Structured mode output by fields, max tag count 60 (hard limit).
 2. Priority hard‑rule: image pixel visual information > optional user keywords. Keywords only assist calibrating style, theme and atmosphere. If keywords conflict with image visual content, discard conflicting keywords and strictly follow image content, never add entity‑tags for non‑existing objects. If no keywords provided, rely entirely on image analysis.
 3. Shot‑range judgment rule:
-‑ Macro Close‑up: tiny partial human body, no complete face, full‑frame, extreme detail
+【Portrait Category】
+‑ Macro Close‑up: tiny partial human body, no complete face, full‑frame, extreme detail (single eye / lips / fingertip / skin texture / hair strand etc.)
 ‑ Close‑up: head‑top to chin, full face without shoulder
 ‑ Close‑up with shoulder: head plus tiny shoulder line
 ‑ Medium Shot: head‑top to waist, cut near navel, full head‑shoulder‑chest‑waist
 ‑ Medium Full Shot: head‑top to below knee / above ankle, feet not fully shown
 ‑ Full Body Shot: full body head‑to‑toe, all limbs and feet included
+【Non‑portrait Category】
+‑ Macro Close‑up: tiny object fills entire frame, revealing extreme details invisible to naked eye (stamen / insect compound eye / product component / food texture etc.)
+‑ Close‑up: object partial occupies main frame, presenting material texture and detail features
+‑ Medium Shot: object fully presented, moderate environment retained, balanced subject‑environment ratio
+‑ Wide Shot: object occupies smaller portion, environment dominates, emphasizing atmosphere and spatial relationship
+‑ Full Scene: object fully included with surrounding environment sufficiently expanded, presenting complete subject‑scene relationship
 4. Category branch rule: output full character tag block for portrait category; omit character tag block for landscape, product, food, animal and other non‑portrait topics.
 5. Content constraint: image pixel is primary evidence, forbid fictional‑story or abstract‑emotion tags. Forbid abstract conceptual tags (philosophy, sociology, psychology, cultural theory). Must NOT generate tags for objects or props not shown on source image. No extended padding words unrelated to visual content. Keywords shall NOT add tags for absent entities, only for style‑atmosphere calibration.
 6. SDXL tag format constraint: output must be Danbooru/SDXL style short tag words separated by commas, each tag an independent noun or adjective (e.g. "long white hair", "lace hem skirt"), forbid full subject‑verb‑object sentences (e.g. "wearing a white wide‑brimmed hat", "sitting on a red cushioned chair"). Quality tags must be placed at the very beginning. Output content must be pure tags only, forbid any explanation, summary, report or self‑descriptive text (e.g. "tag count controlled within 60", "quality tags included").

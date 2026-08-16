@@ -12,7 +12,7 @@ from typing import Dict, Optional
 IMAGE_REVERSE_DESCRIBE = {
     "template_id": "image_reverse_describe",
     "name": "图像反推描述",
-    "description": "专业的图像分析专家，优先基于输入图像完成解析；同时可接收用户可选关键词，用来校准风格、题材、氛围信息，修正反推结果，生成更精准的自然语言描述，适用于Flux、Z‑Image、Qwen‑Image、Krea等主流自然语言图像生成模型。专业知识涵盖摄影术语、艺术风格、灯光设计、色彩理论、画面构图分析、主体位置识别和视觉视角推断，输出精准描述，用于复现与输入图视觉要素一致的新图像。",
+    "description": "专业的图像分析专家，优先基于输入图像完成解析；同时可接收用户可选关键词，用来校准风格、题材、氛围信息，修正反推结果，生成更精准的自然语言描述，适用于Flux、Z‑Image、Qwen‑Image、Krea2等主流自然语言图像生成模型。专业知识涵盖摄影术语、艺术风格、灯光设计、色彩理论、画面构图分析、主体位置识别和视觉视角推断，输出精准描述，用于复现与输入图视觉要素一致的新图像。",
 }
 
 class ImageReverseDescribe:
@@ -57,7 +57,7 @@ Support natural / structured output mode, no extra comments or explanations.
 【图像反推专属规则】
 1. 通用基线：主解析来源#IMAGE_SOURCE#，可选用户关键词#USER_KEYWORDS#；执行7步图像解析流程；必须输出构图、主体位置百分比、视角类型、景深效果；natural模式300‑600字；structured模式最大800字。
 2. 优先级铁则：图像像素视觉信息 > 用户可选关键词。关键词仅做风格、题材、氛围的辅助校准；若关键词描述与图片画面冲突，直接舍弃冲突关键词，严格遵从图片画面，绝不根据关键词篡改图片客观视觉内容。无关键词则完全依靠图像解析。
-3. 题材分支规则：人像类输出完整人物特征；风景、产品、美食、动物等非人像题材省略人物特征字段。
+3. 景别判定规则：【人像题材】微距特写/标准特写/肩特写/七分人像/九分人像/全景人像；【非人物题材】微距特写/近景特写/中景/远景/全景。题材分支规则：人像类输出完整人物特征；风景、产品、美食、动物等非人像题材省略人物特征字段。
 4. 内容约束：仅以图像像素视觉信息为第一依据，禁止脑补故事、抽象心理情绪；不得生成原图不存在物体、道具；关键词不能用来新增画面不存在实体对象，仅用于校准风格氛围。
 5. 光影色彩：明确光源方向、软硬；标注色彩调性、饱和度、冷暖倾向；区分前景、中景、背景空间层次。
 6. 质感细节：重点还原材质、纹理、表面细节特征。
@@ -67,7 +67,7 @@ Support natural / structured output mode, no extra comments or explanations.
 【Image Reverse Preset Rules】
 1. General baseline: primary source #IMAGE_SOURCE#, optional assist keywords #USER_KEYWORDS#; follow 7‑step image‑analysis workflow. Must output composition, subject position percentage, perspective type, depth‑of‑field effect. Natural mode 300‑600 words; structured mode max 800 characters.
 2. Priority hard‑rule: image pixel visual information > optional user keywords. Keywords only assist calibrating style, theme and atmosphere. If keywords conflict with image visual content, discard conflicting keywords and strictly follow image content, never alter objective visual content according to keywords. If no keywords provided, rely entirely on image analysis.
-3. Category branch rule: output full character fields for portrait category; omit character fields for landscape, product, food, animal and other non‑portrait topics.
+3. Shot‑range judgment rule: 【Portrait Category】macro close‑up / standard close‑up / shoulder shot / three‑quarter / nine‑tenth / full‑scene portrait; 【Non‑portrait Category】macro close‑up / close‑up / medium shot / wide shot / full scene. Category branch rule: output full character fields for portrait category; omit character fields for landscape, product, food, animal and other non‑portrait topics.
 4. Content constraint: image pixel is primary evidence, forbid fictional story and abstract mental emotion. Must NOT invent objects or props not shown on source image. Keywords shall NOT add physical entities absent in image, only for style‑atmosphere calibration.
 5. Light & Color: define light‑source direction, hardness‑softness; mark color tone, saturation, cold‑warm tendency; distinguish foreground‑mid‑background spatial hierarchy.
 6. Texture detail: faithfully restore material, texture and surface feature.
@@ -91,7 +91,8 @@ Analysis source: source image #IMAGE_SOURCE#; optional assist keywords: #USER_KE
   - 主体位置：水平位置+垂直位置（百分比表示，如水平50%居中，垂直40%偏上）
   - 画面比例：画面宽高比（16:9/9:16/4:3等）
 【景别】
-  - 景别类型：微距特写/标准特写/肩特写/七分人像/九分人像/全景人像（无人物时可省略）
+  - 景别类型（人像）：微距特写/标准特写/肩特写/七分人像/九分人像/全景人像（非人像题材不使用此项）
+  - 景别类型（非人像）：微距特写/近景特写/中景/远景/全景（人像题材不使用此项）
   - 取景范围：描述取景范围
   - 拍到部位：描述拍到部位（如头顶至胸部，无人物省略）
   - 画面特征：描述画面构图特征
@@ -121,7 +122,8 @@ Analysis source: source image #IMAGE_SOURCE#; optional assist keywords: #USER_KE
   - Subject Position: horizontal + vertical percentage (example: horizontal 50% center, vertical 40% upper)
   - Aspect Ratio: 16:9 /9:16 /4:3 etc.
 【Shot Range】
-  - Shot Type: macro close‑up / standard close‑up / shoulder shot / three‑quarter / nine‑tenth / full‑scene portrait (omit if no human subject)
+  - Shot Type (Portrait): macro close‑up / standard close‑up / shoulder shot / three‑quarter / nine‑tenth / full‑scene portrait (do not use for non‑portrait)
+  - Shot Type (Non‑portrait): macro close‑up / close‑up / medium shot / wide shot / full scene (do not use for portrait)
   - Framing Scope: describe captured scope
   - Captured Part: visible body part (omit if no human subject)
   - Frame Feature: composition feature description

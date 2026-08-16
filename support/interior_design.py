@@ -28,44 +28,62 @@ class InteriorDesign:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：室内风格与空间类型 → 灯光明暗层次 → 硬装软装材质肌理 → 克制留白区域。平衡材质触感细节与居家氛围感，光影过渡贴合室内物理照明逻辑。",
-                "formula_en": "Content order: interior style & space type → light shadow layers → hard/soft decoration texture → restrained blank area. Balance texture tactile details and home atmosphere."
+                "formula_zh": "内容组织顺序：室内空间（风格、家具、材质、配色）→ 写实空间与质感 → 窗光或暖灯、舒适氛围 → 广角透视、展现动线",
+                "formula_en": "Content order: interior space (style, furniture, material, color scheme) → realistic space and texture → window light or warm lamp, comfortable atmosphere → wide-angle perspective, showing circulation"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：墙面地面天花材质细节优先 → 室内空间透视轮廓 → 三维人视视角构图 → 全屋分层布光 → 极简留白。精准把控室内透视比例，统一各类家装材质标准。",
-                "formula_en": "Content order: wall/floor/ceiling texture details first → interior perspective contour → 3D human view composition → whole layered lighting → minimalist blank. Strictly control indoor perspective, unify home texture standards."
+                "formula_zh": "内容组织顺序：室内空间主体（风格、家具、材质、配色）→ 写实空间与质感 → 自然窗光或暖色灯光、舒适氛围 → 广角透视或角落构图、展现动线（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: interior space subject (style, furniture, material, color scheme) → realistic space and texture → natural window light or warm lighting, comfortable atmosphere → wide-angle perspective or corner composition, showing circulation (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉核心区域 → 空间动线家具排布 → 70/25/5色彩管控 → 多层照明光影层次 → 干净过渡留白。构图规整克制，色彩层级清晰，室内透视自然柔和。",
-                "formula_en": "Content order: composition core area → space circulation & furniture layout → 70/25/5 color control → multi-layer lighting → clean blank. Neat composition, clear color layers, natural indoor perspective."
+                "formula_zh": "内容组织顺序：空间功能、家具与材质配色 → 风格与画质（写实室内、纹理可信） → 室内主灯与环境光平衡氛围 → 广角透视呈现空间纵深、注意画面整洁 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: space function, furniture and material color scheme → style & quality (realistic interior, credible texture) → indoor main light and ambient light balancing atmosphere → wide-angle perspective showing spatial depth, keep frame clean → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：全屋整体灯光氛围基调 → 空间尺度与人居动线 → 硬装软装材质细节 → 布艺木质面料肌理 → 极简边角布景。强化灯光情绪叙事，区分各类家装专属照明方案。",
-                "formula_en": "Content order: whole space lighting tone → space scale & circulation → hard/soft decoration details → fabric wood texture → minimalist edge set. Strengthen emotional light narration, distinguish exclusive lighting for home styles."
+                "formula_zh": "内容组织顺序：全屋整体灯光氛围基调 → 空间尺度与人居动线 → 硬装软装材质细节 → 布艺木质面料肌理 → 极简边角布景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: whole-house lighting atmosphere tone → spatial scale and living circulation → hard and soft decoration material details → fabric and wood material texture → minimalist corner set (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：全屋基础风格基调 → 舒展流畅室内动线 → 统一全屋材质质感 → 简约留白边角。极简居家叙事，删减冗余摆件装饰，突出空间生活核心。",
-                "formula_en": "Content order: whole space basic tone → smooth circulation → unified full-space texture → simple edge blank. Minimal home narration, remove redundant ornaments, highlight living core."
+                "formula_zh": "内容组织顺序：全屋基础风格基调 → 舒展流畅室内动线 → 统一全屋材质质感 → 简约留白边角",
+                "formula_en": "Content order: whole-house basic style tone → smooth relaxed interior circulation → unified full-house material texture → simple blank corners"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：硬装材质与空间透视 → 远近家具层次 → 多层照明明暗过渡 → 软装人文细节 → 轻量化留白。强化室内透视精准度，材质触感区分清晰，灯光层次柔和连贯。",
-                "formula_en": "Content order: hard decoration & perspective → near-furniture layers → multi-light transition → soft furnishing human details → lightweight blank. Accurate indoor perspective, distinct tactile textures, soft continuous lighting layers."
+                "formula_zh": "内容组织顺序：硬装材质与空间透视、功能分区 → 远近家具层次 → 多层照明明暗过渡 → 软装人文细节 → 轻量化留白（密集关键词，中英术语并列）",
+                "formula_en": "Content order: hard decoration material and spatial perspective, functional zoning → near-far furniture layers → multi-layer lighting transition → soft furnishing human details → lightweight blank (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：室内整体风格气质 → 硬装软装材质细节 → 全屋分层专业布光 → 风格专属家具软装 → 极简留白。全屋色调统一协调，空间人文细节细腻，居家沉浸感强烈。",
-                "formula_en": "Content order: overall interior temperament → hard/soft texture details → whole layered professional lighting → style exclusive furniture → minimalist blank. Unified space tone, delicate human details, strong immersive home sense."
+                "formula_zh": "内容组织顺序：空间功能、家具与材质配色 → 风格与画质（写实室内、纹理可信） → 主灯与环境光平衡氛围 → 广角透视呈现纵深、画面整洁 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: space function, furniture and material color scheme → style & quality (realistic interior, credible texture) → main light and ambient light balancing atmosphere → wide-angle perspective showing depth, clean frame → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：室内空间与家具陈设 → 写实效果图风格、材质纹理与软装 → 室内补光、温馨氛围 → 广角透视、空间层次 → 强调布置协调无杂物、避免畸形透视。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: interior space and furniture layout → realistic render style, material texture and soft furnishing → indoor fill light, warm atmosphere → wide-angle perspective, spatial layers → emphasize coordinated arrangement without clutter, avoid distorted perspective. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：室内空间与家具陈设 → 场景与构图（广角透视空间层次）→ 光影与氛围（室内补光温馨）→ 画种/摄影风格（写实效果图）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: interior space and furniture → scene & composition (wide-angle perspective, spatial layers) → light & atmosphere (indoor fill light, warm) → art/photography style (realistic render) → wrap rendered text in quotes. "
             }
         }
         # 全局底层规则
@@ -89,7 +107,7 @@ Layered lighting design: ambient, task, accent lighting, color temperature match
 Distinct hard & soft decoration textures, wood, fabric, stone, micro-cement, diatom mud fit matching home styles, unified tactile and visual performance.
 Fully retain all user input info including space type, home style, view shot, furniture, lighting tone, only supplement texture, lighting, perspective, human ornament details without redundant clutter.
 Strict frame simplification rule, only keep functional & core narrative ornaments, comfortable human circulation.
-Taboo: no weight symbols, stacked numeric technical parameters such as size/resolution/DPI/coordinate; no chaotic styles, distorted perspective, fake plastic texture, piled ornaments; no subtitles watermarks logos, perfect symmetry, flawless description.
+Forbidden: no weight symbols, stacked numeric technical parameters such as size/resolution/DPI/coordinate; no chaotic styles, distorted perspective, fake plastic texture, piled ornaments; no subtitles watermarks logos, perfect symmetry, flawless description.
 Strictly output two formats without extra comments.
 """
         }
@@ -101,8 +119,8 @@ Strictly output two formats without extra comments.
                 "description": INTERIOR_DESIGN["description"],
                 # 中英双语固定前置正向约束
                 "positive_constraints": {
-                    "zh": "家装风格统一稳定，室内空间逻辑通顺合理，各类材质肌理真实自然，多层灯光层次分明，色彩配比合规和谐，空间透视比例精准，画面干净克制精简，仅留存核心硬装、功能家具与人文摆件；全屋硬装基底完整扎实，软装搭配协调舒适，灯光色温贴合空间功能、烘托情绪，家具排布动线流畅自然；不同家装风格保留专属材质与设计语言，整体空间兼具审美质感与生活化温度，通透自然富有呼吸感",
-                    "en": "Stable unified home style, reasonable indoor spatial logic, authentic all kinds of texture, distinct multi-layer lighting, compliant harmonious color ratio, precise space perspective proportion, clean restrained frame, only core hard decoration, functional furniture & human ornaments retained; complete solid whole-house hard decoration, coordinated comfortable soft furnishing, lighting color temperature matches space function & sets mood, smooth circulation from furniture layout; each home style retains exclusive texture & design language, space owns both aesthetic texture and living warmth, transparent natural breathable sense."
+                    "zh": "家装风格统一稳定，室内空间逻辑通顺合理，各类材质肌理真实自然，多层灯光层次分明，色彩配比合规和谐，空间透视比例精准，画面干净克制精简，仅留存核心硬装、功能家具与人文摆件；全屋硬装基底完整扎实，软装搭配协调舒适，灯光色温贴合空间功能、烘托情绪，家具排布动线流畅自然；不同家装风格保留专属材质与设计语言，兼具审美质感与生活化温度，通透自然富有呼吸感",
+                    "en": "Stable unified home style, reasonable indoor spatial logic, authentic textures, distinct multi-layer lighting, compliant harmonious color ratio, precise space perspective proportion, clean restrained frame, only core hard decoration functional furniture & human ornaments retained; complete solid whole-house hard decoration, coordinated soft furnishing, lighting color temperature matches space function & sets mood, smooth circulation from furniture layout; each home style retains exclusive texture & design language, aesthetic texture and living warmth, transparent natural breathable sense"
                 },
                 # 全风格细分专属规则
                 "preset_rules": {
@@ -130,8 +148,8 @@ All themes: User-specified content highest priority, only supplement hard decora
 """
                 },
                 "negative_base": {
-                    "zh": "家装风格混乱跳变，材质虚假塑料质感，灯光刺眼曝光失衡，色彩脏污溢出，构图失衡杂乱，家具摆件冗余堆砌，室内透视逻辑错误，空间比例变形，画面低分辨率模糊，多余杂物乱入，装饰摆件杂乱堆砌，字幕水印logo，光影生硬断层，空间闭塞压抑，家具动线拥堵混乱，过度锐化生硬，家具边缘锯齿，家具比例失调，墙地拼接错误，装饰毫无章法，廉价网红质感",
-                    "en": "Chaotic mixed home styles, fake plastic texture, dazzling overexposed lighting, muddy overflowing color, unbalanced cluttered composition, redundant piled furniture ornaments, wrong indoor perspective logic, distorted space proportion, blurry low-res frame, irrelevant clutter, stacked messy decorations, subtitles watermarks logos, stiff disjointed lighting, cramped closed space, blocked messy furniture circulation, over-sharpened rigid texture, jagged furniture edges, disproportionate furniture, wrong wall-floor splicing, disordered decorations, cheap internet celebrity texture"
+                    "zh": "家装风格混乱跳变，材质虚假塑料质感，灯光刺眼曝光失衡，色彩脏污溢出，构图失衡杂乱，家具摆件冗余堆砌，室内透视逻辑错误，空间比例变形，画面低分辨率模糊，多余杂物乱入，装饰摆件杂乱堆砌，字幕水印logo，光影生硬断层，空间闭塞压抑，家具动线拥堵混乱，过度锐化生硬，家具边缘锯齿比例失调，墙地拼接错误，装饰毫无章法，廉价网红质感",
+                    "en": "Chaotic mixed home styles, fake plastic texture, dazzling overexposed lighting, muddy overflowing color, unbalanced cluttered composition, redundant piled furniture ornaments, wrong indoor perspective logic, distorted space proportion, blurry low-res frame, irrelevant clutter, stacked messy decorations, subtitles watermarks logos, stiff disjointed lighting, cramped closed space, blocked messy furniture circulation, over-sharpened rigid texture, jagged furniture edges disproportionate furniture, wrong wall-floor splicing, disordered decorations, cheap internet celebrity texture"
                 }
             }
         }
@@ -151,8 +169,24 @@ All themes: User-specified content highest priority, only supplement hard decora
 6.照明整体方案、三层光源、色温空间氛围
 7.70/25/5色彩配比、全屋材质触感搭配
 8.墙面艺术、绿植、摆件人文细节
-9.色温质感补充、全局禁止参数项
-10.3-5个概括家装气质风格标签""",
+9.空间透视与视角
+   - 人视角度：1.2-1.5米高度室内平视
+   - 广角透视：强调空间纵深
+   - 标准透视：自然真实
+10.灯光层次细化
+   - 主照明：吊灯/吸顶灯/筒灯
+   - 辅助照明：落地灯/台灯/壁灯
+   - 氛围照明：灯带/射灯/蜡烛
+11.材质触感细化
+   - 织物：棉麻/丝绸/绒布/针织
+   - 硬装：瓷砖/木地板/大理石/微水泥
+   - 家具：实木/板材/金属/皮革
+12.色温质感补充、全局禁止参数项
+10.3-5个概括家装气质风格标签
+11.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - 现代奶油/日式：24mm广角，摄影机靠近主体，强化近大远小，展现开阔松弛动线
+   - 新中式/轻奢：35mm小广角，摄影机较近靠近主体，聚焦材质细节与禅意氛围
+   - 全屋概览：24mm-35mm广角，展现空间纵深与家具布局""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Indoor space type & global home positive constraints
 2. Frame composition, visual guide, core area proportion, aspect ratio, simplification rule
@@ -162,8 +196,24 @@ All themes: User-specified content highest priority, only supplement hard decora
 6. Whole lighting scheme, three-layer light source, color temperature space mood
 7. 70/25/5 color ratio, full-space tactile texture matching
 8. Wall art, green plants, ornament human details
-9. Color temperature texture supplement, global forbidden numeric parameters
-10. 3-5 style tags summarizing home temperament"""
+9. Space perspective & viewing angle
+   - Human-eye view: 1.2-1.5m height indoor eye-level
+   - Wide-angle perspective: emphasize spatial depth
+   - Standard perspective: natural and real
+10. Lighting layer refinement
+    - Main lighting: pendant/ceiling downlight/recessed
+    - Auxiliary lighting: floor lamp/table lamp/wall sconce
+    - Ambient lighting: light strip/spotlight/candle
+11. Material tactile refinement
+    - Fabric: cotton linen/silk/velvet/knit
+    - Hard decoration: tile/wood floor/marble/micro-cement
+    - Furniture: solid wood/board/metal/leather
+12. Color temperature texture supplement, global forbidden numeric parameters
+10. 3-5 style tags summarizing home temperament
+11.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - Modern cream/Japanese: 24mm wide angle, camera close to subject, emphasize near-far contrast, reveal open relaxed circulation
+   - Neo-Chinese/Light luxury: 35mm slight wide, camera moderately close to subject, focus on material details and zen atmosphere
+   - Whole-house overview: 24mm-35mm wide angle, reveal spatial depth and furniture layout"""
             }
         }
 

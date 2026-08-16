@@ -28,44 +28,62 @@ class SceneDesign:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：场景核心主题风格 → 光影空间层次 → 地貌建筑材质 → 克制远景环境。平衡材质细节与空间氛围感，光影过渡贴合物理逻辑。",
-                "formula_en": "Content order: core scene theme & style → light & spatial layers → terrain building texture → restrained background environment. Balance texture details and spatial atmosphere."
+                "formula_zh": "内容组织顺序：室外场景（地形、植被、道路、设施）→ 写实环境渲染 → 日光或黄昏、开阔氛围 → 远景或漫游视角、层次分明",
+                "formula_en": "Content order: outdoor scene (terrain, vegetation, roads, facilities) → realistic environment rendering → daylight or dusk, open atmosphere → wide shot or roaming perspective, distinct layers"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：材质肌理细节优先 → 空间透视轮廓 → 三维视角构图 → 全局布光光影 → 极简远景。精准把控透视比例，杜绝空间畸变，统一风格材质标准。",
-                "formula_en": "Content order: texture details first → spatial perspective contour → 3D view composition → global lighting → minimalist background. Strictly control perspective proportion, unify style texture standards."
+                "formula_zh": "内容组织顺序：室外场景主体（地形、植被、道路、设施）→ 写实环境渲染 → 日光或黄昏光、自然开阔氛围 → 远景或漫游视角、层次分明（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: outdoor scene subject (terrain, vegetation, roads, facilities) → realistic environment rendering → daylight or dusk light, natural open atmosphere → wide shot or roaming perspective, distinct layers (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉重心 → 空间远近层次 → 色彩配比管控 → 光影明暗层次 → 干净远景。严格遵循70%/25%/5%色彩配比，构图规整精简，大气透视自然柔和。",
-                "formula_en": "Content order: composition visual focus → near-mid-far layers → color ratio control → light shadow hierarchy → clean background. Follow 70%/25%/5% color proportion, neat composition, natural atmospheric perspective."
+                "formula_zh": "内容组织顺序：场景主体、环境元素与地貌关系 → 风格与画质（写实景观、空气透视） → 天光与时段光渲染氛围 → 广角或远景构图、地平线取景 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: scene subject, environment elements and terrain relationship → style & quality (realistic landscape, atmospheric perspective) → skylight and time-of-day light rendering atmosphere → wide-angle or long-shot composition, horizon framing → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：全局光影氛围基调 → 空间尺度情绪 → 场景材质细节 → 地貌建筑面料 → 极简远景布景。强化光影叙事与空间纵深感，区分不同风格专属光效。",
-                "formula_en": "Content order: global lighting atmosphere tone → spatial scale emotion → scene texture details → terrain building material → minimalist background set. Strengthen light narrative and depth of field, distinguish exclusive light effects for each style."
+                "formula_zh": "内容组织顺序：全局光影氛围基调 → 空间尺度情绪 → 场景材质细节 → 地貌建筑面料 → 极简远景布景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: global lighting atmosphere tone → spatial scale emotion → scene texture details → terrain and building material → minimalist distant set (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体画面主题基调 → 舒展空间层次 → 统一材质质感 → 简约留白远景。极简叙事逻辑，删减冗余装饰元素，突出核心场景主体。",
-                "formula_en": "Content order: overall scene theme tone → relaxed spatial layers → unified texture quality → simple blank background. Minimalist narrative, remove redundant decorations, highlight core scene subject."
+                "formula_zh": "内容组织顺序：整体画面主题基调 → 舒展空间层次 → 统一材质质感 → 简约留白远景",
+                "formula_en": "Content order: overall scene theme tone → relaxed spatial layers → unified material texture → simple blank distant view"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：空间透视与材质肌理 → 远近景层次 → 光影明暗过渡 → 建筑地貌细节 → 轻量化远景。强化空间透视准确度，材质区分清晰，光影层次柔和连贯。",
-                "formula_en": "Content order: spatial perspective & texture → near-far layers → light shadow transition → terrain building details → lightweight background. Accurate spatial perspective, distinct textures, soft continuous lighting layers."
+                "formula_zh": "内容组织顺序：空间透视与材质肌理、地貌元素 → 远近景层次 → 光影明暗过渡、自然天光 → 建筑地貌细节 → 轻量化远景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: spatial perspective and material texture, terrain elements → near-far scene layers → light shadow transition, natural skylight → building and terrain details → lightweight distant view (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：场景整体主题气质 → 材质空间细节 → 专业全局布光 → 风格专属造型元素 → 极简远景。色调统一协调，空间层次刻画细腻，画面沉浸叙事感强。",
-                "formula_en": "Content order: overall scene theme temperament → texture spatial details → professional global lighting → style exclusive elements → minimalist background. Unified tone, delicate spatial layers, strong immersive narrative."
+                "formula_zh": "内容组织顺序：场景主体、环境元素与地貌关系 → 风格与画质（写实景观、空气透视） → 天光与时段光渲染氛围 → 广角或远景、地平线取景 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: scene subject, environment elements and terrain relationship → style & quality (realistic landscape, atmospheric perspective) → skylight and time-of-day light rendering atmosphere → wide-angle or long shot, horizon framing → (write any rendered text directly into the prompt, supports Chinese and English)"
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：户外景观与环境主体 → 概念写实风格、植被与地形细节 → 自然天光、辽阔氛围 → 广角远景、纵深引导 → 强调场景可信无穿帮、避免比例错乱。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: outdoor landscape and environment subject → concept realistic style, vegetation and terrain details → natural skylight, vast atmosphere → wide-angle long shot, depth guiding → emphasize credible scene without glitches, avoid proportion disorder. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：户外景观与环境主体 → 场景与构图（广角远景纵深引导）→ 光影与氛围（自然天光辽阔）→ 画种/摄影风格（概念写实）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: outdoor landscape and environment subject → scene & composition (wide-angle long shot, depth guiding) → light & atmosphere (natural skylight, vast) → art/photography style (concept realistic) → wrap rendered text in quotes."
             }
         }
         # 全局底层规则
@@ -77,7 +95,7 @@ class SceneDesign:
 光影贴合物理规律，明确主光、辅助光方向与软硬色温，利用丁达尔、霓虹、晨昏等特殊光效烘托氛围；材质肌理匹配对应场景风格，地貌、建筑、水体、植被质感符合现实物理逻辑。
 完整保留用户输入的主题、风格、视角、景别、色调、空间元素全部信息，仅补充材质、光影、色彩、透视专业细节，不自动新增无关道具、杂物、多余装饰。
 画面严格执行精简约束，仅保留叙事核心元素；尺度参照使用人物、建筑、生物强化空间代入感，具象元素承载画面情绪。
-输出禁忌：禁止权重符号、分辨率/DPI/焦距等数字技术参数堆砌；禁止风格混乱、透视扭曲、元素堆砌、塑料虚假质感；禁止字幕水印logo、完美对称、零瑕疵等违规描述。
+输出禁忌：禁止权重符号、分辨率/DPI等数字技术参数堆砌；禁止风格混乱、透视扭曲、元素堆砌、塑料虚假质感；禁止字幕水印logo、完美对称、零瑕疵等违规描述。
 严格输出两种格式，不添加额外注释、说明、解释。
 """,
             "en": """
@@ -87,7 +105,7 @@ Space is strictly divided into foreground, midground and background, natural atm
 Lighting complies with physical rules, clear direction, softness and color temperature of key light & fill light, use special light effects such as Tyndall, neon, dawn/dusk to set atmosphere; texture matches scene style, terrain, building, water, vegetation textures conform to physical logic.
 Fully retain all user input info including theme, style, view, shot, tone, spatial elements, only supplement professional texture, lighting, color, perspective details without irrelevant props or redundant decorations.
 Strict frame simplification rule, only keep core narrative elements; scale reference uses figures, buildings, creatures to strengthen spatial substitution, concrete elements carry picture emotion.
-Taboo: no weight symbols, no stacked digital technical parameters such as resolution/DPI/focal length; no chaotic styles, distorted perspective, element clutter, fake plastic texture; no subtitles, watermarks, logos, perfect symmetry, flawless description.
+Forbidden: no weight symbols, no stacked digital technical parameters such as resolution/DPI; no chaotic styles, distorted perspective, element clutter, fake plastic texture; no subtitles, watermarks, logos, perfect symmetry, flawless description.
 Strictly output two formats without extra comments.
 """
         }
@@ -99,14 +117,14 @@ Strictly output two formats without extra comments.
                 "description": SCENE_DESIGN["description"],
                 # 中英双语固定前置正向约束
                 "positive_constraints": {
-                    "zh": "风格统一稳定，空间层次清晰分明，光影叙事自然流畅，色彩配比和谐合规，透视比例精准无误，大气透视过渡真实柔和，画面干净主体突出，仅留存核心叙事元素；自然风光保留原生地貌肌理，赛博科幻统一结构逻辑与霓虹光效质感，历史古迹还原时代建筑肌理；光影随空间自然流动，氛围情绪饱满具象，各类材质质感贴合物理逻辑，画面兼具沉浸感与完整叙事张力",
-                    "en": "Stable unified style, distinct spatial layers, natural smooth light narrative, harmonious compliant color ratio, precise perspective proportion, soft authentic atmospheric perspective transition, clean frame with prominent subject, only core narrative elements retained; natural scenery retains native terrain texture, cyberpunk & sci-fi unify structural logic and neon light texture, historical sites restore era architectural texture; light flows naturally with space, full concrete atmosphere emotion, all textures fit physical logic, frame with immersive sense and complete narrative tension"
+                    "zh": "风格统一稳定，空间层次清晰分明，光影叙事自然流畅，色彩配比和谐合规，透视比例精准无误，大气透视过渡真实柔和，画面干净主体突出，仅留存核心叙事元素；自然风光保留原生地貌肌理，赛博科幻统一结构逻辑与霓虹光效质感，历史古迹还原时代建筑肌理；光影随空间自然流动，氛围情绪饱满具象，各类材质质感贴合物理逻辑，兼具沉浸感与叙事张力",
+                    "en": "Stable unified style, distinct spatial layers, natural smooth light narrative, harmonious compliant color ratio, precise perspective proportion, soft authentic atmospheric transition, clean frame with prominent subject, only core narrative elements retained; natural scenery retains native terrain texture, cyberpunk unify structural logic and neon light texture, historical sites restore era architectural texture; light flows naturally with space, full concrete atmosphere, all textures fit physical logic, immersive sense and narrative tension"
                 },
                 # 全风格细分专属规则
                 "preset_rules": {
                     "zh": """
 【全风格场景专属细分规则】
-1. 通用基线：遵循语义权重顺序：主题基调＞风格属性＞视角构图＞色彩空间＞光影质感＞尺度代入；三维视角优先沿用用户指定，无指定则选取合规审美角度；严格执行70%/25%/5%色彩配比，画面精简约束，禁用["8K", "4K", "分辨率", "DPI", "色彩模式", "帧率", "码率", "采样率", "编码器", "HDR", "杜比", "字幕", "水印", "logo", "完美对称", "零瑕疵", "塑料感", "崩坏", "扭曲", "焦距", "坐标"]。
+1. 通用基线：遵循语义权重顺序：主题基调＞风格属性＞视角构图＞色彩空间＞光影质感＞尺度代入；三维视角优先沿用用户指定，无指定则选取合规审美角度；严格执行70%/25%/5%色彩配比，画面精简约束，禁用["8K", "4K", "分辨率", "DPI", "色彩模式", "快门", "ISO", "白平衡", "帧率", "码率", "采样率", "编码器", "HDR", "杜比", "字幕", "水印", "logo", "完美对称", "零瑕疵", "塑料感", "崩坏", "扭曲", "坐标"]。
 2. 自然风光风格：突出原生山石、植被、水体自然肌理，依托晨昏、云海、雾霭塑造大气透视；主光源选用日光、天光，搭配丁达尔自然光束，低饱和柔和冷暖色调，以林木、飞鸟、野生动物作为尺度参照。
 3. 城市现代景观：写实建筑结构，玻璃、混凝土、金属材质区分清晰，城市漫射天光，傍晚暖调城市光，利用行人、车辆构建空间尺度，构图依托街道透视线引导视觉。
 4. 赛博朋克风格：潮湿反光路面、多层霓虹光效、全息投影、悬浮载具，多方向漫射霓虹光源，冷暖撞色光影，雾气柔化远景，以行人、机械构件作为尺度锚点。
@@ -116,7 +134,7 @@ Strictly output two formats without extra comments.
 """,
                     "en": """
 【Universal Scene Exclusive Rules】
-1. General baseline: Follow semantic weight order: theme tone > style attribute > view composition > color space > light texture > scale substitution; user-specified 3D view takes priority, select aesthetic compliant angle if unspecified; strictly implement 70%/25%/5% color ratio, frame simplification rule; forbidden words list: 8K,4K,resolution,DPI,color mode,frame rate,bit rate,sampling rate,encoder,HDR,dolby,subtitle,watermark,logo,perfect symmetry,flawless,plastic texture,collapse,distort,focal length,coordinate.
+1. General baseline: Follow semantic weight order: theme tone > style attribute > view composition > color space > light texture > scale substitution; user-specified 3D view takes priority, select aesthetic compliant angle if unspecified; strictly implement 70%/25%/5% color ratio, frame simplification rule; forbidden words list: 8K,4K,resolution,DPI,color mode,shutter,ISO,white balance,frame rate,bit rate,sampling rate,encoder,HDR,dolby,subtitle,watermark,logo,perfect symmetry,flawless,plastic texture,collapse,distort,coordinate.
 2. Natural scenery style: Highlight native rock, plant, water natural texture, build atmospheric perspective via dawn/dusk, sea of clouds, mist; key light adopts sunlight, skylight, match Tyndall natural light beam, low saturation soft warm-cold tone, use woods, birds, wild animals as scale reference.
 3. Modern urban landscape: Realistic building structure, clear differentiation of glass, concrete, metal texture, city diffuse skylight, warm evening urban light, construct spatial scale with pedestrians and vehicles, composition guided by street perspective lines.
 4. Cyberpunk style: Wet reflective pavement, multi-layer neon light, holographic projection, suspended vehicles, multi-direction diffuse neon light source, warm-cold contrasting light, mist softens background, take pedestrians and mechanical components as scale anchor.
@@ -147,8 +165,24 @@ All themes: User-specified content highest priority, only supplement professiona
 6.风格专属标识元素与时代结构特征
 7.色彩配比、画面核心意境情绪
 8.尺度参照物与情感代入锚点
-9.技术质感补充与全局禁止项
-10.3-5个概括画面气质的风格标签""",
+9.透视与空间关系
+   - 线性透视：一点透视（纵深汇聚）/ 两点透视（建筑转角）/ 三点透视（仰视俯视）
+   - 大气透视：远处物体偏蓝、对比度降低、细节模糊
+   - 色彩透视：远处物体饱和度降低、色温偏冷
+10.能见度与大气效果
+   - 能见度：晴天清晰/薄雾柔和/浓雾消失/雾霾模糊
+   - 大气效果：丁达尔光束/晨雾弥漫/雨雪纷飞/霞光万丈
+11.天空与天气
+   - 天空类型：晴空万里/多云/阴天/晨昏/星空
+   - 云层形态：卷云/积云/层云/乌云
+   - 天气氛围：晴朗/阴沉/神秘/浪漫
+12.技术质感补充与全局禁止项
+10.3-5个概括画面气质的风格标签
+11.【技术参数建议】仅structured模式可输出，自然模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - 赛博朋克/科幻未来：24mm广角，摄影机靠近主体，强化近大远小，空间快速向远处延伸，霓虹纵深感强
+   - 城市现代景观：35mm小广角，摄影机较近靠近主体，适度强化近大远小，背景层次丰富
+   - 自然风光/历史古迹：100mm-200mm长焦，摄影机远距离远离主体，背景被大幅压缩并靠近主体，压缩前景与背景空间
+   - 室内空间：24mm-35mm广角，展现空间纵深与家具动线""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Scene type & global style positive constraints
 2. Frame composition, visual guide, subject proportion, aspect ratio, simplification rule
@@ -158,8 +192,24 @@ All themes: User-specified content highest priority, only supplement professiona
 6. Style exclusive mark elements & era structural features
 7. Color ratio, core artistic conception & emotion of frame
 8. Scale reference object & emotional substitution anchor
-9. Technical texture supplement & global forbidden items
-10. 3-5 style tags summarizing overall visual temperament"""
+9. Perspective & spatial relationship
+   - Linear perspective: one-point (vanishing depth) / two-point (building corner) / three-point (looking up/down)
+   - Atmospheric perspective: distant objects bluer, lower contrast, softer detail
+   - Color perspective: distant objects desaturated, cooler color temperature
+10. Visibility & atmospheric effects
+   - Visibility: clear day sharp / light mist soft / thick fog disappearing / haze blurry
+   - Atmospheric effects: Tyndall rays / morning mist / rain snow falling / golden glow
+11. Sky & weather
+   - Sky type: clear / cloudy / overcast / dawn-dusk / starry
+   - Cloud form: cirrus / cumulus / stratus / dark storm
+   - Weather mood: bright / gloomy / mysterious / romantic
+12. Technical texture supplement & global forbidden items
+10. 3-5 style tags summarizing overall visual temperament
+11.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - Cyberpunk/Sci-fi: 24mm wide angle, camera close to subject, emphasize near-far contrast, space stretches quickly into depth, strong neon depth
+   - Modern urban landscape: 35mm slight wide, camera moderately close, moderate near-far emphasis, rich background layers
+   - Natural scenery/Historical sites: 100mm-200mm telephoto, camera far from subject, background compressed and pushed close, compressed foreground-background space
+   - Interior space: 24mm-35mm wide angle, revealing spatial depth and furniture circulation"""
             }
         }
 

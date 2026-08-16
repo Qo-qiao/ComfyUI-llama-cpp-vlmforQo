@@ -28,44 +28,62 @@ class Ecommerce:
             "Flux2_klein": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：产品品类核心卖点 → 光影立体层次 → 产品材质道具 → 克制简约背景。平衡产品质感细节与场景氛围感，光影贴合实物拍摄物理逻辑。",
-                "formula_en": "Content order: product category core selling points → light volume layers → product texture props → restrained background. Balance product texture and scene atmosphere."
+                "formula_zh": "内容组织顺序：产品主体（材质、造型、品牌文字）→ 商业级写实与细节 → 柔光箱布光、干净高亮 → 中心或 45° 展示、纯色/场景背景",
+                "formula_en": "Content order: product subject (material, shape, brand text) → commercial-grade realism and detail → softbox lighting, clean bright → center or 45-degree display, solid/scene background"
             },
             "Z_image": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：产品材质肌理细节优先 → 商品透视轮廓 → 三维拍摄视角构图 → 分层产品布光 → 极简道具。严格把控产品比例无畸变，统一美妆/3C/家居各类商品质感标准。",
-                "formula_en": "Content order: product texture details first → commodity perspective outline → 3D shooting composition → layered product lighting → minimalist props. Strict product proportion control, unify texture standards."
+                "formula_zh": "内容组织顺序：产品主体（材质、造型、品牌标识）→ 商业级写实与细节 → 柔光箱布光、干净高亮氛围 → 中心构图或 45° 展示、纯色/场景背景（需渲染文字直接写入，支持中英双语）。",
+                "formula_en": "Content order: product subject (material, shape, brand logo) → commercial-grade realism and detail → softbox lighting, clean bright atmosphere → centered composition or 45-degree display, solid/scene background (write any rendered text directly, supports Chinese and English)"
             },
             "Qwen_Image2512": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：构图视觉核心产品 → 产品形态卖点 → 70/25/5色彩管控 → 光影明暗层次 → 干净简约背景。构图规整克制，色彩配比严格执行，虚实景深过渡自然柔和。",
-                "formula_en": "Content order: composition core product → product shape selling point → 70/25/5 color control → light shadow layers → clean background. Neat composition, fixed color ratio, natural depth transition."
+                "formula_zh": "内容组织顺序：产品主体、材质与核心卖点（名称/卖点可写入提示词） → 风格与画质（高清晰度、商业级打光） → 干净布光突出质感与反光 → 中心构图或 45° 展示、纯色或场景背景 →（需渲染文字直接写入提示词，支持中英双语）",
+                "formula_en": "Content order: product subject, material and core selling points (name/selling points can be written into prompt) → style & quality (high clarity, commercial-grade lighting) → clean lighting highlighting texture and reflection → centered composition or 45-degree display, solid or scene background → (write any rendered text directly into the prompt, supports Chinese and English)"
             },
             "Krea2": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：全域场景光影基调 → 产品气质卖点表达 → 材质道具细节 → 面料石材肌理 → 极简布景。强化商品转化光影叙事，区分美妆/数码专属布光体系。",
-                "formula_en": "Content order: full scene light tone → product selling expression → texture prop details → fabric stone texture → minimalist set. Strengthen conversion light narration, distinguish category lighting."
+                "formula_zh": "内容组织顺序：全域场景光影基调 → 产品气质卖点表达 → 材质道具细节 → 面料石材肌理 → 极简布景（密集关键词，中英术语并列）",
+                "formula_en": "Content order: full-scene lighting tone → product temperament and selling point expression → material and prop details → fabric and stone texture → minimalist set (dense keywords, Chinese-English terms in parallel)"
             },
             "Boogu": {
                 "keyword_dense": False,
                 "mix_lang": False,
-                "formula_zh": "内容组织顺序：整体商品场景基调 → 舒展产品形态 → 统一产品质感 → 简约道具留白。极简电商叙事，删减冗余装饰摆件，突出商品核心主体。",
-                "formula_en": "Content order: overall commodity tone → relaxed product shape → unified texture → simple prop blank. Minimal e-commerce narration, remove redundant ornaments."
+                "formula_zh": "内容组织顺序：整体商品场景基调 → 舒展产品形态 → 统一产品质感 → 简约道具留白",
+                "formula_en": "Content order: overall product scene tone → relaxed product form → unified product texture → simple prop blank"
             },
             "Mage_Flow": {
                 "keyword_dense": True,
                 "mix_lang": True,
-                "formula_zh": "内容组织顺序：产品透视与材质 → 远近道具层次 → 光影冷暖过渡 → 辅助摆件细节 → 轻量化留白。产品透视精准，金属/玻璃/膏体材质区分清晰，光影层次柔和连贯。",
-                "formula_en": "Content order: product perspective & texture → prop layers → light warm transition → ornament details → lightweight blank. Accurate perspective, distinct material, soft lighting layers."
+                "formula_zh": "内容组织顺序：产品透视与材质、核心卖点 → 远近道具层次 → 光影冷暖过渡、商业打光 → 辅助摆件细节 → 轻量化留白（密集关键词，中英术语并列）",
+                "formula_en": "Content order: product perspective and material, core selling points → near-far prop layers → light warm-cold transition, commercial lighting → auxiliary ornament details → lightweight blank (dense keywords, Chinese-English terms in parallel)"
             },
             "ERNIE_Image": {
                 "keyword_dense": True,
                 "mix_lang": True,
                 "formula_zh": "内容组织顺序：商品整体气质卖点 → 材质道具细节 → 专业分层产品布光 → 品类专属搭配 → 极简留白。画面色调统一协调，卖点刻画细腻，电商购买沉浸感强烈。",
                 "formula_en": "Content order: overall product temperament → texture prop details → professional layered lighting → category matching → minimalist blank. Unified tone, delicate selling points, strong shopping immersion."
+            },
+            "GLM_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：商品主体（如器物/服饰/数码）→ 商业精修风格、材质高光与纯净背景 → 棚拍柔光、通透氛围 → 居中平视、留白构图 → 强调卖点清晰无杂乱、避免阴影脏污。中文自然语言描述效果最佳，无负向提示词通道，负面意图正向化写入提示词。",
+                "formula_en": "Content order: product subject (such as object/clothing/digital) → commercial retouch style, material highlight and pure background → studio soft light, transparent atmosphere → centered eye level, blank composition → emphasize clear selling points without clutter, avoid dirty shadows. Best described in Chinese natural language; no negative prompt channel, write negative intent positively into prompt."
+            },
+            "LongCat_Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：主体衣着与特质描写 → 神态与动作刻画 → 环境与背景交代 → 光线与氛围渲染 → 景别与构图说明。纯中文长自然语言描述效果最佳，需渲染文字用引号包裹。",
+                "formula_en": "Content order: subject clothing & traits → expression & action → environment & background → light & atmosphere → shot & composition. Long Chinese natural language describes best; wrap any rendered text in quotation marks."
+            },
+            "HiDream-O1-Image": {
+                "keyword_dense": False,
+                "mix_lang": False,
+                "formula_zh": "内容组织顺序：商品主体与材质卖点 → 场景与构图（居中平视留白）→ 光影与氛围（棚拍柔光通透）→ 画种/摄影风格（商业精修）→ 需渲染文字用引号包裹。",
+                "formula_en": "Content order: product subject & material selling points → scene & composition (centered eye level blank) → light & atmosphere (studio soft light, transparent) → art/photography style (commercial retouch) → wrap rendered text in quotes."
             }
         }
         # 全局底层规则
@@ -78,7 +96,7 @@ class Ecommerce:
 道具仅衬托产品，不可抢夺视觉焦点，材质匹配商品定位（轻奢/ins/科技/复古）。
 完整保留用户输入产品、平台、视角、场景、卖点全部信息，仅补充布光、材质、道具专业细节，不自动新增多余摆件杂物。
 画面执行精简约束，仅留存叙事衬托核心道具，无冗余装饰。
-输出禁忌：禁止权重符号、焦距/光圈/分辨率等数值参数堆砌；禁止产品变形畸变、塑料虚假材质；禁止杂乱堆砌、水印logo、完美零瑕疵描述。
+输出禁忌：禁止权重符号、快门/ISO/白平衡/分辨率等数值参数堆砌；禁止产品变形畸变、塑料虚假材质；禁止杂乱堆砌、水印logo、完美零瑕疵描述。
 严格输出两种格式，不添加额外注释、说明、解释。
 """,
             "en": """
@@ -89,7 +107,7 @@ Light matches real shooting logic, glass soft light, metal fine reflection, crea
 Props only foil product without stealing focus, texture match product positioning.
 Fully retain user input product/platform/view info, only add light/texture details without extra clutter.
 Strict simplification rule, only keep necessary foil props.
-Taboo: weight symbols, focal/aperture/resolution numeric params; distorted goods, fake plastic texture, clutter, watermark, flawless description.
+Forbidden: weight symbols, shutter/ISO/white balance/resolution numeric params; distorted goods, fake plastic texture, clutter, watermark, flawless description.
 Strictly output two formats without extra comments.
 """
         }
@@ -101,14 +119,14 @@ Strictly output two formats without extra comments.
                 "description": ECOMMERCE["description"],
                 # 中英双语固定前置正向约束
                 "positive_constraints": {
-                    "zh": "商品为画面绝对核心，形体比例规整无畸变，各类材质肌理真实贴合物理特性；70/25/5色彩配比和谐分层，光影过渡柔和无生硬断层；构图聚焦产品核心卖点，道具克制虚化不抢视觉；美妆膏体绵密通透、3C磨砂金属细腻、首饰金属宝石内敛反光、家居布艺温润；场景氛围匹配平台调性，营销信息自然融入不突兀，整体画面高级干净，具备真实商品可信度与购买驱动力",
-                    "en": "Product absolute core, regular proportion without distortion, authentic physical texture; harmonious layered color ratio, soft light transition; composition focus on selling points, restrained blurred props; smooth cream, fine matte metal, subtle jewelry reflection, soft home fabric; scene fit platform tone, natural marketing info, high clean frame with shopping desire."
+                    "zh": "商品为画面绝对核心，形体比例规整无畸变，各类材质肌理真实贴合物理特性；70/25/5色彩配比和谐分层，光影过渡柔和无生硬断层；构图聚焦产品核心卖点，道具克制虚化不抢视觉；美妆膏体绵密通透、3C磨砂金属细腻、首饰金属宝石内敛反光、家居布艺温润；场景氛围匹配平台调性，营销信息自然融入不突兀，整体画面高级干净，具备商品可信度与购买驱动力",
+                    "en": "Product absolute core, regular proportion without distortion, authentic physical texture; harmonious layered color ratio, soft light transition; composition focus on selling points, restrained blurred props; smooth cream, fine matte metal, subtle jewelry reflection, soft home fabric; scene fit platform tone, natural marketing info, high clean frame with shopping desire"
                 },
                 # 全品类细分专属规则
                 "preset_rules": {
                     "zh": """
 【全电商品类细分规则】
-1. 通用基线：语义权重：产品类型卖点→三维视角构图→场景氛围→色彩配比→道具搭配→光影质感；用户拍摄视角优先，无则选用商品合规角度；严格70/25/5色彩配比，画面精简约束；禁用["8K", "4K", "分辨率", "DPI", "色彩模式", "焦距", "光圈", "帧率", "码率", "采样率", "编码器", "HDR", "杜比", "字幕", "水印", "logo", "完美对称", "零瑕疵", "塑料感", "崩坏", "扭曲"]。
+1. 通用基线：语义权重：产品类型卖点→三维视角构图→场景氛围→色彩配比→道具搭配→光影质感；用户拍摄视角优先，无则选用商品合规角度；严格70/25/5色彩配比，画面精简约束；禁用["8K", "4K", "分辨率", "DPI", "色彩模式", "快门", "ISO", "白平衡", "帧率", "码率", "采样率", "编码器", "HDR", "杜比", "字幕", "水印", "logo", "完美对称", "零瑕疵", "塑料感", "崩坏", "扭曲"]。
 2. 美妆护肤：玻璃/亚克力通透柔光，膏体绵密哑光，低饱和ins浅调，大理石/棉麻简约道具，单侧柔和侧光，突出质地可视卖点。
 3. 3C数码：磨砂金属低反光，冷调中性色，纯色织物极简背景，多角度均匀柔光，对称规整构图，凸显精密做工。
 4. 食品饮品：温润漫射天光，原木/陶瓷道具，暖柔和色调，微距展现肌理，虚化少量果蔬衬托自然新鲜。
@@ -118,7 +136,7 @@ Strictly output two formats without extra comments.
 """,
                     "en": """
 【Universal E-commerce Category Rules】
-1. General baseline: Weight order: product selling points > 3D composition > scene > color ratio > props > lighting; user view priority, fixed color ratio; forbidden words list: 8K,4K,resolution,DPI,color mode,focal length,aperture,frame rate,bit rate,sampling rate,encoder,HDR,dolby,subtitle,watermark,logo,perfect symmetry,flawless,plastic texture,collapse,distort.
+1. General baseline: Weight order: product selling points > 3D composition > scene > color ratio > props > lighting; user view priority, fixed color ratio; forbidden words list: 8K,4K,resolution,DPI,color mode,shutter,ISO,white balance,frame rate,bit rate,sampling rate,encoder,HDR,dolby,subtitle,watermark,logo,perfect symmetry,flawless,plastic texture,collapse,distort.
 2. Beauty: transparent glass soft light, matte cream, low saturation ins tone, marble/cotton props, side light show texture.
 3. 3C digital: matte low-reflection metal, neutral cool tone, solid fabric background, even soft light, neat symmetry.
 4. Food: warm diffuse skylight, wood/ceramic props, warm tone, macro texture, blurry fruit foil.
@@ -129,7 +147,7 @@ All themes: user demand highest priority, only add light/texture details without
                 },
                 "negative_base": {
                     "zh": "产品形体扭曲变形，材质塑料虚假，光影杂乱过曝死黑，色彩脏溢高饱和撞色，道具堆砌喧宾夺主，构图失衡焦点偏移，透视比例错误，低分辨率模糊，多余杂物摆件，水印logo字幕，光影生硬断层，营销贴纸突兀，过度锐化边缘锯齿，反光失真不自然，背景杂乱抢夺产品视觉焦点",
-                    "en": "Distorted product, fake plastic texture, overexposed dead shadow, muddy oversaturated color, overwhelming props, unbalanced composition, wrong perspective, blurry low-res, clutter, watermark, stiff light, abrupt marketing sticker, over-sharp jagged edges, unnatural reflection, distracting background."
+                    "en": "Distorted product, fake plastic texture, overexposed dead shadow, muddy oversaturated color, overwhelming props, unbalanced composition, wrong perspective, blurry low-res, clutter, watermark, stiff light, abrupt marketing sticker, over-sharp jagged edges, unnatural reflection, distracting background"
                 }
             }
         }
@@ -150,7 +168,12 @@ All themes: user demand highest priority, only add light/texture details without
 7.70/25/5分层色彩饱和度调性
 8.品类专属搭配元素、品牌营销融合方式
 9.布光质感定性建议、全局禁止参数清单
-10.3-5个概括商品电商气质风格标签""",
+10.3-5个概括商品电商气质风格标签
+11.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - 美妆/首饰：85mm-100mm长焦微距，摄影机远离主体，突出质地与反光细节
+   - 3C数码：50mm标准中焦，摄影机与主体保持常规距离，多角度均匀展示
+   - 家居用品：35mm-50mm，摄影机较近靠近主体，场景化展示空间感
+   - 产品全貌：50mm标准中焦，自然透视无畸变""",
                 "en": """[Structured Mode] Output strictly in this order:
 1. Product category, platform & global constraints
 2. Composition, visual guide, 70% product ratio, aspect ratio, simplification rule
@@ -161,7 +184,12 @@ All themes: user demand highest priority, only add light/texture details without
 7. 70/25/5 layered color saturation
 8. Category matching & brand info integration
 9. Qualitative lighting suggestion, forbidden param list
-10. 3-5 e-commerce style tags"""
+10. 3-5 e-commerce style tags
+11.【技术参数建议】仅structured模式可输出，natural模式禁用；仅允许焦距/光圈定性描述，附带空间效果释义，禁用快门/ISO/白平衡等数值参数：
+   - Beauty/Jewelry: 85mm-100mm telephoto macro, camera far from subject, highlight texture and reflection details
+   - 3C Digital: 50mm standard mid-telephoto, camera normal distance from subject, multi-angle even display
+   - Home goods: 35mm-50mm, camera moderately close to subject, scene-based spatial display
+   - Product full view: 50mm standard mid-telephoto, natural perspective without distortion"""
             }
         }
 
