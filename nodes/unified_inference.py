@@ -735,11 +735,11 @@ class omni_llm_unified_inference:
                     "default": "natural",
                     "tooltip": "输出格式控制：\n• natural：以自然段落格式输出纯文本内容，推荐日常使用\n• structured：输出结构化文本内容，适用于强理解模型（仅支持文生图预设模板）"
                 }),
-                "enable_constraints": ("BOOLEAN", {"default": False, "tooltip": "启用预设模板中的正向约束：\n• 正向约束：会添加到提示词最前面，引导模型生成更符合要求的内容，适用于Base模型"}),
+                "enable_constraints": ("BOOLEAN", {"default": False, "tooltip": "启用预设模板中的正向约束：\n• 正向约束：会添加到提示词最前面，引导模型生成更符合要求的内容，适用于SDXL/Base模型"}),
                 "enable_negative_prompts": ("BOOLEAN", {"default": False, "tooltip": "启用预设模板中的负向提示词：\n• 负向提示词：会追加到提示词末尾，避免模型生成不想要的内容，部分模型不需要负向提示词"}),
                 "image_model": (IMAGE_MODEL_OPTIONS, {
                     "default": "Auto",
-                    "tooltip": "图像生成模型选择（通用类型，影响提示词构建风格）：\n• Auto：通用类型，自动适配默认模型\n• Flux1：擅长写实人像/场景/空间逻辑\n• Flux2_klein：擅长快速出图/轻量化/中英双语\n• Z_image：擅长写实人像/风光/静物\n• Qwen_Image2512：擅长长图文/海报/密集排版\n• Krea2：擅长摄影质感/画风融合\n• Boogu：擅长商用海报/商品图/密集文字\n• Mage_Flow：擅长文字生成、指令编辑、商业静物摄影\n• ERNIE_Image：擅长国风/国潮/科普图解"
+                    "tooltip": "图像生成模型选择（通用类型，影响提示词构建风格）：\n• Auto：通用类型，自动适配默认模型\n• Flux1：擅长写实人像/场景/空间逻辑\n• Flux2_klein：擅长快速出图/多参考图编辑\n• Z_image：擅长写实人像/风光/静物\n• Krea2：擅长摄影质感/自然语言写实/电影感\n• Qwen_Image2512：擅长长图文/海报/密集排版\n• Boogu：擅长极简产品图/电商/室内渲染\n• ERNIE_Image：擅长文字渲染/社媒图文/商业海报\n• HiDream-O1-Image：擅长高清写实人像/时尚编辑级\n• Mage_Flow：擅长指令编辑/任意比例构图/双语文字渲染\n• LongCat_Image：擅长复杂场景/多角色/长文本描述理解\n• GLM_Image：擅长创意图解/科学科普/文字渲染"
                 }),
                 "video_model": (VIDEO_MODEL_OPTIONS, {
                     "default": "Auto",
@@ -1042,6 +1042,18 @@ class omni_llm_unified_inference:
                 return result.get("positive_constraint", "")
             except Exception:
                 return ""
+    
+    def _get_generator_model_marker(self, preset_key, model="Auto"):
+        """
+        获取类生成器格式的下游模型标识（【下游模型】xxx）
+        仅类生成器预设且解析到具体模型时返回标识，反推/无模型预设或 Auto 返回空字符串
+        该标识与正向约束开关解耦，未启用正向约束时也可单独输出
+        """
+        if not self._is_generator_preset(preset_key):
+            return ""
+        if model in ("Auto", ""):
+            return ""
+        return f"【下游模型】{model}"
     
     def detect_model_type(self, llama_model) -> Dict:
         """检测模型类型"""
@@ -1933,18 +1945,25 @@ class omni_llm_unified_inference:
                         elif (enable_constraints or enable_negative_prompts) and preset_key:
                             positive_constraints, negative_prompts = self.get_preset_constraints(preset_key, output_language)
                         
+                        # 下游模型标识：类生成器预设始终输出，不依赖正向约束开关
+                        model_marker = self._get_generator_model_marker(preset_key, effective_model)
+                        
                         if enable_constraints and positive_constraints:
                             generated_text = f"【正向约束】{positive_constraints}\n\n{generated_text}"
+                        elif model_marker:
+                            generated_text = f"{model_marker}\n\n{generated_text}"
                         
                         if enable_negative_prompts and negative_prompts:
                             generated_text += f"\n\n【负向提示词】{negative_prompts}"
                         
-                        if enable_constraints or enable_negative_prompts:
+                        if enable_constraints or enable_negative_prompts or model_marker:
                             new_output_list = []
                             for item in output_list:
                                 new_item = item
                                 if enable_constraints and positive_constraints:
                                     new_item = f"【正向约束】{positive_constraints}\n\n{new_item}"
+                                elif model_marker:
+                                    new_item = f"{model_marker}\n\n{new_item}"
                                 if enable_negative_prompts and negative_prompts:
                                     new_item += f"\n\n【负向提示词】{negative_prompts}"
                                 new_output_list.append(new_item)
@@ -2003,8 +2022,13 @@ class omni_llm_unified_inference:
             elif (enable_constraints or enable_negative_prompts) and preset_key:
                 positive_constraints, negative_prompts = self.get_preset_constraints(preset_key, output_language)
             
+            # 下游模型标识：类生成器预设始终输出，不依赖正向约束开关
+            model_marker = self._get_generator_model_marker(preset_key, effective_model)
+            
             if enable_constraints and positive_constraints:
                 generated_text = f"【正向约束】{positive_constraints}\n\n{generated_text}"
+            elif model_marker:
+                generated_text = f"{model_marker}\n\n{generated_text}"
             
             if enable_negative_prompts and negative_prompts:
                 generated_text += f"\n\n【负向提示词】{negative_prompts}"
