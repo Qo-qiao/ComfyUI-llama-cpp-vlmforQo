@@ -20,10 +20,6 @@ ComfyUI-omni-llm is a fully-featured ComfyUI plugin, deeply rebuilt and enhanced
 [Tip] Models with thinking mode cannot provide accurate thought content filtering. It is recommended to use non-thinking mode models. All generated prompt content is for reference only and cannot guarantee perfect image generation. Please verify and optimize content based on your actual needs.
 
 
-## Chinese Translation
-
-Place the zh-CN files into the corresponding folder of translation plugins (ComfyUI-Chinese-Translation/AIGODLIKE-ComfyUI-Translation/ComfyUI-DD-Translation) to overwrite. It is recommended to install the [ComfyUI-Chinese-Translation](https://github.com/a63976659/ComfyUI-Chinese-Translation) plugin for more comprehensive Chinese localization and faster translation updates.
-
 ## Recommended Companion Plugins
 
 Due to the different functional positioning of preset templates, some preset templates and prompts have been updated to [ComfyUI-prompt-storage](https://github.com/Qo-qiao/ComfyUI-prompt-storage), which can be used with this plugin to increase extensibility.
@@ -113,6 +109,16 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 
 The following updates are based on llama-cpp-python version 0.3.46, so please install this version first
 
+#### v3.3.3 (2026-08-16)
+
+- **Node Optimization Adjustments**: Added support for more raw image models to meet a wider range of user needs, and fixed the issue where model labels wouldn’t show when forward constraint options were not enabled.
+- **Preset Template Optimization**: Optimized raw image preset templates. Natural Paragraph: doesn’t output camera parameter info. Structured: outputs camera parameter info. You can choose based on your own needs (it’s recommended to add a facial optimization node when generating real natural portraits to enhance the effect).
+
+
+<details>
+<summary>📋 Older Versions</summary>
+
+
 #### v3.3.2 （2026-08-15）
 
 - **Node Optimization and Adjustments**: 1. Optimized internal code, adapted parameters for llama-cpp-python 0.3.46, added support for the Qwen3.8 model (untested), and improved MTP processing.  
@@ -120,9 +126,6 @@ The following updates are based on llama-cpp-python version 0.3.46, so please in
 3. Added output model labels to help users confirm results.  
 - **Preset Template Optimization**: The multi-person chat template now aligns with the output of the IndexTTS-2.5 model, the music template aligns with Ace-Step1.5 and MiniMax-Music3 outputs, the video generation template aligns with LTX-2.5 and MiniMax-H3 outputs, and the image creation template hasn't been fully aligned yet due to the volume of content (feedback or co-creation is welcome).
 
-
-<details>
-<summary>📋 Older Versions</summary>
 
 #### v3.3.1 （2026-08-12）
 
