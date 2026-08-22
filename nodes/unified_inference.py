@@ -322,10 +322,10 @@ IMAGE_MODEL_OPTIONS = ["Auto"] + [m for m in HyperRealisticFemale().model_formul
 VIDEO_MODEL_OPTIONS = ["Auto"] + list(ContinuingT2V().video_model_formula_library.keys())
 
 # 音频生成模型选项（TTS语音合成 + 音乐生成，Auto 为默认通用项）
-AUDIO_MODEL_OPTIONS = ["Auto", "IndexTTS-2.5", "Ace-Step1.5", "MiniMax-Music3"]
+AUDIO_MODEL_OPTIONS = ["Auto", "IndexTTS-2.5", "VoxCPM2", "Ace-Step1.5", "MiniMax-Music3"]
 
 # 音频模型分类：TTS语音合成 与 音乐生成（用于按预设校验所选模型是否合法）
-AUDIO_TTS_MODELS = {"IndexTTS-2.5"}
+AUDIO_TTS_MODELS = {"IndexTTS-2.5", "VoxCPM2"}
 AUDIO_MUSIC_MODELS = {"Ace-Step1.5", "MiniMax-Music3"}
 
 class VideoProcessor:
@@ -747,7 +747,7 @@ class omni_llm_unified_inference:
                 }),
                 "audio_model": (AUDIO_MODEL_OPTIONS, {
                     "default": "Auto",
-                    "tooltip": "音频生成模型选择（仅音频类预设模板生效）：\n• Auto：自动适配默认模型\n\n────────── TTS 语音合成 ──────────\n• IndexTTS-2.5：情感表达自然\n\n────────── 音乐生成 ──────────\n• Ace-Step1.5：控制维度丰富\n• MiniMax-Music3：人声演唱自然度高"
+                    "tooltip": "音频生成模型选择（仅音频类预设模板生效）：\n• Auto：自动适配默认模型\n\n────────── TTS 语音合成 ──────────\n• IndexTTS-2.5：精细调情绪\n• VoxCPM2：日常短视频人物对话\n\n────────── 音乐生成 ──────────\n• Ace-Step1.5：控制维度丰富\n• MiniMax-Music3：人声演唱自然度高"
                 }),
                 
                 # ========== 视频处理参数 ==========
