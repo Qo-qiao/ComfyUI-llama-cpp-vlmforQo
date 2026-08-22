@@ -88,8 +88,8 @@ For all themes: user input features have highest priority, only add detail tags,
 """
                 },
                 "negative_base": {
-                    "zh": "真实，照片，皮肤纹理，毛孔，4K纹理，电影感，写实，低分辨率，噪点，变形手指，坏手，比例失调，五官崩坏，多余肢体，缺失肢体，融合手指，塑料质感，平涂无体积，边缘生硬，抠图感，卡通低幼化，重复标签，长句描述",
-                    "en": "realistic, photograph, skin texture, pores, 4k texture, cinematic, low resolution, noise, deformed fingers, bad hands, bad proportion, distorted facial features, extra limbs, missing limbs, fused fingers, plastic texture, flat shading without volume, harsh edge, cutout feeling, overly childish cartoon style, duplicate tags, long sentence description"
+                    "zh": "EasyNegative, badhandv4, ng_deepnegative_v1_75t, bad-picture-chill-75v, bad_prompt_version2, negative_hand-neg, worst quality, low quality, normal quality, lowres, blurry, jpeg artifacts, text, watermark, signature, username, bad anatomy, bad hands, bad feet, extra fingers, fewer fingers, fused fingers, too many fingers, extra limbs, missing limbs, mutated hands, deformed, bad proportions, gross proportions, long neck, cross-eyed, skin spots, acnes, blemishes, age spot, cropped, out of frame, mirrored image, duplicate",
+                    "en": "EasyNegative, badhandv4, ng_deepnegative_v1_75t, bad-picture-chill-75v, bad_prompt_version2, negative_hand-neg, worst quality, low quality, normal quality, lowres, blurry, jpeg artifacts, text, watermark, signature, username, bad anatomy, bad hands, bad feet, extra fingers, fewer fingers, fused fingers, too many fingers, extra limbs, missing limbs, mutated hands, deformed, bad proportions, gross proportions, long neck, cross-eyed, skin spots, acnes, blemishes, age spot, cropped, out of frame, mirrored image, duplicate"
                 }
             }
         }

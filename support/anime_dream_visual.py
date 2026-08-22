@@ -92,8 +92,8 @@ For all themes: user input has highest priority, add details only, never overwri
 """
                 },
                 "negative_base": {
-                    "zh": "最差质量，低质量，score_1，score_2，score_3，画家名，模糊，JPEG伪影，色差，变形手指，坏手，多余手指，缺失手指，低分辨率，水印，文字，签名",
-                    "en": "worst quality, low quality, score_1, score_2, score_3, artist name, blurry, jpeg artifacts, chromatic aberration, deformed fingers, bad hands, extra fingers, missing fingers, lowres, text, watermark, signature"
+                    "zh": "worst quality, low quality, normal quality, lowres, blurry, jpeg artifacts, text, watermark, signature, username, bad anatomy, bad hands, bad feet, extra fingers, fewer fingers, fused fingers, too many fingers, extra limbs, missing limbs, mutated hands, deformed, bad proportions, gross proportions, long neck, cross-eyed, skin spots, acnes, blemishes, age spot, cropped, out of frame, mirrored image, duplicate, score_1, score_2, score_3, artist name, 3d, realistic, photo, photorealistic, cinematic, chromatic aberration",
+                    "en": "worst quality, low quality, normal quality, lowres, blurry, jpeg artifacts, text, watermark, signature, username, bad anatomy, bad hands, bad feet, extra fingers, fewer fingers, fused fingers, too many fingers, extra limbs, missing limbs, mutated hands, deformed, bad proportions, gross proportions, long neck, cross-eyed, skin spots, acnes, blemishes, age spot, cropped, out of frame, mirrored image, duplicate, score_1, score_2, score_3, artist name, 3d, realistic, photo, photorealistic, cinematic, chromatic aberration"
                 }
             }
         }

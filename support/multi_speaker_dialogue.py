@@ -37,6 +37,12 @@ class MultiSpeakerDialogue:
                 "mix_lang": True,
                 "formula_zh": "内容组织顺序：说话人角色ID与音色大类 → 细分声线基底 → 逐句情感判定（8维情感向量emo_vector[高兴,愤怒,悲伤,害怕,厌恶,忧郁,惊讶,平静]或显式情感描述emo_text，向量总和≤0.8）→ 情感强度emo_alpha（0.0‑1.0，推荐0.6）→ 语速duration_factor（0.5‑2.0）→ 发音控制（中文拼音<行|XING2>/英文CMU音素<minute|M IH1 . N AH0 T>/日语假名<上手|じょうず>）→ 空间声学参数 → 音轨分层配比 → SRT时间码。",
                 "formula_en": "Content order: speaker ID & timbre category → fine-grained voice base → sentence-wise emotion (8-dim emo_vector[happy,angry,sad,afraid,disgusted,melancholic,surprised,calm] or explicit emo_text, vector sum ≤0.8) → emotion strength emo_alpha (0.0‑1.0, 0.6 recommended) → speech speed duration_factor (0.5‑2.0) → pronunciation control (Chinese pinyin <行|XING2>/English CMU phonemes <minute|M IH1 . N AH0 T>/Japanese kana <上手|じょうず>) → spatial acoustic params → multi-track volume ratio → SRT time-code."
+            },
+            "VoxCPM2": {
+                "keyword_dense": True,
+                "mix_lang": True,
+                "formula_zh": "内容组织顺序：说话人角色ID与音色大类 → 细分声线基底 → 逐句情感判定与情绪过渡逻辑 → 文本规范化控制（normalize=True/False）→ 发音控制（中文拼音<行|XING2>/英文CMU音素<minute|M IH1 . N AH0 T>）→ 标点韵律控制（句号/问号停顿、逗号缩短、省略号迟疑）→ 方言适配（粤语/闽南语/四川话等）→ 空间声学参数 → 音轨分层配比 → SRT时间码。",
+                "formula_en": "Content order: speaker ID & timbre category → fine-grained voice base → sentence-wise emotion & emotion-transition logic → text normalization control (normalize=True/False) → pronunciation control (Chinese pinyin <行|XING2>/English CMU phonemes <minute|M IH1 . N AH0 T>) → punctuation prosody control (period/question mark pause, comma shortening, ellipsis hesitation) → dialect adaptation (Cantonese/Minnan/Sichuan etc.) → spatial acoustic params → multi-track volume ratio → SRT time-code."
             }
         }
 
@@ -209,6 +215,45 @@ Analysis source: raw script dialogue #DIALOGUE_SOURCE#; optional assist keywords
                 "default_negative_base": {
                     "zh": "修改原始剧本台词文本，说话人ID重复/缺失，同一角色多轮对话音色声场不一致，台词语气未按四要素组合法输出或与情感冲突，TTS量化参数缺失或非数值，空间声学参数未量化，音轨配比缺失，重读关键词非台词原文，权重符号，多余解释文本，时间码非SRT格式，交叠对话未标记起止区间",
                     "en": "Altered raw script lines, duplicate/missing speaker-ID, inconsistent timbre-acoustic across same-speaker multi-turn lines, speech tone not following four-element combination rule or conflicting with emotion, missing/non-numeric TTS quantized params, unquantized spatial-acoustic params, missing multi-track ratio, stress keywords not from raw lines, weight syntax, redundant explanatory text, non-SRT time-code, overlapping dialogue without time-range mark"
+                },
+                # VoxCPM2专属：正向约束/专属规则/负向基线
+                "voxcpm2_positive_constraints": {
+                    "zh": "完全基于原始剧本对话文本解析；每个说话人分配全局唯一数字ID；同一角色多轮对话音色基底、声场参数保持一致；不同角色音色语气声场具备明显区分度；标注对话交互距离；空间声学参数量化输出；逐句判定情感与情绪过渡逻辑；文本规范化控制（normalize=True处理数字日期/normalize=False保留音素）；发音控制（中文拼音/英文CMU音素）；标点韵律控制（句号问号停顿/逗号缩短/省略号迟疑）；方言适配（粤语用方言词汇书写）；台词原文文字不做任何修改；可选用户关键词仅用于辅助校准音色、情绪、声场风格；关键词与剧本冲突时以原始剧本为准；每条对话音色情绪声学参数具备唯一性。",
+                    "en": "Analyze completely based on raw script dialogue. Assign globally unique numeric speaker‑ID per character. Keep timbre‑base and acoustic‑field parameters consistent for multi‑turn lines of same speaker. Obvious distinction of timbre / tone / acoustic‑field between different roles. Mark dialogue interaction distance. Quantize all spatial‑acoustic parameters. Judge per‑utterance emotion & emotion‑transition logic. Text normalization control (normalize=True for numbers/dates, normalize=False to preserve phonemes). Pronunciation control (Chinese pinyin / English CMU phonemes). Punctuation prosody control (period/question mark pause, comma shortening, ellipsis hesitation). Dialect adaptation (write dialect text in dialect vocabulary). Raw dialogue text must not be modified. Optional user‑keywords only assist calibrating timbre, emotion, acoustic‑field style. When conflict occurs, original script takes precedence. Timbre‑emotion‑acoustic parameters are unique for each dialogue entry."
+                },
+                "voxcpm2_preset_rules": {
+                    "zh": """
+【VoxCPM2多人对话专属规则】
+1. 通用基线：主解析来源#DIALOGUE_SOURCE#，可选用户关键词#USER_KEYWORDS#，目标模型#DOWNSTREAM_MODEL#；执行完整对话解析流程；分配全局唯一说话人ID；区分单人/双人/多人/交叠插话；配置音色大类+细分声线基底；标注交互距离；输出量化空间声学参数；逐句情感+情绪过渡；文本规范化控制；发音控制；标点韵律控制；方言适配；全套TTS量化参数；标记交叠对话区间；音轨分层配比；可选SRT时间码；natural模式markdown字段输出。
+2. 优先级铁则：原始剧本对话文本 > 用户可选关键词。关键词仅做音色、情绪、声场风格的辅助校准；若关键词描述与剧本冲突，直接舍弃冲突关键词，严格遵从原始剧本，绝不篡改台词原文。无关键词则完全依靠剧本文本解析。
+3. 角色分支规则：内置音色类型参考表，区分女声/男声/萝莉音/正太音/御姐音/大叔音/老年音，每个角色配置一级音色大类+细分声线基底，实现同大类音色差异化区分。
+4. 内容约束：台词原文禁止修改；同一角色多轮对话音色声场保持一致；不同角色具备区分度；交叠对话必须标记起止区间；重读关键词必须取自对应台词文本，禁止编造。
+5. 文本规范化控制：normalize=True（默认）用于数字、日期、金额等格式自动扩展朗读；normalize=False用于需要精细发音控制的场景（音素输入）。
+6. 发音控制规则：中文多音字/生僻字用拼音标注<文字|拼音+声调>（如<行|XING2>）；英文一词多音用CMU音素标注<单词|音素序列>（如<minute|M IH1 . N AH0 T>）；中文使用带音调数字的拼音（如{ni3}{hao3}），英文使用CMUDict风格音素（如{HH AH0 L OW1}）。
+7. 标点韵律控制：句号和问号→句尾停顿更清晰；逗号→缩短停顿时间；省略号→迟疑或拖延效应；需更强停顿时拆分短句而非依赖标点。
+8. 方言适配规则：生成特定方言语音时，用该方言自己的词汇和表达书写目标文本（如粤语用"伙計，唔該一個A餐"而非"伙计，麻烦来一个A餐"）；不确定时可用大语言模型从普通话翻译。
+9. 短文本处理：非常短的输入（如"Hello""好的"）因模型最小音频长度约1秒会听起来很弱，应确保输入自然产生至少几秒钟语音。
+10. 参数约束：TTS量化参数（语速倍率、音高偏移、人声dB、句内停顿秒数、句尾停顿秒数）；空间声学（空间类型、混响强度、回音时长）；音轨分层配比（人声、BGM、环境噪音）全部输出量化数值；适配视频场景输出SRT标准时间码。
+解析来源：原始剧本对话文本 #DIALOGUE_SOURCE#；可选辅助关键词：#USER_KEYWORDS#；目标模型：#DOWNSTREAM_MODEL#
+""",
+                    "en": """
+【VoxCPM2 Multi-Speaker Dialogue Preset Rules】
+1. General baseline: primary source #DIALOGUE_SOURCE#, optional assist keywords #USER_KEYWORDS#, target model #DOWNSTREAM_MODEL#; follow full dialogue analysis workflow. Assign globally unique speaker‑ID. Distinguish monologue / two‑party / group / overlapping‑interruption. Configure timbre category + fine‑grained voice base. Mark interaction distance. Output quantized spatial‑acoustic params. Per‑utterance emotion & emotion‑transition. Text normalization control. Pronunciation control. Punctuation prosody control. Dialect adaptation. Full‑set quantized TTS params. Mark overlapping‑dialogue time‑range. Multi‑track volume ratio. Optional SRT time‑code. Natural mode use markdown fields.
+2. Priority hard‑rule: raw‑script‑dialogue > optional user keywords. Keywords only assist calibrating timbre, emotion, acoustic‑field style. If keywords conflict with script content, discard conflicting keywords and strictly follow original script, never alter dialogue text. If no keywords provided, rely entirely on script analysis.
+3. Character branch rule: built‑in timbre reference table; distinguish female / male / loli / shota / regal‑lady / middle‑aged‑male / elder voice. Each role gets top‑level timbre category plus fine‑grained voice base to differentiate voices within same category.
+4. Content constraint: raw dialogue must NOT be modified. Keep timbre‑acoustic consistency for multi‑turn same‑speaker lines. Ensure distinguishability between different roles. Mark time‑range for overlapping dialogue. Stress keywords must come from corresponding dialogue, do NOT fabricate.
+5. Text normalization control: normalize=True (default) for automatic expansion of numbers, dates, amounts; normalize=False for fine pronunciation control (phoneme input).
+6. Pronunciation control rule: Chinese polyphonic / rare characters annotated with pinyin <char|PINYIN+tone> (e.g. <行|XING2>); English heteronyms annotated with CMU phonemes <word|phoneme sequence> (e.g. <minute|M IH1 . N AH0 T>); Chinese uses pinyin with tone numbers (e.g. {ni3}{hao3}), English uses CMUDict-style phonemes (e.g. {HH AH0 L OW1}).
+7. Punctuation prosody control: period and question mark → clearer sentence-end pause; comma → shorten pause; ellipsis → hesitation or dragging effect; for stronger pause split into shorter sentences rather than relying on punctuation.
+8. Dialect adaptation rule: to generate specific dialect speech, write target text in that dialect's own vocabulary and expressions (e.g. Cantonese: "伙計，唔該一個A餐" not "伙计，麻烦来一个A餐"); if unsure use LLM to translate from Mandarin.
+9. Short text handling: very short inputs (e.g. "Hello""好的") sound weak due to ~1s minimum audio length; ensure input naturally produces at least several seconds of speech.
+10. Parameter constraint: output numeric values for TTS(speed‑ratio, pitch‑offset, vocal‑dB, intra‑sentence‑pause‑s, sentence‑end‑pause‑s), spatial‑acoustic(space‑type, reverb‑strength, echo‑duration‑s), multi‑track volume(human‑voice / BGM / ambient‑noise). Output SRT‑format time‑code for video‑adapted scenario.
+Analysis source: raw script dialogue #DIALOGUE_SOURCE#; optional assist keywords: #USER_KEYWORDS#; target model: #DOWNSTREAM_MODEL#
+"""
+                },
+                "voxcpm2_negative_base": {
+                    "zh": "修改原始剧本台词文本，说话人ID重复/缺失，同一角色多轮对话音色声场不一致，文本规范化控制错误，发音标注错误，标点韵律控制缺失，方言词汇使用标准普通话替代，短文本未扩写，TTS量化参数缺失或非数值，空间声学参数未量化，音轨配比缺失，重读关键词非台词原文，权重符号，多余解释文本，时间码非SRT格式，交叠对话未标记起止区间",
+                    "en": "Altered raw script lines, duplicate/missing speaker-ID, inconsistent timbre-acoustic across same-speaker multi-turn lines, wrong text normalization control, wrong pronunciation annotations, missing punctuation prosody control, dialect text written in standard Mandarin instead of dialect vocabulary, short text not expanded, missing/non-numeric TTS quantized params, unquantized spatial-acoustic params, missing multi-track ratio, stress keywords not from raw lines, weight syntax, redundant explanatory text, non-SRT time-code, overlapping dialogue without time-range mark"
                 }
             }
         }
@@ -226,6 +271,12 @@ Analysis source: raw script dialogue #DIALOGUE_SOURCE#; optional assist keywords
                 "natural": {
                     "zh": "【IndexTTS‑2.5 自然字段模式】每条对话独立，使用markdown换行字段；依次输出：时间码(SRT格式)、音色大类、细分声线基底、说话人ID、对话交互距离、空间声学环境、情感（8种之一或多情感）、情绪过渡说明、8维情感向量emo_vector（[高兴,愤怒,悲伤,害怕,厌恶,忧郁,惊讶,平静]，总和≤0.8）、情感强度emo_alpha（0.0‑1.0）、语速duration_factor（0.5‑2.0）、发音标注（多音字/生僻字/外来语，中文拼音/英文CMU音素/日语假名）、TTS量化参数、台词重读关键词、交叠对话标记、音轨音量配比、对话原文；每条对话之间空行分隔；存在合规用户关键词时将音色/情绪/声学校准信息自然融入，冲突关键词直接舍弃；禁止修改原始剧本台词，全部参数为可映射IndexTTS‑2.5引擎的量化数值，无多余解释文本。",
                     "en": "[IndexTTS‑2.5 Natural Field Mode] Separate per‑dialogue entry with markdown line breaks. Output sequence: SRT time‑code, timbre category, fine‑grained voice base, speaker‑ID, dialogue interaction distance, spatial‑acoustic environment, emotion (one of 8 or mixed), emotion‑transition note, 8‑dim emo_vector ([happy,angry,sad,afraid,disgusted,melancholic,surprised,calm], sum ≤0.8), emo_alpha (0.0‑1.0), duration_factor (0.5‑2.0), pronunciation annotation (polyphonic/rare/loan words, Chinese pinyin/English CMU phonemes/Japanese kana), quant‑TTS params, stress keywords, overlapping‑dialogue mark, multi‑track volume ratio, raw dialogue text. Blank line between entries. Merge valid timbre‑emotion‑acoustic calibration from user‑keywords; discard conflicting keywords. Never edit raw script lines. All params are IndexTTS‑2.5‑engine‑mappable numeric values, no extra explanatory text."
+                }
+            },
+            "VoxCPM2": {
+                "natural": {
+                    "zh": "【VoxCPM2 自然字段模式】每条对话独立，使用markdown换行字段；依次输出：时间码(SRT格式)、音色大类、细分声线基底、说话人ID、对话交互距离、空间声学环境、情感（8种之一或多情感）、情绪过渡说明、文本规范化标记（normalize=True/False）、发音标注（中文拼音<行|XING2>/英文CMU音素<minute|M IH1 . N AH0 T>/中文拼音数字标记{ni3}{hao3}/英文CMUDict音素{HH AH0 L OW1}）、标点韵律说明（句号问号停顿/逗号缩短/省略号迟疑）、方言标记（如适用）、TTS量化参数（语速倍率、音高偏移值、人声基准音量dB、句内停顿秒数、句尾停顿秒数）、台词重读关键词、交叠对话标记、音轨音量配比、对话原文；每条对话之间空行分隔；存在合规用户关键词时将音色/情绪/声学校准信息自然融入，冲突关键词直接舍弃；禁止修改原始剧本台词，无多余解释文本。",
+                    "en": "[VoxCPM2 Natural Field Mode] Separate per-dialogue entry with markdown line breaks. Output sequence: SRT time-code, timbre category, fine-grained voice base, speaker-ID, dialogue interaction distance, spatial-acoustic environment, emotion (one of 8 or mixed), emotion-transition note, text normalization flag (normalize=True/False), pronunciation annotation (Chinese pinyin <行|XING2>/English CMU phonemes <minute|M IH1 . N AH0 T>/Chinese pinyin tone marks {ni3}{hao3}/English CMUDict phonemes {HH AH0 L OW1}), punctuation prosody note (period/question mark pause, comma shortening, ellipsis hesitation), dialect flag (if applicable), quantized TTS acoustic params (speed-ratio, pitch-offset, vocal-baseline-dB, intra-sentence-pause-s, sentence-end-pause-s), stress keywords, overlapping-dialogue mark, multi-track volume ratio, raw dialogue text. Blank line between entries. Merge valid timbre-emotion-acoustic calibration from user-keywords; discard conflicting keywords. Never edit raw script lines. No extra explanatory text."
                 }
             }
         }
@@ -262,12 +313,17 @@ Analysis source: raw script dialogue #DIALOGUE_SOURCE#; optional assist keywords
         else:
             lang = output_language if output_language in ["zh", "en"] else "zh"
 
-        # 按输出模式选择规则文本：Default=默认优化输出（不含IndexTTS‑2.5专属情感参数）；IndexTTS-2.5=完整IndexTTS‑2.5适配
+        # 按输出模式选择规则文本：Default=默认优化输出（不含IndexTTS‑2.5专属情感参数）；IndexTTS-2.5=完整IndexTTS‑2.5适配；VoxCPM2=文本规范化+发音控制+标点韵律+方言适配
         if downstream_model == "Default":
             global_rule = self.default_base_rules[lang] if enable_global_preconstraint else ""
             preset_rule = preset["default_preset_rules"][lang]
             pos_constraint = preset["default_positive_constraints"][lang]
             negative_base = preset["default_negative_base"][lang]
+        elif downstream_model == "VoxCPM2":
+            global_rule = self.global_base_rules[lang] if enable_global_preconstraint else ""
+            preset_rule = preset["voxcpm2_preset_rules"][lang]
+            pos_constraint = preset["voxcpm2_positive_constraints"][lang]
+            negative_base = preset["voxcpm2_negative_base"][lang]
         else:
             global_rule = self.global_base_rules[lang] if enable_global_preconstraint else ""
             preset_rule = preset["preset_rules"][lang]
@@ -291,6 +347,29 @@ Analysis source: raw script dialogue #DIALOGUE_SOURCE#; optional assist keywords
                 mode_override = "\n【默认优化输出模式声明】本模式聚焦通用多人对话TTS文本输出：四要素组合台词语气（发声方式/节奏/音调/标点四项全输出）+ 量化TTS声学参数（语速倍率、音高偏移值、人声基准音量dB、句内停顿秒数、句尾停顿秒数）+ 空间声学参数 + 音轨分层配比 + 重读关键词 + 交叠对话标记 + SRT时间码；不输出任何TTS引擎专属情感参数（8维情感向量/情感强度/语速系数/发音标注/语言代码等），也不输出任何音频参考音频、随机采样类参数。"
             else:
                 mode_override = "\n[Default Optimized Output Mode Declaration] This mode focuses on generic multi-speaker-dialogue TTS text output: four-element combined speech tone (vocal-mode / rhythm / intonation / punctuation, all four fields) + quantized TTS acoustic params (speed-ratio, pitch-offset, vocal-baseline-dB, intra-sentence-pause-s, sentence-end-pause-s) + spatial-acoustic params + multi-track volume ratio + stress keywords + overlapping-dialogue mark + SRT time-code; do NOT output any TTS-engine-exclusive emotion params (8-dim emotion vector / emotion strength / speed coefficient / pronunciation annotation / language code), nor any audio-reference-audio or random-sampling params."
+            prompt_parts.append(mode_override)
+        elif downstream_model == "VoxCPM2":
+            if lang == "zh":
+                mode_override = (
+                    "\n【VoxCPM2模式声明】本模式适配VoxCPM2语音合成引擎：文本规范化控制（normalize=True/False）"
+                    "+ 发音控制（中文拼音<行|XING2>/英文CMU音素<minute|M IH1 . N AH0 T>/中文拼音数字标记{ni3}{hao3}/英文CMUDict音素{HH AH0 L OW1}）"
+                    "+ 标点韵律控制（句号问号停顿/逗号缩短/省略号迟疑）+ 方言适配（粤语用方言词汇书写）"
+                    "+ 短文本扩写建议 + 量化TTS声学参数 + 空间声学参数 + 音轨分层配比 + 重读关键词 + 交叠对话标记 + SRT时间码。"
+                    "标点符号作为韵律提示：句号和问号让句尾停顿更清晰，逗号缩短停顿，省略号导致迟疑或拖延效应；"
+                    "需更强停顿时拆分短句而非依赖标点。方言生成时用该方言自己的词汇和表达书写（如粤语用「伙計，唔該」而非「伙计，麻烦」）。"
+                )
+            else:
+                mode_override = (
+                    "\n[VoxCPM2 Mode Declaration] This mode adapts to VoxCPM2 TTS engine: text normalization control (normalize=True/False)"
+                    " + pronunciation control (Chinese pinyin <行|XING2>/English CMU phonemes <minute|M IH1 . N AH0 T>/Chinese pinyin tone marks {ni3}{hao3}/English CMUDict phonemes {HH AH0 L OW1})"
+                    " + punctuation prosody control (period/question mark pause, comma shortening, ellipsis hesitation)"
+                    " + dialect adaptation (write dialect text in dialect vocabulary) + short text expansion suggestion"
+                    " + quantized TTS acoustic params + spatial-acoustic params + multi-track volume ratio + stress keywords"
+                    " + overlapping-dialogue mark + SRT time-code. Punctuation serves as prosody hints: period and question mark"
+                    " make sentence-end pause clearer, comma shortens pause, ellipsis causes hesitation or dragging effect;"
+                    " for stronger pause split into shorter sentences rather than relying on punctuation."
+                    ' For dialect generation write in that dialect\'s own vocabulary and expressions (e.g. Cantonese: "伙計，唔該" not "伙计，麻烦").'
+                )
             prompt_parts.append(mode_override)
 
         # 仅支持natural输出格式，任何 output_format 一律输出目标模型的natural指引
