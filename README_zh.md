@@ -27,7 +27,7 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 
 由于预设模板功能定位不同，部分预设模板和提示词更新到[ComfyUI-prompt-storage](https://github.com/Qo-qiao/ComfyUI-prompt-storage) ，可以与本插件配合使用增加扩展性。
 
-
+SDXL模型限制提示词长度，为了解决限制问题，提高控制性，可以使用优化调整后的插件[sdxl_long_prompt_pipeline](https://github.com/Qo-qiao/sdxl_long_prompt_pipeline)。
 
 ## 安装说明
 
@@ -112,6 +112,11 @@ ComfyUI-omni-llm是一款功能全面的ComfyUI插件，基于ComfyUI-llama-cpp-
 ## 更新日志
 
 以下更新基于llama-cpp-python 0.3.46版本，请先安装该版本的llama-cpp-python
+
+#### v3.3.4 （2026-08-22）
+
+- **节点优化调整**：添加VoxCPM2模型支持，优化调整flashattention相关处理
+- **预设模板优化**：优化动漫预设模板负向提示词内容
 
 #### v3.3.3 （2026-08-16）
 

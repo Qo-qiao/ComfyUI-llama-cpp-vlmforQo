@@ -24,6 +24,7 @@ ComfyUI-omni-llm is a fully-featured ComfyUI plugin, deeply rebuilt and enhanced
 
 Due to the different functional positioning of preset templates, some preset templates and prompts have been updated to [ComfyUI-prompt-storage](https://github.com/Qo-qiao/ComfyUI-prompt-storage), which can be used with this plugin to increase extensibility.
 
+SDXL models limit prompt length, to address this issue and improve control, you can use the optimized version of the plugin [sdxl_long_prompt_pipeline](https://github.com/Qo-qiao/sdxl_long_prompt_pipeline).
 
 
 ## Installation Instructions
@@ -108,6 +109,11 @@ Please check [Node Parameter Guide](./doc/Node_Parameter_Guide.md)
 ## Changelog
 
 The following updates are based on llama-cpp-python version 0.3.46, so please install this version first
+
+#### v3.3.4 (2026-08-22)
+
+- **Node Optimization Adjustments**: Added support for VoxCPM2 model, optimized flashattention processing.
+- **Preset Template Optimization**: Optimized anime preset templates negative prompt content.
 
 #### v3.3.3 (2026-08-16)
 

@@ -2350,16 +2350,28 @@ class LLAMA_CPP_STORAGE:
                     print(f"【Qwen3.5/3.6/3.8优化】设置chat_format失败: {e}")
 
             # Flash Attention 配置（llama-cpp-python 0.3.46+ 使用 flash_attn_type 参数）
-            if device_mode == "GPU" and gpu_vendor == "NVIDIA":
+            # llama.cpp 内置 FlashAttention 内核，与 flash_attn/flash_attn_3 等 PyTorch 包无关，
+            # 无需安装额外依赖；Auto 模式按 GPU 计算能力自动判断是否启用
+            if device_mode == "GPU" and gpu_vendor == "nvidia":
                 attention_type = config.get("attention_type", "Auto")
                 try:
                     llama_sig = inspect.signature(llama_cpp.Llama.__init__)
                     if 'flash_attn_type' in llama_sig.parameters:
-                        flash_available, flash_version = check_flash_attention()
-                        if attention_type == "Flash" or (attention_type == "Auto" and flash_available):
+                        if attention_type == "Flash":
                             # LLAMA_FLASH_ATTN_TYPE_ENABLED = 1
                             llama_kwargs["flash_attn_type"] = 1
-                            print(f"【Flash Attention】已启用{flash_version if flash_version else ''}")
+                            print(f"【Flash Attention】已启用llama.cpp内置FlashAttention（用户指定Flash模式）")
+                        elif attention_type == "Auto":
+                            # 检查GPU计算能力（sm80/Ampere及以上才支持内置FA2内核）
+                            try:
+                                major, _ = torch.cuda.get_device_capability()
+                                if major >= 8:
+                                    llama_kwargs["flash_attn_type"] = 1
+                                    print(f"【Flash Attention】已启用llama.cpp内置FlashAttention（Auto模式，GPU计算能力{major}.x）")
+                                else:
+                                    print(f"【Flash Attention】Auto模式：GPU计算能力{major}.x过低，跳过FlashAttention")
+                            except Exception as cap_err:
+                                print(f"【Flash Attention】Auto模式：获取GPU计算能力失败({cap_err})，跳过FlashAttention")
                 except Exception as e:
                     print(f"【Flash Attention】配置失败: {e}")
                     pass
@@ -2532,41 +2544,7 @@ class LLAMA_CPP_STORAGE:
             raise
 
 
-# -------------------------- Flash Attention 检测 --------------------------
-FLASH_ATTENTION_AVAILABLE = False
-FLASH_ATTENTION_VERSION = None
-
-
-def check_flash_attention():
-    global FLASH_ATTENTION_AVAILABLE, FLASH_ATTENTION_VERSION
-    try:
-        major, _ = torch.cuda.get_device_capability()
-        if major < 8:
-            return False, None
-
-        try:
-            from flash_attn_3 import flash_attn_func
-            FLASH_ATTENTION_AVAILABLE = True
-            FLASH_ATTENTION_VERSION = "flash_attention_3"
-            print("【Flash Attention】Flash Attention 3 可用")
-            return True, "flash_attention_3"
-        except ImportError:
-            pass
-
-        try:
-            from flash_attn import flash_attn_func
-            FLASH_ATTENTION_AVAILABLE = True
-            FLASH_ATTENTION_VERSION = "flash_attention_2"
-            print("【Flash Attention】Flash Attention 2 可用")
-            return True, "flash_attention_2"
-        except ImportError:
-            pass
-
-        return False, None
-    except:
-        return False, None
-
-
+# -------------------------- CUDA 优化 --------------------------
 def enable_cuda_optimizations():
     if torch.cuda.is_available():
         try:
